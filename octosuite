@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+import logging
+from src.main import *
+from lib.colors import red,white,green,reset
+
+if __name__ == '__main__':
+    while True:
+        try:
+        	octosuite().on_start()
+        	
+        except KeyboardInterrupt:
+        	logging.info('Process interrupted with Ctrl+C')
+        	exit(f'\n{white}[{red}x{white}] Process interrupted with {red}Ctrl{white}+{red}C{reset}')
+        	
+        	
+        except Exception as e:
+        	logging.error(f'An error occured: {e}')
+        	print(f'{white}[{red}!{white}] An error occured: {red}{e}{reset}')
+        input(f'\n{white}^ Press any key to continue{reset} ')

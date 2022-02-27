@@ -30,7 +30,7 @@ $ python octosuite
 * Enter *help* command to show usage
 * octosuite automatically logs network and minor user activity. The logs are saved by date and time in .logs folder
 
-* octosuite has been tested on *Linux* only, and it might probably not work as intended on *Windows* or *Mac* (especially)
+* octosuite has only been tested on *Linux* for now, and it might probably not work as intended on *Windows* or *Mac* (especially)
 
 * Feel free to open pull requests if there are any notable bugs found 
 

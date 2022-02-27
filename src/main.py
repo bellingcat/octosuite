@@ -277,24 +277,32 @@ class octosuite:
     def org_repos(self):
         organization = input(f'{colors.white}@{colors.green}Organization{colors.white} >> {colors.reset}')
         api = f'https://api.github.com/orgs/{organization}/repos?per_page=100'
-        response = requests.get(api).json()
-        for repo in response:
-        	print(f"\n{colors.white}{repo['full_name']}{colors.reset}")
-        	for attr in self.repo_attrs:
-        	    print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{repo[attr]}{colors.reset}")
-        	print('\n')
+        response = requests.get(api)
+        if response.status_code != 200:
+            print(f'\n{colors.white}[{colors.red}-{colors.white}] @{organization}  {colors.red}Not Found{colors.reset}')
+        else:
+            response = response.json()
+            for repo in response:
+            	print(f"\n{colors.white}{repo['full_name']}{colors.reset}")
+            	for attr in self.repo_attrs:
+            		print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{repo[attr]}{colors.reset}")
+            	print('\n')
          
                
     # Fetching user repositories        
     def user_repos(self):
         username = input(f'{colors.white}@{colors.green}Username{colors.white} >> {colors.reset}')
         api = f'https://api.github.com/users/{username}/repos?per_page=100'
-        response = requests.get(api).json()
-        for repo in response:
-        	print(f"\n{colors.white}{repo['full_name']}{colors.reset}")
-        	for attr in self.repo_attrs:
-        	    print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{repo[attr]}{colors.reset}")
-        	print('\n')        	    
+        response = requests.get(api)
+        if response.status_code != 200:
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}] @{username}  {colors.red}Not Found{colors.reset}')
+        else:
+        	response = respoonse.json()
+        	for repo in response:
+        		print(f"\n{colors.white}{repo['full_name']}{colors.reset}")
+        		for attr in self.repo_attrs:
+        			print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{repo[attr]}{colors.reset}")
+        		print('\n')        	    
         	
         	   	       	    
     # Fetching user's gists
@@ -304,11 +312,12 @@ class octosuite:
         response = requests.get(api).json()
         if response == []:
         	print(f'{colors.white}[{colors.red}-{colors.white}] @{username} does not have any active gists.{colors.reset}')
-        for item in response:
-            print(f"\n{colors.white}{item['id']}{colors.reset}")
-            for attr in self.gists_attrs:
-            	print(f"{colors.white}├─ {self.gists_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
-            print('\n')    	
+        else:
+            for item in response:
+            	print(f"\n{colors.white}{item['id']}{colors.reset}")
+            	for attr in self.gists_attrs:
+            		print(f"{colors.white}├─ {self.gists_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
+            	print('\n')    	
         
         	    	    
     # Fetching user's followera'    	    
@@ -316,11 +325,14 @@ class octosuite:
         username = input(f'{colors.white}@{colors.green}Username{colors.white} >> {colors.reset}')
         api = f'https://api.github.com/users/{username}/followers?per_page=100'
         response = requests.get(api).json()
-        for item in response:
-            print(f"\n{colors.white}@{item['login']}{colors.reset}")
-            for attr in self.user_attrs:
-                print(f"{colors.white}├─ {self.user_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
-            print('\n')
+        if response == []:
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}] @{username} does not have followers.{colors.reset}')
+        else:
+            for item in response:
+            	print(f"\n{colors.white}@{item['login']}{colors.reset}")
+            	for attr in self.user_attrs:
+            		print(f"{colors.white}├─ {self.user_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
+            	print('\n')
             
                     
     # Checking whether or not user[A] follows user[B]            

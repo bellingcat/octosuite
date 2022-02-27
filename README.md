@@ -10,7 +10,7 @@
 
 
 # Installation
-*clone project:*
+**clone project**:
 
 ```
 $ git clone https://github.com/rly0nheart/octosuite.git
@@ -20,10 +20,22 @@ $ git clone https://github.com/rly0nheart/octosuite.git
 $ cd octosuite
 ```
 
+```
+$ sudo chmod +x octosuite
+```
+
+
 # Usage
+**Linux**:
 ```
-$ python octosuite
+$ ./octosuite
 ```
+
+**Windows**:
+```
+$ python3 octosuite
+```
+
 
 # Note
 * Requirement(s) [requests] will be installed on first run

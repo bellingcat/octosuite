@@ -19,7 +19,7 @@ $ python octosuite
 ```
 
 # Note
-* Requirement(s) [requests] will be install on first run
+* Requirement(s) [requests] will be installed on first run
 * Enter *help* command to show usage
 * octosuite automatically logs network and minor user activity. The logs are saved by date and time in .logs folder
 

@@ -11,7 +11,8 @@ try:
 except ImportError:
 	print(f'{colors.white}[{colors.green}*{colors.white}] Installing requirement(s). Please wait...{colors.reset}')
 	subprocess.run(['pip', 'install', 'requests'],shell=False)
-	
+	exit(f'{colors.white}[{colors.green}+{colors.white}] Installation complete. Re-run octosuite.{colors.reset}')
+
 
 class octosuite:
     def __init__(self):
@@ -216,10 +217,14 @@ class octosuite:
     def org_info(self):
         organization = input(f'{colors.white}@{colors.green}Organization{colors.white} >> {colors.reset}')
         api = f'https://api.github.com/orgs/{organization}'
-        response = requests.get(api).json()
-        print(f"\n{colors.white}{response['name']}{colors.reset}")
-        for attr in self.org_attrs:
-        	print(f'{colors.white}├─ {self.org_attr_dict[attr]}: {colors.green}{response[attr]}{colors.reset}')
+        response = requests.get(api)
+        if response.status_code != 200:
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}] @{organization} {colors.red}Not Found{colors.reset}')
+        else:
+        	response = response.json()
+        	print(f"\n{colors.white}{response['name']}{colors.reset}")
+        	for attr in self.org_attrs:
+        		print(f'{colors.white}├─ {self.org_attr_dict[attr]}: {colors.green}{response[attr]}{colors.reset}')
         
                         
     # Fetching user information        
@@ -228,12 +233,12 @@ class octosuite:
         api = f'https://api.github.com/users/{username}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'{colors.white}[{colors.red}-{colors.white}] @{username} {colors.red}Not found{colors.reset}')
-        	
-        response = response.json()
-        print(f"\n{colors.white}{response['name']}{colors.reset}")
-        for attr in self.profile_attrs:
-        	print(f'{colors.white}├─ {self.profile_attr_dict[attr]}: {colors.green}{response[attr]}{colors.reset}')
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}] @{username} {colors.red}Not Found{colors.reset}')
+        else:
+        	response = response.json()
+        	print(f"\n{colors.white}{response['name']}{colors.reset}")
+        	for attr in self.profile_attrs:
+        		print(f'{colors.white}├─ {self.profile_attr_dict[attr]}: {colors.green}{response[attr]}{colors.reset}')
 
         	        	
     # Fetching repository information   	
@@ -241,10 +246,14 @@ class octosuite:
         username = input(f'{colors.white}@{colors.green}Owner-username{colors.white} >> {colors.reset}')
         repo_name = input(f'{colors.white}%{colors.green}reponame{colors.white} >> {colors.reset}')
         api = f'https://api.github.com/repos/{username}/{repo_name}'
-        response = requests.get(api).json()
-        print(f"\n{colors.white}{response['full_name']}{colors.reset}")
-        for attr in self.repo_attrs:
-            print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{response[attr]}{colors.reset}")
+        response = requests.get(api)
+        if response.status_code != 200:
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}] %{repo_name} {colors.red}Not Found{colors.reset}')
+        else:
+        	response = response.json()
+        	print(f"\n{colors.white}{response['full_name']}{colors.reset}")
+        	for attr in self.repo_attrs:
+        	    print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{response[attr]}{colors.reset}")
             
     
     # Get path contents        
@@ -255,13 +264,13 @@ class octosuite:
         api = f'https://api.github.com/repos/{username}/{repo_name}/contents/{path_name}'
         response = requests.get(api)
         if response.status_code != 200:
-            print(f'{colors.white}[{colors.red}-{colors.white}] [Repo/User] not found.{colors.reset}')
-        
-        response = response.json() 
-        for item in response:
-            print(f"\n{colors.white}{item['name']}{colors.reset}")
-            for attr in self.path_attrs:
-            	print(f'{colors.white}├─ {self.path_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}')
+            print(f'\n{colors.white}[{colors.red}-{colors.white}] Information {colors.red}Not Found{colors.reset}')
+        else:
+        	response = response.json()
+        	for item in response:
+        	    print(f"\n{colors.white}{item['name']}{colors.reset}")
+        	    for attr in self.path_attrs:
+        	    	print(f'{colors.white}├─ {self.path_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}')
             	
                        
     # Fetching organozation repositories        

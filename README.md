@@ -25,7 +25,7 @@ $ python octosuite
 
 * octosuite has been tested on *Linux* only, and it might probably not work as intended on *Windows* or *Mac* (especially)
 
-* Feel free to open a pull requests if there are any notable bugs found 
+* Feel free to open pull requests if there are any notable bugs found 
 
 
 # LICENSE

@@ -399,7 +399,7 @@ class octosuite:
     			code.close()
     	
     	logging.info('Update complete.')		
-    	exit(f'{color.white}[{colors.green}+{colors.white}] Update complete. Re-run octosuite.{colors.reset}')
+    	exit(f'{colors.white}[{colors.green}+{colors.white}] Update complete. Re-run octosuite.{colors.reset}')
     	
     	
     # Author info   

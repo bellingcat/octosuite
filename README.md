@@ -1,5 +1,6 @@
 ![Python Version](https://img.shields.io/badge/python-3.x-blue?style=for-the-badge&logo=python)
-![OS](https://img.shields.io/badge/OS-GNU%2FLinux%2FWindows-red?style=for-the-badge&logo=linux)
+![OS](https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=Linux)
+![OS](https://img.shields.io/badge/OS-Windows-blue?style=for-the-badge&logo=Windows)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![Lines of code](https://img.shields.io/tokei/lines/github/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=for-the-badge&logo=github)

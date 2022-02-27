@@ -219,7 +219,7 @@ class octosuite:
         api = f'https://api.github.com/orgs/{organization}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}] @{organization} {colors.red}Not Found{colors.reset}')
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}] Organization @{organization} {colors.red}Not Found{colors.reset}')
         else:
         	response = response.json()
         	print(f"\n{colors.white}{response['name']}{colors.reset}")
@@ -233,7 +233,7 @@ class octosuite:
         api = f'https://api.github.com/users/{username}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}] @{username} {colors.red}Not Found{colors.reset}')
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}] User @{username} {colors.red}Not Found{colors.reset}')
         else:
         	response = response.json()
         	print(f"\n{colors.white}{response['name']}{colors.reset}")
@@ -248,7 +248,7 @@ class octosuite:
         api = f'https://api.github.com/repos/{username}/{repo_name}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}] %{repo_name} {colors.red}Not Found{colors.reset}')
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}] Repository %{repo_name} {colors.red}Not Found{colors.reset}')
         else:
         	response = response.json()
         	print(f"\n{colors.white}{response['full_name']}{colors.reset}")
@@ -279,7 +279,7 @@ class octosuite:
         api = f'https://api.github.com/orgs/{organization}/repos?per_page=100'
         response = requests.get(api)
         if response.status_code != 200:
-            print(f'\n{colors.white}[{colors.red}-{colors.white}] @{organization}  {colors.red}Not Found{colors.reset}')
+            print(f'\n{colors.white}[{colors.red}-{colors.white}] Organization @{organization} {colors.red}Not Found{colors.reset}')
         else:
             response = response.json()
             for repo in response:
@@ -295,9 +295,9 @@ class octosuite:
         api = f'https://api.github.com/users/{username}/repos?per_page=100'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}] @{username}  {colors.red}Not Found{colors.reset}')
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}] User @{username} {colors.red}Not Found{colors.reset}')
         else:
-        	response = respoonse.json()
+        	response = response.json()
         	for repo in response:
         		print(f"\n{colors.white}{repo['full_name']}{colors.reset}")
         		for attr in self.repo_attrs:
@@ -311,7 +311,7 @@ class octosuite:
         api = f'https://api.github.com/users/{username}/gists'
         response = requests.get(api).json()
         if response == []:
-        	print(f'{colors.white}[{colors.red}-{colors.white}] @{username} does not have any active gists.{colors.reset}')
+        	print(f'{colors.white}[{colors.red}-{colors.white}]User @{username} does not have any active gists.{colors.reset}')
         else:
             for item in response:
             	print(f"\n{colors.white}{item['id']}{colors.reset}")
@@ -326,7 +326,7 @@ class octosuite:
         api = f'https://api.github.com/users/{username}/followers?per_page=100'
         response = requests.get(api).json()
         if response == []:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}] @{username} does not have followers.{colors.reset}')
+        	print(f'\n{colors.white}[{colors.red}-{colors.white}]User @{username} does not have followers.{colors.reset}')
         else:
             for item in response:
             	print(f"\n{colors.white}@{item['login']}{colors.reset}")

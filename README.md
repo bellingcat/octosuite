@@ -23,13 +23,12 @@ $ git clone https://github.com/rly0nheart/octosuite.git
 $ cd octosuite
 ```
 
+# Usage
+**Linux**:
 ```
 $ sudo chmod +x octosuite
 ```
 
-
-# Usage
-**Linux**:
 ```
 $ ./octosuite
 ```

@@ -434,14 +434,14 @@ class octosuite:
     	help = '''
     	
 usage:
-   orginfo           -->    Get organization info
-   userinfo          -->    Get user profile info
-   repoinfo          -->    Get user repository info
-   pathcontents      -->    Get contents of a specified path from a repository
-   orgrepos          -->    Get organization repositories
-   userrepos         -->    Get user repositories
-   usergists         -->    Get user gists
-   userfollowers     -->    Get user followers
+   orginfo           -->    Get target organization info
+   userinfo          -->    Get target user profile info
+   repoinfo          -->    Get target repository info
+   pathcontents      -->    Get contents of a specified path from a target repository
+   orgrepos          -->    Get a list of repositories owned by a target organization
+   userrepos         -->    Get a list of repositories owned by a target user
+   usergists         -->    Get a list of gists owned by a target user
+   userfollowers     -->    Get a list of the target's followers
    userfollowing     -->    Check whether or not User[A] follows User[B]
    usersearch        -->    Search user(s)
    reposearch        -->    Search repositor[y][ies]
@@ -449,7 +449,7 @@ usage:
    issuesearch       -->    Search issue(s)
    commitsearch      -->    Search commit(s)
    update            -->    Check for/download update(s)
-   author            -->    Show author information
+   author            -->    Show author info
    help              -->    Show usage/help
    exit              -->    Exit session
    '''

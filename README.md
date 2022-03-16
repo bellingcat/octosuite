@@ -1,5 +1,6 @@
 ![octosuite](https://user-images.githubusercontent.com/74001397/155901728-82917d24-5b5a-4016-b5f7-df479699ba87.png)
 
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github) 
 ![OS](https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=Linux)
 ![OS](https://img.shields.io/badge/OS-Windows-blue?style=for-the-badge&logo=Windows)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)

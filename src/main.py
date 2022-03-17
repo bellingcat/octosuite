@@ -404,7 +404,7 @@ class octosuite:
     # Update program
     def update(self):
     	logging.info('Checking for update(s)...')
-    	files_to_update = ['src/main.py','lib/banner.py','lib/colors.py','octosuite','LICENSE','README.md']
+    	files_to_update = ['src/main.py','lib/banner.py','lib/colors.py','octosuite','LICENSE','README.md','requirements.txt']
     	print(f'\n{colors.white}[{colors.green}*{colors.white}] Fetching update(s). Please wait...{colors.reset}',end='')
     	for file in files_to_update:
     		data = urllib.request.urlopen(f'https://raw.githubusercontent.com/rly0nheart/octosuite/master/{file}').read()

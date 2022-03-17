@@ -62,7 +62,7 @@ $ python3 octosuite
 
 # NOTE
 * *octosuite automatically logs network and minor user activity. The logs are saved by date and time in .logs folder*
-* *octosuite has only been tested on **Linux** (for now), please be sure to let me know how it works on **Windows***
+* *octosuite has only been tested on **Termux** *and* **Kali Linux** (for now), please be sure to let me know how it works on **Windows***
 
 # LICENSE
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)

@@ -1,7 +1,8 @@
 import os
 import logging
-import platform
 import requests
+import platform
+import subprocess
 import urllib.request
 from pprint import pprint
 from lib import colors,banner

@@ -1,18 +1,11 @@
 import os
 import logging
 import platform
-import subprocess
+import requests
 import urllib.request
 from pprint import pprint
 from lib import colors,banner
 from datetime import datetime
-try:
-	import requests
-except ImportError:
-	print(f'{colors.white}[{colors.green}*{colors.white}] Installing requirement(s). Please wait...{colors.reset}')
-	subprocess.run(['pip', 'install', 'requests'],shell=False)
-	exit(f'{colors.white}[{colors.green}+{colors.white}] Installation complete. Re-run octosuite.{colors.reset}')
-
 
 class octosuite:
     def __init__(self):

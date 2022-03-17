@@ -21,6 +21,10 @@ $ git clone https://github.com/rly0nheart/octosuite.git
 $ cd octosuite
 ```
 
+```
+$ pip install -r requirements.txt
+```
+
 # USAGE
 **Linux**:
 ```
@@ -28,7 +32,7 @@ $ sudo chmod +x octosuite
 ```
 
 ```
-$ ./octosuite
+$ sudo ./octosuite
 ```
 
 **Windows**:

@@ -456,11 +456,5 @@ usage:
     	return help
 
 
-file_exists = os.path.exists('.logs')
-if file_exists:
-	pass
-else:
-	os.mkdir('.logs')
-	
 # Set to automatically monitor and log network and user activity to .log folder
 logging.basicConfig(filename=f'.logs/{datetime.now()}.log',format='[%(asctime)s] %(message)s',level=logging.DEBUG)

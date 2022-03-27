@@ -4,6 +4,7 @@ import requests
 import platform
 import subprocess
 import urllib.request
+from tqdm import tqdm
 from pprint import pprint
 from lib import colors,banner
 from datetime import datetime
@@ -149,9 +150,6 @@ class octosuite:
         # Author dictionary
         self.author_dict = {'Alias': 'rly0nheart',
                                          'Country': 'Zambia, Africa',
-                                         'Github': 'https://github.com/rly0nheart',
-                                         'Twitter': 'https://twitter.com/rly0nheart',
-                                         'Facebook': 'https://fb.me/rly0nheart',
                                          'About.me': 'https://about.me/rly0nheart'}    
         
     def on_start(self):
@@ -404,10 +402,9 @@ class octosuite:
     
     # Update program
     def update(self):
-    	logging.info('Checking for update(s)...')
+    	logging.info('Fetching updates...')
     	files_to_update = ['src/main.py','lib/banner.py','lib/colors.py','octosuite','LICENSE','README.md','requirements.txt']
-    	print(f'\n{colors.white}[{colors.green}*{colors.white}] Fetching update(s). Please wait...{colors.reset}',end='')
-    	for file in files_to_update:
+    	for file in tqdm(files_to_update,desc=f'{colors.white}[{colors.green}*{colors.white}] Fetching updates...{colors.reset}'):
     		data = urllib.request.urlopen(f'https://raw.githubusercontent.com/rly0nheart/octosuite/master/{file}').read()
     		with open(file, 'wb') as code:
     			code.write(data)
@@ -442,7 +439,7 @@ usage:
    topicsearch       -->    Search topic(s)
    issuesearch       -->    Search issue(s)
    commitsearch      -->    Search commit(s)
-   update            -->    Check for/download update(s)
+   update            -->    Update octosuite
    author            -->    Show author info
    help              -->    Show usage/help
    exit              -->    Exit session

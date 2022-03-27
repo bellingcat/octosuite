@@ -413,7 +413,7 @@ class octosuite:
     			code.close()
     	
     	logging.info('Update complete.')		
-    	exit(f'\n{colors.white}[{colors.green}+{colors.white}] Update complete. Re-run octosuite.{colors.reset}')
+    	exit(f'{colors.white}[{colors.green}+{colors.white}] Update complete. Re-run octosuite.{colors.reset}')
     	
     	
     # Show changelog

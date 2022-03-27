@@ -423,6 +423,7 @@ class octosuite:
     	v1.3.0 Changelog:
     		
 • Adjusted to work on Mac
+• Added changelog command
 • Added progress bar when fetching updates
 • Minor bug fixes
 '''

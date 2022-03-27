@@ -192,6 +192,8 @@ class octosuite:
             	self.commits_search()
             elif command == 'update':
             	self.update()
+            elif command == 'changelog':
+            	print(self.changelog())
             elif command == 'author':
             	self.author()
             elif command == 'help':
@@ -414,6 +416,19 @@ class octosuite:
     	exit(f'\n{colors.white}[{colors.green}+{colors.white}] Update complete. Re-run octosuite.{colors.reset}')
     	
     	
+    # Show changelog
+    def changelog(self):
+    	# lol yes the changelog is hard coded
+    	changelog_text = '''
+    	v1.3.0 Changelog:
+    		
+• Adjusted to work on Mac
+• Added progress bar when fetching updates
+• Minor bug fixes
+'''
+    	return changelog_text
+    	
+    	
     # Author info   
     def author(self):
         print(f'\n{colors.white}Richard Mwewa (Ritchie){colors.reset}')
@@ -440,6 +455,7 @@ usage:
    issuesearch       -->    Search issue(s)
    commitsearch      -->    Search commit(s)
    update            -->    Update octosuite
+   changelog         -->    Show changelog
    author            -->    Show author info
    help              -->    Show usage/help
    exit              -->    Exit session
@@ -447,5 +463,5 @@ usage:
     	return help
 
 
-# Set to automatically monitor and log network and user activity to .log folder
+# Set to automatically monitor and log network and user activity into the .logs folder
 logging.basicConfig(filename=f'.logs/{datetime.now()}.log',format='[%(asctime)s] %(message)s',level=logging.DEBUG)

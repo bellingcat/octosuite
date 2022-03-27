@@ -1,9 +1,10 @@
 import sys
 
+# Colors will be unavailable on non-linux machines
 colors = True
-machine = sys.platform # Detecting the os
+machine = sys.platform
 if machine.lower().startswith(("os", "win", "darwin")): 
-    colors = False # Colors will not be displayed
+    colors = False
 
 if not colors:
 	reset = red = white = green  = ""

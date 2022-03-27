@@ -64,7 +64,7 @@ python3 octosuite
 | ``issuesearch`` | *search issue(s)* |
 | ``commitsearch`` | *search commit(s)* |
 | ``usersearch`` | *search user(s)* |
-| ``update`` | *check for/download updates* |
+| ``update`` | *Update octosuite* |
 | ``author`` | *show author info* |
 | ``help`` | *show usage/help* |
 | ``exit`` | *exit session* |

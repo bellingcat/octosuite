@@ -405,7 +405,7 @@ class octosuite:
     # Update program
     def update(self):
     	logging.info('Fetching updates...')
-    	files_to_update = ['src/main.py','lib/banner.py','lib/colors.py','octosuite','LICENSE','README.md','requirements.txt']
+    	files_to_update = ['src/main.py','lib/banner.py','lib/colors.py','octosuite','.github/dependabot.yml','LICENSE','README.md','requirements.txt']
     	for file in tqdm(files_to_update,desc=f'{colors.white}[{colors.green}*{colors.white}] Fetching updates...{colors.reset}'):
     		data = urllib.request.urlopen(f'https://raw.githubusercontent.com/rly0nheart/octosuite/master/{file}').read()
     		with open(file, 'wb') as code:

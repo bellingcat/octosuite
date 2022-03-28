@@ -5,16 +5,9 @@
 
 version: 2
 updates:
-  # Enable version updates for tqdm
-  - package-ecosystem: "tqdm"
+  # Enable version updates for pip
+  - package-ecosystem: "pip"
     directory: "/" # Location of package manifests
     # Check the tqdm registry for updates every day (weekdays)
-    schedule:
-      interval: "daily"
-
-  # Enable version updates for requests
-  - package-ecosystem: "requests"
-    directory: "/" # Location of package manifests
-    # Check for updates every day (weekdays)
     schedule:
       interval: "daily"

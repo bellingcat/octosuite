@@ -10,6 +10,23 @@
 
 > *Simply gather OSINT on Github users and organizations like a god🔥*
 
+# FEATURES
+- [x] Fetches organization info
+- [x] Fetches user info
+- [x] Fetches repository info
+- [x] Returns contents of a path from a repository
+- [x] Returns a list of repos owned by an organization
+- [x] Returns a list of repos owned by a user
+- [x] Returns a list of gists owned by a user
+- [x] Returns a list of a user's followers
+- [x] Checks whether user A follows user B
+- [x] Searches users
+- [x] Searches repositories
+- [x] Searches topics
+- [x] Searches issues
+- [x] Searches commits
+- [x] Easily updates with the 'update' command
+- [x] Automatically logs network activity (.logs folder)
 
 # INSTALLATION
 **clone project**:
@@ -63,7 +80,6 @@ python3 octosuite
 | ``topicsearch`` | *search topics(s)* |
 | ``issuesearch`` | *search issue(s)* |
 | ``commitsearch`` | *search commit(s)* |
-| ``usersearch`` | *search user(s)* |
 | ``update`` | *update octosuite* |
 | ``changelog`` | *show changelog* |
 | ``author`` | *show author info* |

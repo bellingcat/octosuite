@@ -420,12 +420,9 @@ class octosuite:
     def changelog(self):
     	# lol yes the changelog is hard coded
     	changelog_text = '''
-    	v1.3.0 Changelog:
+    	v1.4.0 Changelog:
     		
-• Adjusted to work on Mac
-• Added changelog command
-• Added progress bar when fetching updates
-• Minor bug fixes
+• Minor changes to the interface
 '''
     	return changelog_text
     	
@@ -440,7 +437,10 @@ class octosuite:
     def help(self):
     	help = '''
     	
-usage:
+help:
+
+   Command                  Descritption
+   ------------             ---------------------------------------------------------
    orginfo           -->    Get target organization info
    userinfo          -->    Get target user profile info
    repoinfo          -->    Get target repository info

@@ -6,8 +6,9 @@ import subprocess
 import urllib.request
 from tqdm import tqdm
 from pprint import pprint
-from lib import colors,banner
+from lib.banner import banner
 from datetime import datetime
+from lib.colors import red, white, green, reset
 
 class octosuite:
     def __init__(self):
@@ -160,8 +161,8 @@ class octosuite:
             else:
             	subprocess.run(['clear'],shell=False)
             	
-            print(banner.banner)
-            command = input(f'''{colors.white}┌─({colors.red}{platform.node()}{colors.white}@{colors.red}octosuite{colors.white})-[{colors.green}{os.getcwd()}{colors.white}]\n└─╼[{colors.green}:~{colors.white}]{colors.reset} ''')
+            print(banner)
+            command = input(f'''{white}┌─({red}{platform.node()}{white}@{red}octosuite{white})-[{green}{os.getcwd()}{white}]\n└─╼[{green}:~{white}]{reset} ''')
             if command == 'orginfo':
             	self.org_info()
             elif command == 'userinfo':
@@ -200,204 +201,204 @@ class octosuite:
             	print(self.help())
             elif command == 'exit':
             	logging.info('Session terminated.')
-            	exit(f'\n{colors.white}[{colors.red}-{colors.white}] Session terminated.{colors.reset}')
+            	exit(f'\n{white}[{red}-{white}] Session terminated.{reset}')
             else:
-                print(f'\n{colors.white}[{colors.red}!{colors.white}] Unknown command: ‘{command}’{colors.reset}')
+                print(f'\n{white}[{red}!{white}] Unknown command: ‘{command}’{reset}')
                 logging.warning(f'Unknown command: ‘{command}’')
                    
-            input(f'\n{colors.white}^ Press any key to continue{colors.reset} ')
+            input(f'\n{white}^ Press any key to continue{reset} ')
             
             
     def org_info(self):
-        organization = input(f'{colors.white}@{colors.green}Organization{colors.white} >> {colors.reset}')
+        organization = input(f'{white}@{green}Organization{white} >> {reset}')
         api = f'https://api.github.com/orgs/{organization}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}] Organization @{organization} {colors.red}Not Found{colors.reset}')
+        	print(f'\n{white}[{red}-{white}] Organization @{organization} {red}Not Found{reset}')
         else:
         	response = response.json()
-        	print(f"\n{colors.white}{response['name']}{colors.reset}")
+        	print(f"\n{white}{response['name']}{reset}")
         	for attr in self.org_attrs:
-        		print(f'{colors.white}├─ {self.org_attr_dict[attr]}: {colors.green}{response[attr]}{colors.reset}')
+        		print(f'{white}├─ {self.org_attr_dict[attr]}: {green}{response[attr]}{reset}')
         
                         
     # Fetching user information        
     def user_profile(self):
-        username = input(f'{colors.white}@{colors.green}Username{colors.white} >> {colors.reset}')
+        username = input(f'{white}@{green}Username{white} >> {reset}')
         api = f'https://api.github.com/users/{username}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}] User @{username} {colors.red}Not Found{colors.reset}')
+        	print(f'\n{white}[{red}-{white}] User @{username} {red}Not Found{reset}')
         else:
         	response = response.json()
-        	print(f"\n{colors.white}{response['name']}{colors.reset}")
+        	print(f"\n{white}{response['name']}{reset}")
         	for attr in self.profile_attrs:
-        		print(f'{colors.white}├─ {self.profile_attr_dict[attr]}: {colors.green}{response[attr]}{colors.reset}')
+        		print(f'{white}├─ {self.profile_attr_dict[attr]}: {green}{response[attr]}{reset}')
 
         	        	
     # Fetching repository information   	
     def repo_info(self):
-        username = input(f'{colors.white}@{colors.green}Owner-username{colors.white} >> {colors.reset}')
-        repo_name = input(f'{colors.white}%{colors.green}reponame{colors.white} >> {colors.reset}')
+        username = input(f'{white}@{green}Owner-username{white} >> {reset}')
+        repo_name = input(f'{white}%{green}reponame{white} >> {reset}')
         api = f'https://api.github.com/repos/{username}/{repo_name}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}] Repository %{repo_name} {colors.red}Not Found{colors.reset}')
+        	print(f'\n{white}[{red}-{white}] Repository %{repo_name} {red}Not Found{reset}')
         else:
         	response = response.json()
-        	print(f"\n{colors.white}{response['full_name']}{colors.reset}")
+        	print(f"\n{white}{response['full_name']}{reset}")
         	for attr in self.repo_attrs:
-        	    print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{response[attr]}{colors.reset}")
+        	    print(f"{white}├─ {self.repo_attr_dict[attr]}: {green}{response[attr]}{reset}")
             
     
     # Get path contents        
     def path_contents(self):
-        username = input(f'{colors.white}@{colors.green}Owner-username{colors.white} >> {colors.reset}')
-        repo_name = input(f'{colors.white}%{colors.green}reponame{colors.white} >> {colors.reset}')
-        path_name = input(f'{colors.white}/path/name >>{colors.reset} ')
+        username = input(f'{white}@{green}Owner-username{white} >> {reset}')
+        repo_name = input(f'{white}%{green}reponame{white} >> {reset}')
+        path_name = input(f'{white}/path/name >>{reset} ')
         api = f'https://api.github.com/repos/{username}/{repo_name}/contents/{path_name}'
         response = requests.get(api)
         if response.status_code != 200:
-            print(f'\n{colors.white}[{colors.red}-{colors.white}] Information {colors.red}Not Found{colors.reset}')
+            print(f'\n{white}[{red}-{white}] Information {red}Not Found{reset}')
         else:
         	response = response.json()
         	for item in response:
-        	    print(f"\n{colors.white}{item['name']}{colors.reset}")
+        	    print(f"\n{white}{item['name']}{reset}")
         	    for attr in self.path_attrs:
-        	    	print(f'{colors.white}├─ {self.path_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}')
+        	    	print(f'{white}├─ {self.path_attr_dict[attr]}: {green}{item[attr]}{reset}')
             	
                        
     # Fetching organozation repositories        
     def org_repos(self):
-        organization = input(f'{colors.white}@{colors.green}Organization{colors.white} >> {colors.reset}')
+        organization = input(f'{white}@{green}Organization{white} >> {reset}')
         api = f'https://api.github.com/orgs/{organization}/repos?per_page=100'
         response = requests.get(api)
         if response.status_code != 200:
-            print(f'\n{colors.white}[{colors.red}-{colors.white}] Organization @{organization} {colors.red}Not Found{colors.reset}')
+            print(f'\n{white}[{red}-{white}] Organization @{organization} {red}Not Found{reset}')
         else:
             response = response.json()
             for repo in response:
-            	print(f"\n{colors.white}{repo['full_name']}{colors.reset}")
+            	print(f"\n{white}{repo['full_name']}{reset}")
             	for attr in self.repo_attrs:
-            		print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{repo[attr]}{colors.reset}")
+            		print(f"{white}├─ {self.repo_attr_dict[attr]}: {green}{repo[attr]}{reset}")
             	print('\n')
          
                
     # Fetching user repositories        
     def user_repos(self):
-        username = input(f'{colors.white}@{colors.green}Username{colors.white} >> {colors.reset}')
+        username = input(f'{white}@{green}Username{white} >> {reset}')
         api = f'https://api.github.com/users/{username}/repos?per_page=100'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}] User @{username} {colors.red}Not Found{colors.reset}')
+        	print(f'\n{white}[{red}-{white}] User @{username} {red}Not Found{reset}')
         else:
         	response = response.json()
         	for repo in response:
-        		print(f"\n{colors.white}{repo['full_name']}{colors.reset}")
+        		print(f"\n{white}{repo['full_name']}{reset}")
         		for attr in self.repo_attrs:
-        			print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{repo[attr]}{colors.reset}")
+        			print(f"{white}├─ {self.repo_attr_dict[attr]}: {green}{repo[attr]}{reset}")
         		print('\n')        	    
         	
         	   	       	    
     # Fetching user's gists
     def user_gists(self):
-        username = input(f'{colors.white}@{colors.green}Username{colors.white} >> {colors.reset}')
+        username = input(f'{white}@{green}Username{white} >> {reset}')
         api = f'https://api.github.com/users/{username}/gists'
         response = requests.get(api).json()
         if response == []:
-        	print(f'{colors.white}[{colors.red}-{colors.white}]User @{username} does not have any active gists.{colors.reset}')
+        	print(f'{white}[{red}-{white}]User @{username} does not have any active gists.{reset}')
         else:
             for item in response:
-            	print(f"\n{colors.white}{item['id']}{colors.reset}")
+            	print(f"\n{white}{item['id']}{reset}")
             	for attr in self.gists_attrs:
-            		print(f"{colors.white}├─ {self.gists_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
+            		print(f"{white}├─ {self.gists_attr_dict[attr]}: {green}{item[attr]}{reset}")
             	print('\n')    	
         
         	    	    
     # Fetching user's followera'    	    
     def followers(self):
-        username = input(f'{colors.white}@{colors.green}Username{colors.white} >> {colors.reset}')
+        username = input(f'{white}@{green}Username{white} >> {reset}')
         api = f'https://api.github.com/users/{username}/followers?per_page=100'
         response = requests.get(api).json()
         if response == []:
-        	print(f'\n{colors.white}[{colors.red}-{colors.white}]User @{username} does not have followers.{colors.reset}')
+        	print(f'\n{white}[{red}-{white}]User @{username} does not have followers.{reset}')
         else:
             for item in response:
-            	print(f"\n{colors.white}@{item['login']}{colors.reset}")
+            	print(f"\n{white}@{item['login']}{reset}")
             	for attr in self.user_attrs:
-            		print(f"{colors.white}├─ {self.user_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
+            		print(f"{white}├─ {self.user_attr_dict[attr]}: {green}{item[attr]}{reset}")
             	print('\n')
             
                     
     # Checking whether or not user[A] follows user[B]            
     def following(self):
-        user_a = input(f'{colors.white}@{colors.green}User[A]{colors.white} >> {colors.reset}')
-        user_b = input(f'{colors.white}@{colors.green}User[B]{colors.white} >> {colors.reset}')
+        user_a = input(f'{white}@{green}User[A]{white} >> {reset}')
+        user_b = input(f'{white}@{green}User[B]{white} >> {reset}')
         api = f'https://api.github.com/users/{user_a}/following/{user_b}'
         response = requests.get(api)
         if response.status_code == 204:
-        	print(f'{colors.white}[{colors.green}+{colors.white}] @{user_a} follows @{user_b}.{colors.reset}')
+        	print(f'{white}[{green}+{white}] @{user_a} follows @{user_b}.{reset}')
         else:
-        	print(f'{colors.white}[{colors.red}-{colors.white}] @{user_a} does not follow @{user_b}.{colors.reset}')             
+        	print(f'{white}[{red}-{white}] @{user_a} does not follow @{user_b}.{reset}')             
  
         	           	    
     # User search    	    
     def user_search(self):
-        query = input(f'{colors.white}#{colors.green}Query{colors.white} >> {colors.reset}')
+        query = input(f'{white}#{green}Query{white} >> {reset}')
         api = f'https://api.github.com/search/users?q={query}&per_page=100'
         response = requests.get(api).json()
         for item in response['items']:
-        	print(f"\n{colors.white}@{item['login']}{colors.reset}")
+        	print(f"\n{white}@{item['login']}{reset}")
         	for attr in self.user_attrs:
-        		print(f"{colors.white}├─ {self.user_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
+        		print(f"{white}├─ {self.user_attr_dict[attr]}: {green}{item[attr]}{reset}")
         	print('\n')
         		
        		
     # Repository search
     def repo_search(self):
-        query = input(f'{colors.white}#{colors.green}Query{colors.white} >> {colors.reset}')
+        query = input(f'{white}#{green}Query{white} >> {reset}')
         api = f'https://api.github.com/search/repositories?q={query}&per_page=100'
         response = requests.get(api).json()
         for item in response['items']:
-            print(f"\n{colors.white}{item['full_name']}{colors.reset}")
+            print(f"\n{white}{item['full_name']}{reset}")
             for attr in self.repo_attrs:
-                print(f"{colors.white}├─ {self.repo_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
+                print(f"{white}├─ {self.repo_attr_dict[attr]}: {green}{item[attr]}{reset}")
             print('\n')
                 
                 
     # Topics search
     def topic_search(self):
-        query = input(f'{colors.white}#{colors.green}Query{colors.white} >> {colors.reset}')
+        query = input(f'{white}#{green}Query{white} >> {reset}')
         api = f'https://api.github.com/search/topics?q={query}&per_page=100'
         response = requests.get(api).json()
         for item in response['items']:
-            print(f"\n{colors.white}{item['name']}{colors.reset}")
+            print(f"\n{white}{item['name']}{reset}")
             for attr in self.topic_attrs:
-                print(f"{colors.white}├─ {self.topic_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
+                print(f"{white}├─ {self.topic_attr_dict[attr]}: {green}{item[attr]}{reset}")
             print('\n')
                 
                 
     # Issue search
     def issue_search(self):
-        query = input(f'{colors.white}#{colors.green}Query{colors.white} >> {colors.reset}')
+        query = input(f'{white}#{green}Query{white} >> {reset}')
         api = f'https://api.github.com/search/issues?q={query}&per_page=100'
         response = requests.get(api).json()
         for item in response['items']:
-            print(f"\n{colors.white}{item['title']}{colors.reset}")
+            print(f"\n{white}{item['title']}{reset}")
             for attr in self.issue_attrs:
-                print(f"{colors.white}├─ {self.issue_attr_dict[attr]}: {colors.green}{item[attr]}{colors.reset}")
+                print(f"{white}├─ {self.issue_attr_dict[attr]}: {green}{item[attr]}{reset}")
             print('\n')
             
             
     # Commits search
     def commits_search(self):
-        query = input(f'{colors.white}#{colors.green}Query{colors.white} >> {colors.reset}')
+        query = input(f'{white}#{green}Query{white} >> {reset}')
         api = f'https://api.github.com/search/commits?q={query}&per_page=100'
         response = requests.get(api).json()
         n=0
         for item in response['items']:
         	n+=1
-        	print(f'{colors.white}{n}.{colors.reset}')
+        	print(f'{white}{n}.{reset}')
         	pprint(item['commit'])
         	print('\n')
         		
@@ -406,32 +407,32 @@ class octosuite:
     def update(self):
     	logging.info('Fetching updates...')
     	files_to_update = ['src/main.py','lib/banner.py','lib/colors.py','octosuite','.github/dependabot.yml','LICENSE','README.md','requirements.txt']
-    	for file in tqdm(files_to_update,desc=f'{colors.white}[{colors.green}*{colors.white}] Fetching updates...{colors.reset}'):
+    	for file in tqdm(files_to_update,desc=f'{white}[{green}*{white}] Updating{reset}'):
     		data = urllib.request.urlopen(f'https://raw.githubusercontent.com/rly0nheart/octosuite/master/{file}').read()
     		with open(file, 'wb') as code:
     			code.write(data)
     			code.close()
     	
     	logging.info('Update complete.')		
-    	exit(f'{colors.white}[{colors.green}+{colors.white}] Update complete. Re-run octosuite.{colors.reset}')
+    	exit(f'{white}[{green}+{white}] Updated successfully. Re-run octosuite.{reset}')
     	
     	
     # Show changelog
     def changelog(self):
     	# lol yes the changelog is hard coded
     	changelog_text = '''
-    	v1.4.0 Changelog:
+    	v1.5.0 Changelog:
     		
-• Minor changes to the interface
+• Fixed import error in src/main.py
 '''
     	return changelog_text
     	
     	
     # Author info   
     def author(self):
-        print(f'\n{colors.white}Richard Mwewa (Ritchie){colors.reset}')
+        print(f'\n{white}Richard Mwewa (Ritchie){reset}')
         for key,value in self.author_dict.items():
-        	print(f'{colors.white}├─ {key}: {colors.green}{value}{colors.reset}')
+        	print(f'{white}├─ {key}: {green}{value}{reset}')
         	
         	
     def help(self):

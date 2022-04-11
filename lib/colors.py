@@ -3,7 +3,7 @@ import sys
 # Colors will be unavailable on non-linux machines
 colors = True
 machine = sys.platform
-if machine.lower().startswith(("os", "win", "darwin")): 
+if machine.lower().startswith(("os", "win", "darwin","ios")): 
     colors = False
 
 if not colors:

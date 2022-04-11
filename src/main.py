@@ -168,7 +168,7 @@ class octosuite:
                                          'About.me': 'https://about.me/rly0nheart'}    
         
     def on_start(self):
-        logging.info(f'Started new session on {platform.node()}')
+        logging.info(f'Started new session on {platform.node()}:{os.getlogin()}')
         while True:
             if platform.system() == 'Windows':
             	subprocess.run(['cls'])

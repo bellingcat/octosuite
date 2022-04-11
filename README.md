@@ -1,16 +1,15 @@
 ![Screenshot_2022-03-17_10-12-53](https://user-images.githubusercontent.com/74001397/158868105-b5aba7e8-7342-4268-bd7a-6d6ae0bdae5a.png)
 
-
 ![OS](https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=Linux)
 ![OS](https://img.shields.io/badge/OS-Windows-blue?style=for-the-badge&logo=Windows)
-![OS](https://img.shields.io/badge/OS-Mac-blue?style=for-the-badge&logo=apple)
+![OS](https://img.shields.io/badge/OS-Mac-white?style=for-the-badge&logo=apple)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.5.0?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/rly0nheart/octosuite?style=for-the-badge)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.5.1-beta?style=for-the-badge&logo=github)
+![GitHub last commit](https://img.shields.io/github/last-commit/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=for-the-badge&logo=github)
 
-> *Simply gather OSINT on Github users and organizations like a god🔥*
+> *Simply gather OSINT on Github users & organizations like a God🔥*
 
 # FEATURES
 - [x] Fetches organization info
@@ -31,7 +30,7 @@
 - [x] Automatically logs network activity (.logs folder)
 
 # INSTALLATION
-**clone project**:
+## Clone from Github
 
 ```
 git clone https://github.com/rly0nheart/octosuite.git
@@ -45,8 +44,13 @@ cd octosuite
 pip install -r requirements.txt
 ```
 
-# USAGE
-**Linux**:
+## Install from PyPI
+```
+pip install octosuite
+```
+
+# GITHUB FORK USAGE 
+## Linux
 ```
 sudo chmod +x octosuite
 ```
@@ -55,14 +59,30 @@ sudo chmod +x octosuite
 sudo ./octosuite
 ```
 
-**Windows**:
+## Windows
 ```
 python3 octosuite
 ```
 
-**Mac**:
+## Mac
 ```
 python3 octosuite
+```
+
+# PYPI PACKAGE USAGE
+## Linux
+```
+octosuite
+```
+
+## Windows
+```
+octosuite
+```
+
+## Mac 
+```
+octosuite
 ```
 
 # AVAILABLE COMMANDS
@@ -92,6 +112,9 @@ python3 octosuite
 # NOTE
 * *octosuite automatically logs network and minor user activity. The logs are saved by date and time in .logs folder*
 * *Although octosuite was developed to work on **Mac**, **Windows**, or any **Linux** *Distribution*, it has only been tested on **Termux** *and* **Kali Linux***
+
+# PYPI
+[PyPI](https://pypi.org/project/octosuite)
 
 # LICENSE
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)

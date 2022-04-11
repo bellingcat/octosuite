@@ -1,9 +1,23 @@
+'''
+            octosuite Advanced Github OSINT Framework
+                     Copyright (C) 2022  Richard Mwewa
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+'''
+
 import os
 import logging
 import requests
 import platform
 import subprocess
-import urllib.request
 from tqdm import tqdm
 from pprint import pprint
 from lib.banner import banner
@@ -162,7 +176,7 @@ class octosuite:
             	subprocess.run(['clear'],shell=False)
             	
             print(banner)
-            command = input(f'''{white}┌─({red}{platform.node()}{white}@{red}octosuite{white})-[{green}{os.getcwd()}{white}]\n└─╼[{green}:~{white}]{reset} ''')
+            command = input(f'''{white}┌─({red}{os.getlogin()}{white}@{red}octosuite{white})-[{green}{os.getcwd()}{white}]\n└─╼[{green}:~{white}]{reset} ''')
             if command == 'orginfo':
             	self.org_info()
             elif command == 'userinfo':
@@ -197,20 +211,22 @@ class octosuite:
             	print(self.changelog())
             elif command == 'author':
             	self.author()
+            elif command == 'ilinso':
+            	self.easter_egg()
             elif command == 'help':
             	print(self.help())
             elif command == 'exit':
-            	logging.info('Session terminated.')
-            	exit(f'\n{white}[{red}-{white}] Session terminated.{reset}')
+            	logging.info('Session terminated with \'exit\' command')
+            	exit(f'\n{white}[{red}-{white}] Session terminated with \'exit\' command{reset}')
             else:
-                print(f'\n{white}[{red}!{white}] Unknown command: ‘{command}’{reset}')
-                logging.warning(f'Unknown command: ‘{command}’')
+                print(f'\n{white}[{red}!{white}] Command not found: ‘{command}’{reset}')
+                logging.warning(f'command not found: ‘{command}’')
                    
-            input(f'\n{white}^ Press any key to continue{reset} ')
+            input(f'\n{white}[{green}?{white}] Press any key to continue{reset} ')
             
             
     def org_info(self):
-        organization = input(f'{white}@{green}Organization{white} >> {reset}')
+        organization = input(f'{white}@{green}Organization {white}>>{reset} ')
         api = f'https://api.github.com/orgs/{organization}'
         response = requests.get(api)
         if response.status_code != 200:
@@ -408,22 +424,35 @@ class octosuite:
     	logging.info('Fetching updates...')
     	files_to_update = ['src/main.py','lib/banner.py','lib/colors.py','octosuite','.github/dependabot.yml','LICENSE','README.md','requirements.txt']
     	for file in tqdm(files_to_update,desc=f'{white}[{green}*{white}] Updating{reset}'):
-    		data = urllib.request.urlopen(f'https://raw.githubusercontent.com/rly0nheart/octosuite/master/{file}').read()
+    		data = requests.get(f'https://raw.githubusercontent.com/rly0nheart/octosuite/master/{file}')
     		with open(file, 'wb') as code:
-    			code.write(data)
+    			code.write(data.content)
     			code.close()
     	
     	logging.info('Update complete.')		
     	exit(f'{white}[{green}+{white}] Updated successfully. Re-run octosuite.{reset}')
     	
     	
+    def easter_egg(self):
+        print(f'\n{white}[{green}*{white}] Downloading. Please wait...{reset}')
+        file = requests.get('https://drive.google.com/uc?export=download&id=1IRu4kWSuNpYWH8hZkqQ8mLnv4sSDu-GN')
+        with open('EasterEgg.zip','wb') as f:
+            f.write(file.content)
+            
+        exit(f'{white}[{green}+{white}] Downloaded (EasterEgg.zip).\n{white}[{green}!{white}] The password is: {green}horus{white}\n[{green}!{white}] Happy hunting! :).{reset}')
+    	
+    	
     # Show changelog
     def changelog(self):
     	# lol yes the changelog is hard coded
     	changelog_text = '''
-    	v1.5.0 Changelog:
+    	v1.5.1-beta CHANGELOG:
     		
-• Fixed import error in src/main.py
+• First pypi package release
+• Termux users will now have to manually create the .logs folder
+• Changed logs date/time format
+• Removed 1 internal dependency
+• There's an easter egg somewhere in here ;) (use the command 'ilinso')
 '''
     	return changelog_text
     	
@@ -436,34 +465,45 @@ class octosuite:
         	
         	
     def help(self):
-    	help = '''
+    	help = f'''
     	
 help:
 
-   Command                  Descritption
+   {white}Command                  Descritption
    ------------             ---------------------------------------------------------
-   orginfo           -->    Get target organization info
-   userinfo          -->    Get target user profile info
-   repoinfo          -->    Get target repository info
-   pathcontents      -->    Get contents of a specified path from a target repository
-   orgrepos          -->    Get a list of repositories owned by a target organization
-   userrepos         -->    Get a list of repositories owned by a target user
-   usergists         -->    Get a list of gists owned by a target user
-   userfollowers     -->    Get a list of the target's followers
-   userfollowing     -->    Check whether or not User[A] follows User[B]
-   usersearch        -->    Search user(s)
-   reposearch        -->    Search repositor[y][ies]
-   topicsearch       -->    Search topic(s)
-   issuesearch       -->    Search issue(s)
-   commitsearch      -->    Search commit(s)
-   update            -->    Update octosuite
-   changelog         -->    Show changelog
-   author            -->    Show author info
-   help              -->    Show usage/help
-   exit              -->    Exit session
+   {green}orginfo{white}           -->    Get target organization info{reset}
+   {green}userinfo{white}          -->    Get target user profile info{reset}
+   {green}repoinfo{white}          -->    Get target repository info{reset}
+   {green}pathcontents{white}      -->    Get contents of a specified path from a target repository{reset}
+   {green}orgrepos{white}          -->    Get a list of repositories owned by a target organization{reset}
+   {green}userrepos{white}         -->    Get a list of repositories owned by a target user{reset}
+   {green}usergists{white}         -->    Get a list of gists owned by a target user{reset}
+   {green}userfollowers{white}     -->    Get a list of the target's followers{reset}
+   {green}userfollowing{white}     -->    Check whether or not User[A] follows User[B]{reset}
+   {green}usersearch{white}        -->    Search user(s){reset}
+   {green}reposearch{white}        -->    Search repositor[y][ies]{reset}
+   {green}topicsearch{white}       -->    Search topic(s){reset}
+   {green}issuesearch{white}       -->    Search issue(s){reset}
+   {green}commitsearch{white}      -->    Search commit(s){reset}
+   {green}update{white}            -->    Update octosuite{reset}
+   {green}changelog{white}         -->    Show changelog{reset}
+   {green}author{white}            -->    Show author info{reset}
+   {green}help{white}              -->    Show usage/help{reset}
+   {green}exit{white}              -->    Exit session{reset}
+   {white}------------             ---------------------------------------------------------{reset}
    '''
     	return help
 
 
+if os.path.exists('.logs'):
+	pass
+	
+else:
+	# Creating the .logs directory
+	if platform.system() == "Windows":
+		subprocess.run(['mkdir','.logs'])
+	else:
+		subprocess.run(['sudo','mkdir','.logs'],shell=False)
+		
 # Set to automatically monitor and log network and user activity into the .logs folder
-logging.basicConfig(filename=f'.logs/{datetime.now()}.log',format='[%(asctime)s] %(message)s',level=logging.DEBUG)
+logging.basicConfig(filename=f'.logs/{datetime.now()}.log',format='%(asctime)s %(message)s',datefmt='%Y-%m-%d %H:%M:%S',level=logging.DEBUG)

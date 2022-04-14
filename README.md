@@ -3,11 +3,12 @@
 ![OS](https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=Linux)
 ![OS](https://img.shields.io/badge/OS-Windows-blue?style=for-the-badge&logo=Windows)
 ![OS](https://img.shields.io/badge/OS-Mac-white?style=for-the-badge&logo=apple)
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.5.1-beta?style=for-the-badge&logo=github)
-![GitHub last commit](https://img.shields.io/github/last-commit/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.5.2-alpha?style=for-the-badge&logo=github)
+![GitHub last commit](https://img.shields.io/github/last-commit/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=for-the-badge&logo=github)
+![PyPI - Downloads](https://img.shields.io/pypi/dw/octosuite?style=for-the-badge&logo=pypi)
 
 > *Simply gather OSINT on Github users & organizations like a God🔥*
 
@@ -101,25 +102,25 @@ octosuite
 ```
 
 # AVAILABLE COMMANDS
-| Command         | Usage|
+| COMMAND         | DESCRIPTION|
 | ------------- |:---------:|
-| ``orginfo`` | *get organization info*  |
-| ``userinfo`` | *get user profile info*  |
-| ``repoinfo`` | *get repository info*  |
-| ``pathcontents``  | *get contents of a path from a specified repository* |
-| ``orgrepos``      | *get a list of repositories owned by a specified organization* |
-| ``userrepos``  | *get a list of repositories owned by a specified user* |
-| ``usergists``  |  *get a list of gists owned by a specified user* |
-| ``userfollowers``  |  *get a list of a user's followers* |
-| ``userfollowing`` | *check whether user A follows user B* |
-| ``usersearch`` | *search user(s)* |
-| ``reposearch`` | *search repositor(y)(ies)* |
-| ``topicsearch`` | *search topics(s)* |
-| ``issuesearch`` | *search issue(s)* |
-| ``commitsearch`` | *search commit(s)* |
+| ``info:org`` | *get organization info*  |
+| ``info:user`` | *get user profile info*  |
+| ``info:repo`` | *get repository info*  |
+| ``info:dev`` | *show developer's info* |
+| ``path:contents``  | *get contents of a path from a specified repository* |
+| ``repos:org``      | *get a list of repositories owned by a specified organization* |
+| ``repos:user``  | *get a list of repositories owned by a specified user* |
+| ``user:gists``  |  *get a list of gists owned by a specified user* |
+| ``user:followers``  |  *get a list of a user's followers* |
+| ``user:following`` | *check whether user A follows user B* |
+| ``search:users`` | *search user(s)* |
+| ``search:repos`` | *search repositor(y)(ies)* |
+| ``search:topics`` | *search topics(s)* |
+| ``search:issues`` | *search issue(s)* |
+| ``search:commits`` | *search commit(s)* |
 | ``update`` | *update octosuite* |
 | ``changelog`` | *show changelog* |
-| ``author`` | *show author info* |
 | ``help`` | *show usage/help* |
 | ``exit`` | *exit session* |
 

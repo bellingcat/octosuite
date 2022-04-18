@@ -128,6 +128,7 @@ octosuite
 # NOTE
 * *octosuite automatically logs network and minor user activity. The logs are saved by date and time in .logs folder*
 * *Although octosuite was developed to work on **Mac**, **Windows**, or any **Linux** *Distribution*, it has only been tested on **Termux** *and* **Kali Linux***
+* If you believe octosuite can be better, feel free to open a pull request with your improvements ✌🏾🙂
 
 # PYPI
 [PyPI](https://pypi.org/project/octosuite)

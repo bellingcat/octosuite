@@ -14,6 +14,7 @@
 '''
 
 import os
+import sys
 import logging
 import requests
 import platform
@@ -206,7 +207,7 @@ class octosuite:
         # Use 'cls' to clear screen on Windows based machines
         # Otherwise, use 'clear'
         while True:
-            if platform.system().lower().startswith(('win','darwin')):
+            if sys.platform.lower().startswith(('win','darwin')):
                 subprocess.run(['cls'])
             else:
             	subprocess.run(['clear'],shell=False)
@@ -441,13 +442,9 @@ class octosuite:
     	# lol yes the changelog is hard coded
     	changelog_text = f'''
     	
-     {red_bg}v1.5.2-alpha [CHANGELOG]{reset}
-     • Users will now get to choose whether to enable colors or not
-     • Cleaned code
-     • Improved perfomance
-     • Will be ignoring unknown commands instead of printing the error
-     • Major bug fixes
-     {red_bg}                        {reset}
+     {red_bg}v1.6.0-stable [CHANGELOG]{reset}
+     • Minor improvements and bug fixes
+     {red_bg}                         {reset}
      '''
     	print(changelog_text)
     	
@@ -500,7 +497,7 @@ else:
 	# Creating the .logs directory
 	# If the current system is Windows based, we run mkdir command without sudo
 	# Else we run the mkdir command with sudo
-	if platform.system().lower().startswith(('win','darwin')):
+	if sys.platform.lower().startswith(('win','darwin')):
 		subprocess.run(['mkdir','.logs'])
 	else:
 		subprocess.run(['sudo','mkdir','.logs'],shell=False)

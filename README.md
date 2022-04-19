@@ -5,7 +5,7 @@
 ![OS](https://img.shields.io/badge/OS-Mac-white?style=for-the-badge&logo=apple)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.5.2-alpha?style=for-the-badge&logo=github)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.6.0-stable?style=for-the-badge&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![PyPI - Downloads](https://img.shields.io/pypi/dw/octosuite?style=for-the-badge&logo=pypi)
@@ -128,7 +128,7 @@ octosuite
 # NOTE
 * *octosuite automatically logs network and minor user activity. The logs are saved by date and time in .logs folder*
 * *Although octosuite was developed to work on **Mac**, **Windows**, or any **Linux** *Distribution*, it has only been tested on **Termux** *and* **Kali Linux***
-* If you believe octosuite can be better, feel free to open a pull request with your improvements ✌🏾🙂
+* *If you believe octosuite can be better, feel free to open a pull request with your improvements* ✌🏾🙂
 
 # PYPI
 [PyPI](https://pypi.org/project/octosuite)

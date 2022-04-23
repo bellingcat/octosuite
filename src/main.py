@@ -480,7 +480,7 @@ class octosuite:
      • Added 'logs:read' command for reading a specified log file
      • Added 'logs:delete' command for deleting a specified log file
      • Minor improvements
-     {red_bg}                    {reset}'''
+     {red_bg}                        {reset}'''
     	print(changelog_text)
     	
     	

@@ -1,14 +1,11 @@
-![Screenshot_2022-03-17_10-12-53](https://user-images.githubusercontent.com/74001397/158868105-b5aba7e8-7342-4268-bd7a-6d6ae0bdae5a.png)
-
 ![OS](https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=Linux)
 ![OS](https://img.shields.io/badge/OS-Windows-blue?style=for-the-badge&logo=Windows)
 ![OS](https://img.shields.io/badge/OS-Mac-white?style=for-the-badge&logo=apple)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.6.0-stable?style=for-the-badge&logo=github)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.7.0-dev?style=for-the-badge&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=for-the-badge&logo=github)
-![PyPI - Downloads](https://img.shields.io/pypi/dw/octosuite?style=for-the-badge&logo=pypi)
 
 > *Simply gather OSINT on Github users & organizations like a God🔥*
 
@@ -29,6 +26,7 @@
 - [x] Searches commits
 - [x] Easily updates with the 'update' command
 - [x] Automatically logs network activity (.logs folder)
+- [x] User can view, read and delete log files
 
 # INSTALLATION
 ## Clone from Github
@@ -119,6 +117,9 @@ octosuite
 | ``search:topics`` | *search topics(s)* |
 | ``search:issues`` | *search issue(s)* |
 | ``search:commits`` | *search commit(s)* |
+| ``logs:view`` | *view octosuite log files* |
+| ``logs:read`` | *read a specified log file* |
+| ``logs:delete`` | *delete a specified log file* |
 | ``update`` | *update octosuite* |
 | ``changelog`` | *show changelog* |
 | ``help`` | *show usage/help* |
@@ -131,7 +132,9 @@ octosuite
 * *If you believe octosuite can be better, feel free to open a pull request with your improvements* ✌🏾🙂
 
 # PYPI
-[PyPI](https://pypi.org/project/octosuite)
+[PyPI Package](https://pypi.org/project/octosuite)
+
+![PyPI Downloads](https://pepy.tech/badge/octosuite)
 
 # LICENSE
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)

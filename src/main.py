@@ -42,6 +42,9 @@ class octosuite:
                                                    ('search:topics', self.topic_search),
                                                    ('search:issues', self.issue_search),
                                                    ('search:commits', self.commits_search),
+                                                   ('logs:view',self.view_logs),
+                                                   ('logs:read',self.read_log),
+                                                   ('logs:delete',self.delete_log),
                                                    ('update', self.update),
                                                    ('changelog', self.changelog),
                                                    ('info:dev', self.author),
@@ -213,7 +216,7 @@ class octosuite:
             	subprocess.run(['clear'],shell=False)
             	
             print(banner)
-            command_input = input(f'''{white}┌───({red}{os.getlogin()}{white}@{red}octosuite{white})-[{green}{os.getcwd()}{white}]\n└─╼[{green}:~{white}]{reset} ''')        
+            command_input = input(f'''{white}┌──({red}{os.getlogin()}{white}@{red}octosuite{white})-[{green}{os.getcwd()}{white}]\n└╼[{green}:~{white}]{reset} ''')        
             # Looping through the commands base to check if the user input command matches any command in the commands base, and return its functionality
             # If no match is found, we ignore it
             for command, functionality in self.commands_base:
@@ -224,7 +227,7 @@ class octosuite:
                     
             input(f'\n{white}[{green} ? {white}] Press {white_bg}any key{reset}{white} to continue{reset} ')
             
-            
+    # Fetching organization info        
     def org_info(self):
         organization = input(f'\n{white}[{white_bg}@Organization{reset}{white}] (username){reset} ')
         api = f'https://api.github.com/orgs/{organization}'
@@ -269,8 +272,8 @@ class octosuite:
     
     # Get path contents        
     def path_contents(self):
-        username = input(f'\n{white}[{white_bg}@Owner{reset}{white}] (username){reset} ')
-        repo_name = input(f'{white}[{white_bg}%reponame{reset}{white}]{reset} ')
+        repo_name = input(f'\n{white}[{white_bg}%reponame{reset}{white}]{reset} ')
+        username = input(f'{white}[{white_bg}@Owner{reset}{white}] (username){reset} ')
         path_name = input(f'{white}[{white_bg}/path/name{reset}{white}]{reset} ')
         api = f'https://api.github.com/repos/{username}/{repo_name}/contents/{path_name}'
         response = requests.get(api)
@@ -284,7 +287,7 @@ class octosuite:
         	    	print(f'{white}├─ {self.path_attr_dict[attr]}: {green}{item[attr]}{reset}')
             	
                        
-    # Fetching organozation repositories        
+    # Fetching organization repositories        
     def org_repos(self):
         organization = input(f'\n{white}[{white_bg}@Organization{reset}{white}] (username){reset} ')
         api = f'https://api.github.com/orgs/{organization}/repos?per_page=100'
@@ -421,6 +424,35 @@ class octosuite:
         	print(f'{white}{number}.{reset}')
         	pprint(item['commit'])
         	print('\n')
+        	
+    
+    # View octosuite log files    	
+    def view_logs(self):
+        logs = os.listdir('.logs')
+        print(f"\n   {red_bg}[LOG]                                    [SIZE]   {reset}")
+        for log in logs:
+            print(f"   {log}\t   ",os.path.getsize(".logs/"+log),"bytes")
+        print(f"   {red_bg}                                                  {reset}")
+        
+    
+    # Delete a specified log file    
+    def delete_log(self):
+        log_file = input(f"\n{white}[{white_bg}logfile{reset}{white}]{reset} ")
+        if sys.platform.lower().startswith(('win','darwin')):
+            subprocess.run(['del',f'{os.getcwd()}/.logs/{log_file}'])
+        else:
+            subprocess.run(['sudo','rm',f'.logs/{log_file}'],shell=False)
+        
+        logging.info(f'Deleted log file: {log_file}')    
+        print(f"{white}[{green} + {white}] Deleted log file: {green}{log_file}{reset}")
+        
+    
+    # Read a specified log file    
+    def read_log(self):
+        log_file = input(f"\n{white}[{white_bg}logfile{reset}{white}]{reset} ")
+        with open(f'.logs/{log_file}', 'r') as log:
+            logging.info(f'Reading log file: {log_file}')
+            print("\n"+log.read())
         		
     
     # Update program
@@ -442,10 +474,13 @@ class octosuite:
     	# lol yes the changelog is hard coded
     	changelog_text = f'''
     	
-     {red_bg}v1.6.0-stable [CHANGELOG]{reset}
-     • Minor improvements and bug fixes
-     {red_bg}                         {reset}
-     '''
+     {red_bg}v1.7.0-dev [CHANGELOG]  {reset}
+     • Changed (y/n) behavior in color chooser (where any input apart from 'y' was considered as 'n')
+     • Added 'logs:view' command for viewing octosuite logs
+     • Added 'logs:read' command for reading a specified log file
+     • Added 'logs:delete' command for deleting a specified log file
+     • Minor improvements
+     {red_bg}                    {reset}'''
     	print(changelog_text)
     	
     	
@@ -455,12 +490,14 @@ class octosuite:
         for key,value in self.author_dict.items():
         	print(f'{white}├─ {key}: {green}{value}{reset}')
         	
-        	
+       
+    # Close session 	
     def exit_session(self):
         logging.info('Session closed with \'exit\' command.')
         exit(f'\n{white}[{green} ! {white}] Session closed with {white_bg}exit{reset}{white} command.{reset}')
         	
-        	
+    
+    # Help/usage    	
     def help(self):
     	help = f'''
 
@@ -480,12 +517,14 @@ class octosuite:
    search:topics             Search topic(s)
    search:issues             Search issue(s)
    search:commits            Search commit(s)
+   logs:view                 View log files
+   logs:read                 Read a specified log file
+   logs:delete               Delete a specified log file
    update                    Update octosuite
    changelog                 Show changelog
    help                      Show usage/help
    exit                      Exit session
-   {red_bg}                                                      {reset}
-   '''
+   {red_bg}                                                      {reset}'''
     	print(help)
 
 

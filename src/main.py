@@ -262,7 +262,7 @@ class octosuite:
         api = f'https://api.github.com/repos/{username}/{repo_name}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{white}[{red} - {white}] Repository ({repo_name}) or user @{username} not found.{reset}')
+        	print(f'\n{white}[{red} - {white}] Repository ({repo_name}) or user ({username}) not found.{reset}')
         else:
         	response = response.json()
         	print(f"\n{white}{response['full_name']}{reset}")
@@ -305,7 +305,7 @@ class octosuite:
                
     # Fetching user repositories        
     def user_repos(self):
-        username = input(f'\n{white}--> @{green}username{white}{reset} ')
+        username = input(f'\n{white}--> @{green}username{reset} ')
         api = f'https://api.github.com/users/{username}/repos?per_page=100'
         response = requests.get(api)
         if response.status_code != 200:
@@ -321,7 +321,7 @@ class octosuite:
         	   	       	    
     # Fetching user's gists
     def user_gists(self):
-        username = input(f'\n{white}--> @{green}username{white}{reset} ')
+        username = input(f'\n{white}--> @{green}username{reset} ')
         api = f'https://api.github.com/users/{username}/gists'
         response = requests.get(api).json()
         if response == []:
@@ -344,7 +344,7 @@ class octosuite:
         if response == []:
         	print(f'\n{white}[{red} - {white}]User ({username}) does not have followers.{reset}')
         elif "not found" in response['message']:
-        	print(f'\n{white}[{red} - {white}] User ({username}) not found{reset}')
+        	print(f'\n{white}[{red} - {white}] User ({username}) not found.{reset}')
         else:
             for item in response:
             	print(f"\n{white}@{item['login']}{reset}")

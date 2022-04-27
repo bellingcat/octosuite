@@ -23,7 +23,7 @@ from tqdm import tqdm
 from pprint import pprint
 from lib.banner import banner
 from datetime import datetime
-from lib.colors import red, white, green, green_bg, white_bg, red_bg, reset
+from lib.colors import red, white, green, red_bg, reset
 
 class octosuite:
     def __init__(self):
@@ -225,15 +225,15 @@ class octosuite:
                 else:
                     pass
                     
-            input(f'\n{white}[{green} ? {white}] Press {white_bg}any key{reset}{white} to continue{reset} ')
+            input(f'\n{white}[{green} ? {white}] Press any key to continue{reset} ')
             
     # Fetching organization info        
     def org_info(self):
-        organization = input(f'\n{white}[{white_bg}@Organization{reset}{white}] (username){reset} ')
+        organization = input(f'\n{white}--> @{green}organization{white} (username){reset} ')
         api = f'https://api.github.com/orgs/{organization}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{white}[{red}-{white}] Organization @{organization} {red_bg}Not Found{reset}')
+        	print(f'\n{white}[{red} - {white}] Organization ({organization}) not found.{reset}')
         else:
         	response = response.json()
         	print(f"\n{white}{response['name']}{reset}")
@@ -243,11 +243,11 @@ class octosuite:
                         
     # Fetching user information        
     def user_profile(self):
-        username = input(f'\n{white}[{white_bg}@Username{reset}{white}]{reset} ')
+        username = input(f'\n{white}--> @{green}username{reset} ')
         api = f'https://api.github.com/users/{username}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{white}[{red} - {white}] User @{username} {red_bg}Not Found{reset}')
+        	print(f'\n{white}[{red} - {white}] User ({username}) not found.{reset}')
         else:
         	response = response.json()
         	print(f"\n{white}{response['name']}{reset}")
@@ -257,12 +257,12 @@ class octosuite:
         	        	
     # Fetching repository information   	
     def repo_info(self):
-        repo_name = input(f'\n{white}[{white_bg}%reponame{reset}{white}]{reset} ')
-        username = input(f'{white}[{white_bg}@Owner{reset}{white}] (username){reset} ')
+        repo_name = input(f'\n{white}--> %{green}reponame{reset} ')
+        username = input(f'{white}--> @{green}owner{white} (username){reset} ')
         api = f'https://api.github.com/repos/{username}/{repo_name}'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{white}[{red} - {white}] Repository %{repo_name} or user @{username} {red_bg}Not Found{reset}')
+        	print(f'\n{white}[{red} - {white}] Repository ({repo_name}) or user @{username} not found.{reset}')
         else:
         	response = response.json()
         	print(f"\n{white}{response['full_name']}{reset}")
@@ -272,13 +272,13 @@ class octosuite:
     
     # Get path contents        
     def path_contents(self):
-        repo_name = input(f'\n{white}[{white_bg}%reponame{reset}{white}]{reset} ')
-        username = input(f'{white}[{white_bg}@Owner{reset}{white}] (username){reset} ')
-        path_name = input(f'{white}[{white_bg}/path/name{reset}{white}]{reset} ')
+        repo_name = input(f'\n{white}--> %{green}reponame{reset} ')
+        username = input(f'{white}--> @{green}owner{white} (username){reset} ')
+        path_name = input(f'{white}--> ~{green}/path/name{reset} ')
         api = f'https://api.github.com/repos/{username}/{repo_name}/contents/{path_name}'
         response = requests.get(api)
         if response.status_code != 200:
-            print(f'\n{white}[{red} - {white}] Information {red_bg}Not Found{reset}')
+            print(f'\n{white}[{red} - {white}] Information not found.{reset}')
         else:
         	response = response.json()
         	for item in response:
@@ -289,11 +289,11 @@ class octosuite:
                        
     # Fetching organization repositories        
     def org_repos(self):
-        organization = input(f'\n{white}[{white_bg}@Organization{reset}{white}] (username){reset} ')
+        organization = input(f'\n{white}--> @{green}organization{white} (username){reset} ')
         api = f'https://api.github.com/orgs/{organization}/repos?per_page=100'
         response = requests.get(api)
         if response.status_code != 200:
-            print(f'\n{white}[{red} - {white}] Organization @{organization} {red_bg}Not Found{reset}')
+            print(f'\n{white}[{red} - {white}] Organization ({organization}) not found.{reset}')
         else:
             response = response.json()
             for repo in response:
@@ -305,11 +305,11 @@ class octosuite:
                
     # Fetching user repositories        
     def user_repos(self):
-        username = input(f'\n{white}[{white_bg}@Username{reset}{white}]{reset} ')
+        username = input(f'\n{white}--> @{green}username{white}{reset} ')
         api = f'https://api.github.com/users/{username}/repos?per_page=100'
         response = requests.get(api)
         if response.status_code != 200:
-        	print(f'\n{white}[{red} - {white}] User @{username} {red_bg}Not Found{reset}')
+        	print(f'\n{white}[{red} - {white}] User ({username}) not found.{reset}')
         else:
         	response = response.json()
         	for repo in response:
@@ -321,13 +321,13 @@ class octosuite:
         	   	       	    
     # Fetching user's gists
     def user_gists(self):
-        username = input(f'\n{white}[{white_bg}@Username{reset}{white}]{reset} ')
+        username = input(f'\n{white}--> @{green}username{white}{reset} ')
         api = f'https://api.github.com/users/{username}/gists'
         response = requests.get(api).json()
         if response == []:
-        	print(f'\n{white}[{red} - {white}] User @{username} {red_bg}does not{reset}{white} have any active gists.{reset}')
-        elif "Not Found" in response['message']:
-        	print(f'\n{white}[{red} - {white}] User @{username} {red_bg}Not Found{reset}')
+        	print(f'\n{white}[{red} - {white}] User ({username}) does not have any active gists.{reset}')
+        elif "not found" in response['message']:
+        	print(f'\n{white}[{red} - {white}] User ({username}) not found.{reset}')
         else:
             for item in response:
             	print(f"\n{white}{item['id']}{reset}")
@@ -338,13 +338,13 @@ class octosuite:
         	    	    
     # Fetching user's followera'    	    
     def followers(self):
-        username = input(f'\n{white}[{white_bg}@Username{reset}{white}]{reset} ')
+        username = input(f'\n{white}--> @{green}username{reset} ')
         api = f'https://api.github.com/users/{username}/followers?per_page=100'
         response = requests.get(api).json()
         if response == []:
-        	print(f'\n{white}[{red} - {white}]User @{username} {red_bg}does not{reset}{white} have followers.{reset}')
-        elif "Not Found" in response['message']:
-        	print(f'\n{white}[{red} - {white}] User @{username} {red_bg}Not Found{reset}')
+        	print(f'\n{white}[{red} - {white}]User ({username}) does not have followers.{reset}')
+        elif "not found" in response['message']:
+        	print(f'\n{white}[{red} - {white}] User ({username}) not found{reset}')
         else:
             for item in response:
             	print(f"\n{white}@{item['login']}{reset}")
@@ -355,19 +355,19 @@ class octosuite:
                     
     # Checking whether or not user[A] follows user[B]            
     def following(self):
-        user_a = input(f'\n{white}[{white_bg}@User A{reset}{white}] (username){reset} ')
-        user_b = input(f'{white}[{white_bg}@User B{reset}{white}] (username){reset} ')
+        user_a = input(f'\n{white}--> @{green}user{white}[A] (username){reset} ')
+        user_b = input(f'{white}--> @{green}user{white}[B] (username){reset} ')
         api = f'https://api.github.com/users/{user_a}/following/{user_b}'
         response = requests.get(api)
         if response.status_code == 204:
-        	print(f'\n{white}[{green} + {white}] @{user_a} {green_bg}follows{reset}{white} @{user_b}.{reset}')
+        	print(f'\n{white}[{green} + {white}] @{user_a} follows @{user_b}.{reset}')
         else:
-        	print(f'\n{white}[{red} - {white}] @{user_a} {red_bg}does not{reset}{white} follow @{user_b}.{reset}')             
+        	print(f'\n{white}[{red} - {white}] @{user_a} does not follow @{user_b}.{reset}')             
  
         	           	    
     # User search    	    
     def user_search(self):
-        query = input(f'\n{white}[{white_bg}#@Query{reset}{white}]{reset} ')
+        query = input(f'\n{white}--> @{green}query{white} (eg. john){reset} ')
         api = f'https://api.github.com/search/users?q={query}&per_page=100'
         response = requests.get(api).json()
         for item in response['items']:
@@ -379,7 +379,7 @@ class octosuite:
        		
     # Repository search
     def repo_search(self):
-        query = input(f'\n{white}[{white_bg}#%Query{reset}{white}]{reset} ')
+        query = input(f'\n{white}--> %{green}query{white} (eg. git){reset} ')
         api = f'https://api.github.com/search/repositories?q={query}&per_page=100'
         response = requests.get(api).json()
         for item in response['items']:
@@ -391,7 +391,7 @@ class octosuite:
                 
     # Topics search
     def topic_search(self):
-        query = input(f'\n{white}[{white_bg}##Query{reset}{white}]{reset} ')
+        query = input(f'\n{white}--> #{green}query{white} (eg. osint){reset} ')
         api = f'https://api.github.com/search/topics?q={query}&per_page=100'
         response = requests.get(api).json()
         for item in response['items']:
@@ -403,7 +403,7 @@ class octosuite:
                 
     # Issue search
     def issue_search(self):
-        query = input(f'\n{white}[{white_bg}#!Query{reset}{white}]{reset} ')
+        query = input(f'\n{white}--> !{green}query{white} (eg. error){reset} ')
         api = f'https://api.github.com/search/issues?q={query}&per_page=100'
         response = requests.get(api).json()
         for item in response['items']:
@@ -415,13 +415,13 @@ class octosuite:
             
     # Commits search
     def commits_search(self):
-        query = input(f'\n{white}[{white_bg}#:Query{reset}{white}]{reset} ')
+        query = input(f'\n{white}--> :{green}query{white} (eg. filename:index.php){reset} ')
         api = f'https://api.github.com/search/commits?q={query}&per_page=100'
         response = requests.get(api).json()
         number=0
         for item in response['items']:
         	number+=1
-        	print(f'{white}{number}.{reset}')
+        	print(f'\n{white}-> {number}.{reset}')
         	pprint(item['commit'])
         	print('\n')
         	
@@ -437,7 +437,7 @@ class octosuite:
     
     # Delete a specified log file    
     def delete_log(self):
-        log_file = input(f"\n{white}[{white_bg}logfile{reset}{white}]{reset} ")
+        log_file = input(f"\n{white}--> logfile (eg. 2022-04-27 10:09:36.068312.log){reset} ")
         if sys.platform.lower().startswith(('win','darwin')):
             subprocess.run(['del',f'{os.getcwd()}/.logs/{log_file}'])
         else:
@@ -449,7 +449,7 @@ class octosuite:
     
     # Read a specified log file    
     def read_log(self):
-        log_file = input(f"\n{white}[{white_bg}logfile{reset}{white}]{reset} ")
+        log_file = input(f"\n{white}--> logfile (eg. 2022-04-27 10:09:36.068312.log){reset} ")
         with open(f'.logs/{log_file}', 'r') as log:
             logging.info(f'Reading log file: {log_file}')
             print("\n"+log.read())
@@ -466,7 +466,7 @@ class octosuite:
     			code.close()
     	
     	logging.info('Update complete.')		
-    	exit(f'{white}[{green} + {white}] {green_bg}Updated{reset}{white} successfully. Re-run octosuite.{reset}')
+    	exit(f'{white}[{green} + {white}] Update complete. Re-run octosuite.{reset}')
     	
     	
     # Show changelog
@@ -474,13 +474,10 @@ class octosuite:
     	# lol yes the changelog is hard coded
     	changelog_text = f'''
     	
-     {red_bg}v1.7.0-dev [CHANGELOG]  {reset}
-     • Changed (y/n) behavior in color chooser (where any input apart from 'y' was considered as 'n')
-     • Added 'logs:view' command for viewing octosuite logs
-     • Added 'logs:read' command for reading a specified log file
-     • Added 'logs:delete' command for deleting a specified log file
-     • Minor improvements
-     {red_bg}                        {reset}'''
+     {red_bg} v1.8.0 [CHANGELOG] {reset}
+     • Cleaned code
+     • Changes and improvements (noticeable)
+     {red_bg}                    {reset}'''
     	print(changelog_text)
     	
     	
@@ -493,8 +490,8 @@ class octosuite:
        
     # Close session 	
     def exit_session(self):
-        logging.info('Session closed with \'exit\' command.')
-        exit(f'\n{white}[{green} ! {white}] Session closed with {white_bg}exit{reset}{white} command.{reset}')
+        logging.info('Session closed with (exit) command.')
+        exit(f'\n{white}[{green} ! {white}] Session closed with ({green}exit{reset}{white}) command.{reset}')
         	
     
     # Help/usage    	

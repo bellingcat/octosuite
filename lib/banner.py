@@ -14,10 +14,10 @@ banner = f'''{red}
 
 
 
-<> {white}Current user: {green}{os.getlogin()}{reset}
-<> {white}Use {green}help{reset}{white} command for usage{reset}
-<> {white}Commands are case sensitive{reset}
-   {'-'*27}
+> {white}Current user: {green}{os.getlogin()}{reset}
+> {white}Use {green}help{reset}{white} command for usage{reset}
+> {white}Commands are case sensitive{reset}
+  {'-'*27}
 
 
 '''

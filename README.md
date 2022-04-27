@@ -5,7 +5,7 @@
 ![OS](https://img.shields.io/badge/OS-Mac-white?style=for-the-badge&logo=apple)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.7.0-dev?style=for-the-badge&logo=github)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.8.0?style=for-the-badge&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=for-the-badge&logo=github)
 

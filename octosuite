@@ -2,16 +2,16 @@
 
 import logging
 from src.main import *
-from lib.colors import red,red_bg,white,reset
+from lib.colors import red,white,reset
 
 if __name__ == '__main__':
     try:
         octosuite().on_start()
        
     except KeyboardInterrupt:
-        logging.warning('Process interrupted with Ctrl+C')
-        exit(f'\n{white}[{red} x {white}] Process interrupted with {red_bg}Ctrl+C{reset}')
+        logging.warning('Session terminated with (Ctrl+C)')
+        exit(f'\n{white}[{red} x {white}] Session terminated with ({red}Ctrl{white}+{red}C{reset}{white}).{reset}')
         
     except Exception as e:
         logging.error(f'Session terminated on error: {e}')
-        exit(f'\n{white}[{red} ! {white}] Session {red_bg}terminated{reset}{white} on error: {red}{e}{reset}')
+        exit(f'\n{white}[{red} ! {white}] Session terminated on error: {red}{e}{reset}')

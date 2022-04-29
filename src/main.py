@@ -200,7 +200,8 @@ class octosuite:
         # Author dictionary
         self.author_dict = {'Alias': 'rly0nheart',
                                          'Country': 'Zambia, Africa',
-                                         'About.me': 'https://about.me/rly0nheart'}    
+                                         'AboutMe': 'https://about.me/rly0nheart',
+                                         'BuyMeACoffee': 'https://buymeacoffee.com/189381184'}    
  
                
     def on_start(self):

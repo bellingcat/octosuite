@@ -21,8 +21,8 @@ import platform
 import subprocess
 from tqdm import tqdm
 from pprint import pprint
-from lib.banner import banner
 from datetime import datetime
+from lib.banner import banner, version
 from lib.colors import red, white, green, red_bg, reset
 
 class octosuite:
@@ -200,7 +200,7 @@ class octosuite:
         # Author dictionary
         self.author_dict = {'Alias': 'rly0nheart',
                                          'Country': 'Zambia, Africa',
-                                         'AboutMe': 'https://about.me/rly0nheart',
+                                         'About.me': 'https://about.me/rly0nheart',
                                          'BuyMeACoffee': 'https://buymeacoffee.com/189381184'}    
  
                
@@ -475,9 +475,8 @@ class octosuite:
     	# lol yes the changelog is hard coded
     	changelog_text = f'''
     	
-     {red_bg} v1.8.0 [CHANGELOG] {reset}
-     • Cleaned code
-     • Changes and improvements (noticeable)
+     {red_bg} {version} [CHANGELOG] {reset}
+     • Minor bug fixes and improvements
      {red_bg}                    {reset}'''
     	print(changelog_text)
     	

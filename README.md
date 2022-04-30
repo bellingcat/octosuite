@@ -5,7 +5,7 @@
 ![OS](https://img.shields.io/badge/OS-Mac-white?style=for-the-badge&logo=apple)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.8.0?style=for-the-badge&logo=github)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.9.0?style=for-the-badge&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=for-the-badge&logo=github)
 
@@ -82,8 +82,9 @@ Installation instructions are on the wiki, in addition to all other documentatio
 ***
 # ABOUT DEVELOPER
 [About.me](https://about.me/rly0nheart)
+
 ***
 # DONATIONS
-Love octosuite? Please consider buying me a coffee, I will appreciate it :)
+Love octosuite? Please consider buying me a coffee, I will appreciate really it. ☕👌🏾😊
 
 <a href="https://www.buymeacoffee.com/189381184" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>

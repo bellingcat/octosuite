@@ -85,6 +85,6 @@ Installation instructions are on the wiki, in addition to all other documentatio
 
 ***
 # DONATIONS
-Love octosuite? Please consider buying me a coffee, I will appreciate really it. ☕👌🏾😊
+Love octosuite? Please consider buying me a coffee, I will really appreciate it. ☕👌🏾😊
 
 <a href="https://www.buymeacoffee.com/189381184" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>

@@ -1,4 +1,4 @@
-![octosuite](https://user-images.githubusercontent.com/74001397/165550323-d880e320-a4c0-4f4e-87dd-d2e8319554ec.png)
+![octosuite](https://user-images.githubusercontent.com/74001397/168490090-4301aed2-984f-402e-8782-f12da84a78ad.png)
 
 ![OS](https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=Linux)
 ![OS](https://img.shields.io/badge/OS-Windows-blue?style=for-the-badge&logo=Windows)
@@ -6,7 +6,6 @@
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.9.0?style=for-the-badge&logo=github)
-![GitHub last commit](https://img.shields.io/github/last-commit/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=for-the-badge&logo=github)
 
 > *Simply gather OSINT on Github users & organizations like a God🔥*

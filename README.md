@@ -1,4 +1,4 @@
-![octosuite](https://user-images.githubusercontent.com/74001397/168490090-4301aed2-984f-402e-8782-f12da84a78ad.png)
+![octosuite](img/logo.png)
 
 ![OS](https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=Linux)
 ![OS](https://img.shields.io/badge/OS-Windows-blue?style=for-the-badge&logo=Windows)

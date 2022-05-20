@@ -5,7 +5,7 @@
 ![OS](https://img.shields.io/badge/OS-Mac-white?style=for-the-badge&logo=apple)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=for-the-badge&logo=github)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=for-the-badge&logo=github)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/1.9.0?style=for-the-badge&logo=github)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/2.0.0-beta?style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=for-the-badge&logo=github)
 
 > *Simply gather OSINT on Github users & organizations like a God🔥*

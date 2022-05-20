@@ -17,51 +17,35 @@ Installation instructions are on the wiki, in addition to all other documentatio
 
 
 # FEATURES
-- [x] Fetches organization info
-- [x] Fetches user info
-- [x] Fetches repository info
-- [x] Returns contents of a path from a repository
-- [x] Returns a list of repos owned by an organization
-- [x] Returns a list of repos owned by a user
-- [x] Returns a list of gists owned by a user
-- [x] Returns a list of a user's followers
-- [x] Checks whether user A follows user B
+- [x] Fetches an organization's profile information
+- [x] Fetches an oganization's events
+- [x] Returns an organization's repositories
+- [x] Returns an organization's public members
+- [x] Fetches a repository's information
+- [x] Returns a repository's contributors
+- [x] Returns a repository's languages
+- [x] Fetches a repository's stargazers
+- [x] Fetches a repository's forks
+- [x] Fetches a repository's releases
+- [x] Returns a list of files in a specified path of a repository
+- [x] Fetches a user's profile information
+- [x] Returns a user's gists
+- [x] Returns organizations that a user owns/belongs to
+- [x] Fetches a user's events
+- [x] Fetches a user's followers
+- [x] Checks if user A follows user B
+- [x] Checks if  user is a public member of an organizations
+- [x] Returns a user's subscriptions
+- [x] Gets a user's subscriptions
+- [x] Gets a user's events
 - [x] Searches users
 - [x] Searches repositories
 - [x] Searches topics
 - [x] Searches issues
 - [x] Searches commits
-- [x] Easily updates with the 'update' command
+- [x] Easily updates with the 'update:install' command
 - [x] Automatically logs network activity (.logs folder)
-- [x] User can view, read and delete log files
-
-
-# AVAILABLE COMMANDS
-| COMMAND         | DESCRIPTION|
-| ------------- |:---------:|
-| ``info:org`` | *get organization info*  |
-| ``info:user`` | *get user profile info*  |
-| ``info:repo`` | *get repository info*  |
-| ``info:dev`` | *show developer's info* |
-| ``path:contents``  | *get contents of a path from a specified repository* |
-| ``repos:org``      | *get a list of repositories owned by a specified organization* |
-| ``repos:user``  | *get a list of repositories owned by a specified user* |
-| ``user:gists``  |  *get a list of gists owned by a specified user* |
-| ``user:followers``  |  *get a list of a user's followers* |
-| ``user:following`` | *check whether user A follows user B* |
-| ``search:users`` | *search user(s)* |
-| ``search:repos`` | *search repositor(y)(ies)* |
-| ``search:topics`` | *search topics(s)* |
-| ``search:issues`` | *search issue(s)* |
-| ``search:commits`` | *search commit(s)* |
-| ``logs:view`` | *view octosuite log files* |
-| ``logs:read`` | *read a specified log file* |
-| ``logs:delete`` | *delete a specified log file* |
-| ``update`` | *update octosuite* |
-| ``changelog`` | *show changelog* |
-| ``help`` | *show usage/help* |
-| ``exit`` | *exit session* |
-
+- [x] User can view, read and delete logs
 
 # NOTES
 * *octosuite automatically logs network and minor user activity. The logs are saved by date and time in .logs folder*

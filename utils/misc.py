@@ -2,7 +2,7 @@ import os
 from utils.colors import Color
 
 class Banner:
-    versionTag = '2.0.0'
+    versionTag = '2.0.0-beta'
     nameLogo = f'''{Color.white}
  _______        __          _______         __ __         
 |       |.----.|  |_.-----.|     __|.--.--.|__|  |_.-----.

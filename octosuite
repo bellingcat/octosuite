@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 
 import logging
-from src.main import *
-from lib.colors import red,white,reset
+from utils.colors import Color
+from utils.misc import Banner
+from core.main import Octosuite, Attributes, logMsg
 
+print(Banner.nameLogo)
 if __name__ == '__main__':
     try:
-        octosuite().on_start()
+        Octosuite().onStart()
        
     except KeyboardInterrupt:
-        logging.warning('Session terminated with (Ctrl+C)')
-        exit(f'\n{white}[{red} x {white}] Session terminated with ({red}Ctrl{white}+{red}C{reset}{white}).{reset}')
+        logging.warning(logMsg.Ctrl)
+        print(Attributes.warning, logMsg.Ctrl)
         
     except Exception as e:
-        logging.error(f'Session terminated on error: {e}')
-        exit(f'\n{white}[{red} ! {white}] Session terminated on error: {red}{e}{reset}')
+        logging.error(logMsg.Error.format(e))
+        print(Attributes.error, logMsg.Exception.format(f'{Color.red}{e}{Color.reset}'))

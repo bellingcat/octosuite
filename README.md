@@ -1,4 +1,4 @@
-![octosuite](img/logo.png)
+![octosuite](images/logo.png)
 
 ![OS](https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=Linux)
 ![OS](https://img.shields.io/badge/OS-Windows-blue?style=for-the-badge&logo=Windows)

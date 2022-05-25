@@ -1,5 +1,5 @@
-import os
 import sys
+import getpass
 import platform
 from datetime import datetime
 
@@ -39,7 +39,7 @@ class Color:
 	    print("\n")
 	    while True:
 	        try:
-	            color_chooser = input(f"[ ? ] Welcome {os.getlogin()}, would you like to enable colors for this session? (y/n) ")
+	            color_chooser = input(f"[ ? ] Welcome {getpass.getuser()}, would you like to enable colors for this session? (y/n) ")
 	            if color_chooser.lower() == "y":
 	                white = "\033[97m"
 	                red = "\033[91m"

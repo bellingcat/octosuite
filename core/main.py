@@ -16,14 +16,15 @@
 import os
 import sys
 import logging
+import getpass
 import requests
 import platform
 import subprocess
 from tqdm import tqdm
 from pprint import pprint
-from utils.misc import Banner
-from utils.helper import Help
-from utils.colors import Color
+from utilities.misc import Banner
+from utilities.helper import Help
+from utilities.colors import Color
 from datetime import datetime
 
 
@@ -315,7 +316,7 @@ class Octosuite:
         # Use 'cls' to clear screen on Windows based machines
         # Otherwise, use 'clear'
         while True:
-            command_input = input(f'''\n{Color.white}┌──({Color.red}{os.getlogin()}{Color.white}@{Color.red}octosuite{Color.white})-[{Color.green}{os.getcwd()}{Color.white}]\n└╼[{Color.green}:_{Color.white}]{Color.reset} ''')        
+            command_input = input(f'''\n{Color.white}┌──({Color.red}{getpass.getuser()}{Color.white}@{Color.red}octosuite{Color.white})-[{Color.green}{os.getcwd()}{Color.white}]\n└╼[{Color.green}:_{Color.white}]{Color.reset} ''')        
             # Looping through the commands base to check if the user input command matches any command in the commands base, and return its functionality
             # If no match is found, we ignore it
             for command, functionality in self.commands_map:
@@ -673,7 +674,7 @@ class Octosuite:
     
     # Update program
     def installUpdate(self):
-    	files_to_update = ['core/main.py','utils/helper.py','utils/misc.py','utils/colors.py','utils/changelog.py','octosuite','.github/dependabot.yml','.github/ISSUE_TEMPLATE/bug_report.md','.github/ISSUE_TEMPLATE/feature_request.md','.github/ISSUE_TEMPLATE/config.yml','LICENSE','README.md','requirements.txt']
+    	files_to_update = ['core/main.py','utilities/helper.py','utilities/misc.py','utilities/colors.py','octosuite','.github/dependabot.yml','.github/ISSUE_TEMPLATE/bug_report.md','.github/ISSUE_TEMPLATE/feature_request.md','.github/ISSUE_TEMPLATE/config.yml','LICENSE','README.md','requirements.txt']
     	logging.info(logMsg.installingUpdates)
     	for file in tqdm(files_to_update,desc = logMsg.installingUpdates):
     		data = requests.get(f'https://raw.githubusercontent.com/rly0nheart/octosuite/master/{file}')
@@ -700,25 +701,12 @@ class Octosuite:
     	# It's actually frustrating having to change this everytime I publish a new release lol
     	print(f'''
 Tag: {Banner.versionTag}
-Released at: 2022-05-20 03:26AM
+Released at: 2022-05-25 11:05AM
 {'-'*31}
 
 What's changed?
 {'-'*15}
-[✓] The PyPI package has been deprecated and will no longer receive any further updates
-[✓] Added a functionality for returning organizations belonging to a target user (user:orgs)
-[✓] Added a functionality for returning a target user's subscriptions (user:subscriptions)
-[✓] Added a functionality for returning a target user's events (user:events)
-[✓] Added a functionality for returning a list of contributors of a repository (repo:contributors)
-[✓] Added a functionality for returning languages of a repository (repo:languages)
-[✓] Added a functionality for returning stargazers of a repository (repo:stargazers)
-[✓] Added a functionality for returning forks of a repository (repo:forks)
-[✓] Added a functionality for checking for latest releases of Octosuite (update:check)
-[✓] Added the "clear" command for clearing the screen in the Octosuite command prompt
-[✓] Moved the use of the 'update' comnand to 'update:install'
-[✓] Will no longer show the "Press any key to continue" prompt, it will instead return its command prompt
-[✓] Commands are no longer case sensitive
-[✓] Major perfomance improvements''')
+[✓] Fixed a bug in issue #2''')
     	
     	
     # Author info

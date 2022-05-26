@@ -311,7 +311,7 @@ class Octosuite:
                
     def onStart(self):
         # Log the beginning of a session
-        logging.info(logMsg.sessionStart.format(platform.node(), os.getlogin()))
+        logging.info(logMsg.sessionStart.format(platform.node(), getpass.getuser()))
         
         # Use 'cls' to clear screen on Windows based machines
         # Otherwise, use 'clear'

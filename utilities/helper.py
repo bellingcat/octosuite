@@ -8,7 +8,7 @@ class Help:
 {'='*18}
 {Help.usageText.format('update:<subcommand>')}
 
-    Command            Description
+    {Color.white}Command            Description{Color.reset}
     -------            -----------
     check              Check for updates
     install            Download and install updates''')
@@ -20,7 +20,7 @@ class Help:
 {'='*18}
 {Help.usageText.format('search:<subcommand>')}
 
-    Command            Description
+    {Color.white}Command            Description{Color.reset}
     -------            -----------
     users              Search user(s)
     repos              Search repositor[yies]
@@ -35,7 +35,7 @@ class Help:
 {'='*17}
 {Help.usageText.format('user:<subcommand>')}
 
-    Command            Description
+    {Color.white}Command            Description{Color.reset}
     -------            -----------
     profile            Get a user's profile info
     gists              Return a users's gists
@@ -53,7 +53,7 @@ class Help:
 {'='*16}
 {Help.usageText.format('org:<subcommand>')}
 
-    Command            Description
+    {Color.white}Command            Description{Color.reset}
     -------            -----------
     profile            Get an organization's info
     repos              Return an organization's repositories
@@ -67,7 +67,7 @@ class Help:
 {'='*17}
 {Help.usageText.format('repo:<subcommand>')}
 
-    Command            Description
+    {Color.white}Command            Description{Color.reset}
     -------            -----------
     profile            Get a repository's info
     forks              Return a repository's forks
@@ -83,7 +83,7 @@ class Help:
 {'='*17}
 {Help.usageText.format('logs:<subcommand>')}
 
-    Command            Description
+    {Color.white}Command            Description{Color.reset}
     -------            -----------
     view               View logs
     read               Read log

@@ -1,4 +1,3 @@
-
 import getpass
 from utilities.colors import Color
 
@@ -14,7 +13,7 @@ class Banner:
     if getpass.getuser() == 'rly0nheart':
         currentUser = f'🛡️ {Color.red}Admin{Color.reset}'
     else:
-        currentUser = getpass.getuser()
+        currentUser = Color.green + getpass.getuser() + Color.reset
         
     versionTag = '2.0.1-alpha'
     nameLogo = f'''{Color.white}
@@ -27,7 +26,7 @@ class Banner:
 
 
 
-.:{Color.green}{currentUser}{Color.reset}:.    
+.:{currentUser}:.    
 - {Color.white}use {Color.green}help{Color.reset}{Color.white} command for usage{Color.reset}
 - {Color.white}commands are case insensitive{Color.reset}
   {'-'*29}

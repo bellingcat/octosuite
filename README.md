@@ -26,6 +26,7 @@
 - [x] Returns a user's gists
 - [x] Returns organizations that a user owns/belongs to
 - [x] Fetches a user's events
+- [x] Fetches a list of users followed by the target
 - [x] Fetches a user's followers
 - [x] Checks if user A follows user B
 - [x] Checks if  user is a public member of an organizations

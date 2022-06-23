@@ -941,8 +941,8 @@ What's changed?
 [✓] Added a csv logger: users will get to choose whether they wish to log output to a .csv file or not.
 [✓] For output that comes in bulk, users will get to specify how many result they wish to see
 [✓] Added a prompt for the 'exit' command
-[✓] Added 1 subcommand to the 'user': [user:follows] will now be used to check if user(A) follows user(B). [user:following] will now be used to return a list of user that the target is following
-[✓] Added 2 subcommands to the 'repo' command: [repo:issues] used for getting issues of a repository, [repo:releases] for getting releases of a repository
+[✓] Added 1 subcommand to the 'user' command: [user:follows] will now be used to check if user(A) follows user(B). [user:following] will now be used to return a list of user that the target is following
+[✓] Added 2 subcommands to the 'repo' command: [repo:issues] used for getting issues of a repository. [repo:releases] for getting releases of a repository
 [✓] Added 2 subcommands to the 'version' command: [version:check] will be used to check for new releases of octosuite. [version:info] will be used to see version information
 [✓] Added command 'source' (for developers): [source:tarball] for downloading a tarball of the octosuite source code. [source:zipball] for downloading a zipball of the octosuite source code.
 [✓] Will now be installing updates from pypi via 'pip install --upgrade octosuite' (As a result, all update commands have been deprecated)

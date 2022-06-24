@@ -1,5 +1,6 @@
 ![octosuite](images/logo.png)
 
+[![Upload Python Package](https://github.com/rly0nheart/octosuite/actions/workflows/python-publish.yml/badge.svg)](https://github.com/rly0nheart/octosuite/actions/workflows/python-publish.yml)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=social&logo=github)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=social&logo=github)
 ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/2.0.1-alpha?style=social&logo=github)

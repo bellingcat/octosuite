@@ -41,7 +41,7 @@
 - [x] Searches commits
 - [x] Automatically logs network activity (.logs folder)
 - [x] User can view, read and delete logs
-- [x] More available...
+- [x] ...And more
 
 > *octosuite automatically logs network and minor user activity of each session. The logs are saved by date and time in the .logs folder*
 >> *Although octosuite was developed to work on **Mac**, **Windows**, or any **Linux** *Distribution*, it has only been tested on **Termux** *and* **Kali Linux***

@@ -13,7 +13,7 @@ class Banner:
  |   -   ||  __||   _|  _  ||__     ||  |  ||  |   _|  -__|
  |_______||____||____|_____||_______||_____||__|____|_____|
                                                      v{versionTag}
-                         {Color.white}— Advanced Github {Color.red}OSINT{Color.white} Framework{Color.reset}
+                          {Color.white}— Advanced Github {Color.red}OSINT{Color.white} Framework{Color.reset}
 
 
 

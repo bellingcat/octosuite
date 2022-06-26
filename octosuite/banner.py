@@ -6,7 +6,7 @@ Banner
 This class holds the program's banner logo and version tag
 '''
 class Banner:
-    versionTag = '2.1.0'
+    versionTag = '2.1.1'
     nameLogo = f'''{Color.white}
   _______        __          _______         __ __         
  |       |.----.|  |_.-----.|     __|.--.--.|__|  |_.-----.

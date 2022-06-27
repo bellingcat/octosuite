@@ -44,9 +44,10 @@
 - [x] User can view, read and delete logs
 - [x] ...And more
 
-> *octosuite automatically logs network and minor user activity of each session. The logs are saved by date and time in the .logs folder*
->> *Although octosuite was developed to work on **Mac**, **Windows**, or any **Linux** *Distribution*, it has only been tested on **Termux** *and* **Kali Linux***
->>> *If you believe octosuite can be better, feel free to open a pull request with your improvements* ✌🏾🙂
+## Note
+> octosuite automatically logs network and minor user activity of each session. The logs are saved by date and time in the .logs folder
+>> Although octosuite was developed to work on Mac, Windows, or any Linux Distribution, it has only been tested on Termux and Kali Linux
+>>> If you believe octosuite can be better, feel free to open a pull request with your improvements✌🏾🙂
 
 ## License
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)

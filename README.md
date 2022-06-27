@@ -1,6 +1,7 @@
 ![logo](https://user-images.githubusercontent.com/74001397/175805580-fffc96d4-e0ef-48bb-a55c-80b2da3e714d.png)
 
 [![Upload Python Package](https://github.com/rly0nheart/octosuite/actions/workflows/python-publish.yml/badge.svg)](https://github.com/rly0nheart/octosuite/actions/workflows/python-publish.yml)
+[![CodeQL](https://github.com/rly0nheart/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/rly0nheart/octosuite/actions/workflows/codeql.yml)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=flat)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=flat&logo=github)
 ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/2.1.1?style=flat&logo=github)

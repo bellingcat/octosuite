@@ -53,6 +53,8 @@
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)
 
 ## Donations
-Love octosuite and would like to donate? You can buy me a coffee using the button below, your support is much appreciated ☕👌🏾😊.
+Love octosuite and would like to donate? You can buy me a coffee using the button below.
 
 <a href="https://www.buymeacoffee.com/189381184" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
+Your support is much appreciated!☕👌🏾😊

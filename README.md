@@ -52,10 +52,6 @@
 ## License
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)
 
-## Supporters
-[![Stargazers repo roster for @rly0nheart/octosuite](https://reporoster.com/stars/rly0nheart/octosuite)](https://github.com/rly0nheart/octosuite/stargazers)
-[![Forkers repo roster for @rly0nheart/octosuite](https://reporoster.com/forks/rly0nheart/octosuite)](https://github.com/rly0nheart/octosuite/members)
-
 ## Donations
 Love octosuite and would like to donate? You can buy me a coffee using the button below.
 

@@ -4,12 +4,12 @@
 [![CodeQL](https://github.com/rly0nheart/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/rly0nheart/octosuite/actions/workflows/codeql.yml)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=flat)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=flat&logo=github)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/2.1.1?style=flat&logo=github)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/2.2.0?style=flat&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=flat&logo=github)
 
 > *Simply gather OSINT on Github users & organizations like a God🔥*
 
-## Installation
+## Wiki
 [Refer to the Wiki](https://github.com/rly0nheart/octosuite/wiki) for installation instructions, in addition to all other documentation.
 
 ## Features

@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as file:
 
 setuptools.setup(
     name="octosuite",
-    version="2.1.1",
+    version="2.2.0",
     author="Richard Mwewa",
     author_email="richardmwewa@duck.com",
     packages=["octosuite"],
@@ -14,7 +14,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/rly0nheart/octosuite",
     license="GNU General Public License v3 (GPLv3)",
-    install_requires=["requests"],
+    install_requires=["requests", "rich"],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Information Technology',

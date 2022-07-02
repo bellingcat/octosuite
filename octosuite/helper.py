@@ -1,231 +1,182 @@
-import sys
-from octosuite.colors import Color
-
+from rich.table import Table
+from rich import print as xprint
+from octosuite.colors import white, green, white_bold, green_bold, header_title, reset
 """
 Help
-This class holds the help text for available.
-Almost everything in the methods from this class is hard coded
+This class holds the help text for available commands.
 """
 class Help:
-    usageText = 'Use {} to get started'
-    usageText1 = 'Use {} to view all available subcommands.'
+    usageText = 'Use syntax {} to get started with %s{}%s.' % (green_bold, reset)
+    usageText1 = '%sUse {} to view all available subcommands.%s' % (white, reset)
+    usageText2 = "%sThe {} command works with subcommands. %s" % (white, reset)
     
     def Org():
-        sys.stdout.write(f"""
-{Color.white}Note:
--------
-     The '{Color.green}org{Color.white}' command works with subcommands.
-     {Help.usageText1.format('help:org')}{Color.reset}
-     """)
+        xprint(Help.usageText2.format(f"{green_bold}org{reset}") + Help.usageText1.format(f"{green_bold}help:org{reset}"))
      
     
     def Repo():
-        sys.stdout.write(f"""
-{Color.white}Note:
------
-     The '{Color.green}repo{Color.white}' command works with subcommands.
-     {Help.usageText1.format('help:repo')}{Color.reset}
-     """)
+        xprint(Help.usageText2.format(f"{green_bold}repo{reset}") + Help.usageText1.format(f"{green_bold}help:repo{reset}"))
     
       
     def User():
-        sys.stdout.write(f"""
-{Color.white}Note:
------
-     The '{Color.green}user{Color.white}' command works with subcommands.
-     {Help.usageText1.format('help:user')}{Color.reset}
-     """)
+        xprint(Help.usageText2.format(f"{green_bold}user{reset}") + Help.usageText1.format(f"{green_bold}help:user{reset}"))
      
     def Search():
-        sys.stdout.write(f"""
-{Color.white}Note:
------
-     The '{Color.green}search{Color.white}' command works with subcommands.
-     {Help.usageText1.format('help:search')}{Color.reset}
-     """)
+        xprint(Help.usageText2.format(f"{green_bold}search{reset}") + Help.usageText1.format(f"{green_bold}help:search{reset}"))
      
      
     def Source():
-        sys.stdout.write(f"""
-{Color.white}Note:
------
-     The '{Color.green}source{Color.white}' command works with subcommands.
-     {Help.usageText1.format('help:source')}{Color.reset}
-     """)
+        xprint(Help.usageText2.format(f"{green_bold}source{reset}") + Help.usageText1.format(f"{green_bold}help:source{reset}"))
      
     def Logs():
-        sys.stdout.write(f"""
-{Color.white}Note:
------
-     The '{Color.green}logs{Color.white}' command works with subcommands.
-     {Help.usageText1.format('help:logs')}{Color.reset}
-     """)
+        xprint(Help.usageText2.format(f"{green_bold}logs{reset}") + Help.usageText1.format(f"{green_bold}help:logs{reset}"))
      
     
     def Version():
-        sys.stdout.write(f"""
-{Color.white}Note:
------
-     The '{Color.green}version{Color.white}' command works with subcommands.
-     {Help.usageText1.format('help:version')}{Color.reset}
-     """)
-     
-     
+        xprint(Help.usageText2.format(f"{green_bold}version{reset}") + Help.usageText1.format(f"{green_bold}help:version{reset}"))
+        
+      
     def Csv():
-        sys.stdout.write(f"""
-{Color.white}Note:
------
-     The '{Color.green}csv{Color.white}' command works with subcommands.
-     {Help.usageText1.format('help:csv')}{Color.reset}
-     """)
-     
+        xprint(Help.usageText2.format(f"{green_bold}csv{reset}") + Help.usageText1.format(f"{green_bold}help:csv{reset}"))
+      
      
     def versionCommand():
-        sys.stdout.write(f"""
-{Color.white}Version subcommands{Color.reset}
-{'='*18}
-{Help.usageText.format('version:<subcommand>')}
+        version_cmd_table =Table(show_header=True, header_style=header_title)
+        version_cmd_table.add_column("Command", style="dim", width=12)
+        version_cmd_table.add_column("Description")
+        version_cmd_table.add_row("check", "Check for new release(s)") 
+        version_cmd_table.add_row("info", "Version information")
 
-    {Color.white}Command            Description{Color.reset}
-    -------            -----------
-    check              Check for new release(s)
-    info               Version info
-    """)
+        syntax = f"{green}version:<command>{reset}"
+        xprint(f"{Help.usageText.format(syntax, 'version management')}")
+        xprint(version_cmd_table)
     
     
     def sourceCommand():
-        sys.stdout.write(f"""
-{Color.white}Source subcommands{Color.reset}
-{'='*18}
-{Help.usageText.format('source:<subcommand>')}
-    {Color.white}Command            Description{Color.reset}
-    --------            -----------
-    zipball            Download source code as zipball
-    tarball            Download source code  as tarball
-    """)
+        source_cmd_table =Table(show_header=True, header_style=header_title)
+        source_cmd_table.add_column("Command", style="dim", width=12)
+        source_cmd_table.add_column("Description")
+        source_cmd_table.add_row("zipball", "Download source code Zipball") 
+        source_cmd_table.add_row("tarball", "Download source code Tarball")
+
+        syntax = f"{green}source:<command>{reset}"
+        xprint(f"{Help.usageText.format(syntax, 'source code downloads')}")
+        xprint(source_cmd_table)
         
         
     def searchCommand():
-        sys.stdout.write(f"""
-{Color.white}Search subcommands{Color.reset}
-{'='*18}
-{Help.usageText.format('search:<subcommand>')}
+        search_cmd_table =Table(show_header=True, header_style=header_title)
+        search_cmd_table.add_column("Command", style="dim", width=12)
+        search_cmd_table.add_column("Description")
+        search_cmd_table.add_row("users", "Search user(s)") 
+        search_cmd_table.add_row("repos", "Search repositor[y][ies]")
+        search_cmd_table.add_row("topics", "Search topic(s)")
+        search_cmd_table.add_row("issues", "Search issue(s)")
+        search_cmd_table.add_row("commits", "Search commit(s)") 
 
-    {Color.white}Command            Description{Color.reset}
-    -------            -----------
-    users              Search user(s)
-    repos              Search repositor[yies]
-    topics             Search topic(s)
-    issues             Search issue(s)
-    commits            Search commit(s)
-    """)
+        syntax = f"{green}search:<command>{reset}"
+        xprint(f"{Help.usageText.format(syntax, 'target discovery')}")
+        xprint(search_cmd_table)
             
             
     def userCommand():
-        sys.stdout.write(f"""
-{Color.white}User subcommands{Color.reset}
-{'='*17}
-{Help.usageText.format('user:<subcommand>')}
+        user_cmd_table =Table(show_header=True, header_style=header_title)
+        user_cmd_table.add_column("Command", style="dim", width=12)
+        user_cmd_table.add_column("Description")
+        user_cmd_table.add_row("profile", "Get a target's profile info") 
+        user_cmd_table.add_row("gists", "Return a users's gists")
+        user_cmd_table.add_row("org", "Return organizations that a target belongs to/owns")
+        user_cmd_table.add_row("repos", "Return a target's repositories")
+        user_cmd_table.add_row("events", "Return a target's events") 
+        user_cmd_table.add_row("follows", "Check if user(A) follows user(B)")
+        user_cmd_table.add_row("followers", "Return a target's followers")
+        user_cmd_table.add_row("following", "Return a list of users the target is following")
+        user_cmd_table.add_row("subscriptions", "Return a target's subscriptions")
 
-    {Color.white}Command            Description{Color.reset}
-    -------            -----------
-    profile            Get a user's profile info
-    gists              Return a users's gists
-    orgs               Return organizations that a user belongs to/owns
-    repos              Return a user's repositories
-    events             Return a user's events
-    follows            Check if user(A) follows user(B)
-    followers          Return a user's followers
-    following          Return a list of users the target is following
-    subscriptions      Return a user's subscriptions
-    """)
+        syntax = f"{green}user:<command>{reset}"
+        xprint(f"{Help.usageText.format(syntax, 'user investigation(s)')}")
+        xprint(user_cmd_table)
         
         
     def orgCommand():
-        sys.stdout.write(f"""
-{Color.white}Org subcommands{Color.reset}
-{'='*16}
-{Help.usageText.format('org:<subcommand>')}
+        org_cmd_table =Table(show_header=True, header_style=header_title)
+        org_cmd_table.add_column("Command", style="dim", width=12)
+        org_cmd_table.add_column("Description")
+        org_cmd_table.add_row("profile", "Get a target organization' profile info") 
+        org_cmd_table.add_row("repos", "Return a target organization' repositories")
+        org_cmd_table.add_row("events", "Return a target organization' events")
+        org_cmd_table.add_row("member", "Check if a specified user is a public member of the target organization")
 
-    {Color.white}Command            Description{Color.reset}
-    -------            -----------
-    profile            Get an organization's info
-    repos              Return an organization's repositories
-    events             Return an organization's events
-    member             Check if a specified user is a public member of the target organization
-    """)
+        syntax = f"{green}org:<command>{reset}"
+        xprint(f"{Help.usageText.format(syntax, 'organization investigation(s)')}")
+        xprint(org_cmd_table)
             
             
     def repoCommand():
-        sys.stdout.write(f"""
-{Color.white}Repo subcommands{Color.reset}
-{'='*17}
-{Help.usageText.format('repo:<subcommand>')}
+        repo_cmd_table =Table(show_header=True, header_style=header_title)
+        repo_cmd_table.add_column("Command", style="dim", width=12)
+        repo_cmd_table.add_column("Description")
+        repo_cmd_table.add_row("profile", "Get a repository's info") 
+        repo_cmd_table.add_row("issues", "Return a repository's issues")
+        repo_cmd_table.add_row("forks", "Return a repository's forks")
+        repo_cmd_table.add_row("releases", "Return a repository's releases")
+        repo_cmd_table.add_row("stargazers", "Return a repository's stargazers") 
+        repo_cmd_table.add_row("path_contents", "List contents in a path of a repository")
 
-    {Color.white}Command            Description{Color.reset}
-    -------            -----------
-    profile            Get a repository's info
-    issues             Return a repository's issues
-    forks              Return a repository's forks
-    releases           Return a repository's releases
-    stargazers         Return a repository's stargazers
-    pathcontents       List contents in a path of a repository
-    """)
+        syntax = f"{green}repo:<command>{reset}"
+        xprint(f"{Help.usageText.format(syntax, 'repository investigation(s)')}")
+        xprint(repo_cmd_table)
              
         
     def logsCommand():
-        sys.stdout.write(f"""
-{Color.white}Logs subcommands{Color.reset}
-{'='*17}
-{Help.usageText.format('logs:<subcommand>')}
+        logs_cmd_table =Table(show_header=True, header_style=header_title)
+        logs_cmd_table.add_column("Command", style="dim", width=12)
+        logs_cmd_table.add_column("Description")
+        logs_cmd_table.add_row("view", "View logs") 
+        logs_cmd_table.add_row("read", "Read log")
+        logs_cmd_table.add_row("delete", "Delete log")
 
-    {Color.white}Command            Description{Color.reset}
-    -------            -----------
-    view               View logs
-    read               Read log
-    delete             Delete log
-    """)
-    
+        syntax = f"{green}logs:<command>{reset}"
+        xprint(f"{Help.usageText.format(syntax, 'log(s) management')}")
+        xprint(logs_cmd_table)
+        
+
     def csvCommand():
-        sys.stdout.write(f"""
-{Color.white}Csv subcommands{Color.reset}
-{'='*17}
-{Help.usageText.format('csv:<subcommand>')}
+        csv_cmd_table =Table(show_header=True, header_style=header_title)
+        csv_cmd_table.add_column("Command", style="dim", width=12)
+        csv_cmd_table.add_column("Description")
+        csv_cmd_table.add_row("view", "View csv files") 
+        csv_cmd_table.add_row("read", "Read csv")
+        csv_cmd_table.add_row("delete", "Delete csv")
 
-    {Color.white}Command            Description{Color.reset}
-    -------            -----------
-    view               View csv files
-    read               Read csv
-    delete             Delete csv
-    """)
-                
-            
-    def helpCommand():      
-        sys.stdout.write(f"""
-{Color.white}Core commands{Color.reset}
-{'='*13}
+        syntax = f"{green}csv:<command>{reset}"
+        xprint(f"{Help.usageText.format(syntax, 'csv management')}")
+        xprint(csv_cmd_table)
 
-    {Color.white}Command               Description{Color.reset}
-    -------               -----------
-    help                  Help menu
-    exit                  Close session
-    clear                 Clear screen
-    about                 Program' info
-    author                Developer' info
- 
-       
-{Color.white}Help subcommands{Color.reset}
-{'='*16}
-{Help.usageText.format('help:<subcommand>')}
 
-    {Color.white}Command               Description{Color.reset}
-    -------               -----------
-    csv                   (coming soon)
-    org                   List all organization investigation commands
-    logs                  List all logs management commands
-    repo                  List all repository investigation commands
-    user                  List all users investigation commands
-    search                List all target discovery commands
-    source                (beta) List all source code download commands (for developers)
-    version               List all version management commands
-    """)
+    def helpCommand():
+        core_cmd_table =Table(show_header=True, header_style=header_title)
+        core_cmd_table.add_column("Command", style="dim", width=12)
+        core_cmd_table.add_column("Description")
+        core_cmd_table.add_row("help", "Help menu") 
+        core_cmd_table.add_row("exit", "Close session") 
+        core_cmd_table.add_row("clear", "Clear screen")
+        core_cmd_table.add_row("about", "Program's info") 
+        core_cmd_table.add_row("author", "Developer's info")
+        
+        help_sub_cmd_table =Table(show_header=True, header_style=header_title)
+        help_sub_cmd_table.add_column("Command", style="dim", width=12)
+        help_sub_cmd_table.add_column("Description")
+        help_sub_cmd_table.add_row("csv", "List all csv management commands")
+        help_sub_cmd_table.add_row("logs", "List all logs management commands")
+        help_sub_cmd_table.add_row("org", "List all organization investigation commands")
+        help_sub_cmd_table.add_row("user", "List all users investigation commands")
+        help_sub_cmd_table.add_row("repo", "List all repository investigation commands") 
+        help_sub_cmd_table.add_row("search", "List all target discovery commands")
+        help_sub_cmd_table.add_row("source", "List all source code download commands (for developers)")
+        help_sub_cmd_table.add_row("version", "List all version management commands")
+
+        syntax = f"{green}help:<command>{reset}"
+        xprint(core_cmd_table)
+        xprint(f"\n\n{Help.usageText.format(syntax, 'octosuite')}")
+        xprint(help_sub_cmd_table)

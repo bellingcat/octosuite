@@ -3,8 +3,9 @@
 [![Upload Python Package](https://github.com/rly0nheart/octosuite/actions/workflows/python-publish.yml/badge.svg)](https://github.com/rly0nheart/octosuite/actions/workflows/python-publish.yml)
 [![CodeQL](https://github.com/rly0nheart/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/rly0nheart/octosuite/actions/workflows/codeql.yml)
 ![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=flat)
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/rly0nheart/octosuite?style=flat&logo=github)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rly0nheart/octosuite/2.2.0?style=flat&logo=github)
+![PyPI](https://img.shields.io/pypi/v/octosuite?style=flat&logo=pypi)
+![PyPI - Downloads](https://img.shields.io/pypi/dw/octosuite?style=flat&logo=pypi)
+![PyPI - Status](https://img.shields.io/pypi/status/octosuite?style=flat&logo=pypi)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=flat&logo=github)
 
 > *Simply gather OSINT on Github users & organizations like a God🔥*

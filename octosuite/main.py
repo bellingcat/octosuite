@@ -20,32 +20,6 @@ from octosuite.banner import name_logo, version_tag
 from octosuite.colors import red, white, green, red_bold, white_bold, green_bold, header_title, reset
 
 
-global endpoint
-global path_attrs
-global path_attr_dict
-global org_attrs
-global org_attr_dict
-global repo_attrs
-global repo_attr_dict
-global repo_releases_attrs
-global repo_releases_attr_dict
-global profile_attrs
-global profile_attr_dict
-global user_attrs
-global user_attr_dict
-global topic_attrs
-global topic_attr_dict
-global gists_attrs
-global gists_attr_dict
-global issue_attrs
-global issue_attr_dict
-global repo_issues_attrs
-global repo_issues_attr_dict
-global user_orgs_attrs
-global user_orgs_attr_dict
-global author_dict
-
-
 # API endpoint
 endpoint = 'https://api.github.com'
 # Path attribute
@@ -940,8 +914,5 @@ def versionInfo():
     '''
 	xprint(f"""
 {white_bold}Whats new in v{version_tag}?{reset}
-[ {green}improved{reset} ] added 'csv' command with 3 subcommands (view, read, delete)
-[ {green}improved{reset} ] using the rich library for coloring and tables
-[ {green}improved{reset} ] logs and commands will be displayed in a table
-[ {green}fixed{reset} ] minor bug fixes
+[ {green}fixed{reset} ] minor mistakes in code
 """)

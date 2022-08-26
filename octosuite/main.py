@@ -914,5 +914,6 @@ def versionInfo():
     '''
 	xprint(f"""
 {white_bold}Whats new in v{version_tag}?{reset}
-[ {green}fixed{reset} ] minor mistakes in code
+[ {green}improvement{reset}  ] The Octosuite GUI (.exe/.app) is now available on GitHub
+
 """)

@@ -10,7 +10,6 @@
 
 > *Simply gather OSINT on Github users & organizations like a God🔥*
 ![octosuite_gui_exe (2)](https://user-images.githubusercontent.com/74001397/186889610-4530ee26-d3c6-46fc-8c92-8709f89617fd.png "Octosuite' about window")
-
 ![octosuite_gui_exe (4)](https://user-images.githubusercontent.com/74001397/186889897-c1c17fac-fddc-4967-9084-39cfe2d1307f.png "Octosuite user profile window")
 
 

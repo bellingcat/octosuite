@@ -5,7 +5,7 @@ from octosuite.colors import red, white, green, reset
 banner.py
 This file holds the program's banner logo and version tag
 '''
-version_tag = "2.2.1"
+version_tag = "2.2.2"
 name_logo = f"""{white}
   _______        __          _______         __ __         
  |       |.----.|  |_.-----.|     __|.--.--.|__|  |_.-----.

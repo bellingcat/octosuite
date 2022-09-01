@@ -7,7 +7,7 @@ setuptools.setup(
     name="octosuite",
     version="2.2.2",
     author="Richard Mwewa",
-    author_email="richardmwewa@duck.com",
+    author_email="rly0nheart@duck.com",
     packages=["octosuite"],
     description="Advanced Github OSINT Framework",
     long_description=long_description,

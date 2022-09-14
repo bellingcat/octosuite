@@ -1,8 +1,9 @@
 """
-logRoller
-This class is where the main notification strings/messages are held,
-and are being used in two different cases (they're beig used by logging to be written to log files, and being printed out to the screen).
+logRoller This class is where the main notification strings/messages are held, and are being used in two different
+cases (they're being used by logging to be written to log files, and being printed out to the screen).
 """
+
+
 class logRoller:
     Ctrl = "Session terminated with {}."
     Error = "An error occurred: {}"

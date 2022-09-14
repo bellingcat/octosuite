@@ -49,8 +49,8 @@
 - [x] ...And more
 
 ## Note
-> octosuite automatically logs network and minor user activity of each session. The logs are saved by date and time in the .logs folder
->> If you believe octosuite can be better, feel free to open a pull request with your improvements✌🏾🙂
+> Octosuite automatically logs network and user activity of each session, the logs are saved by date and time in the .logs folder
+
 
 ## License
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)

@@ -43,26 +43,9 @@ class Help:
             f"{green_bold}help:logs{reset}"))
 
 
-    def Version():
-        xprint(Help.usageText2.format(f"{green_bold}version{reset}") + Help.usageText1.format(
-            f"{green_bold}help:version{reset}"))
-
-
     def Csv():
         xprint(
             Help.usageText2.format(f"{green_bold}csv{reset}") + Help.usageText1.format(f"{green_bold}help:csv{reset}"))
-
-
-    def versionCommand():
-        version_cmd_table = Table(show_header=True, header_style=header_title)
-        version_cmd_table.add_column("Command", style="dim", width=12)
-        version_cmd_table.add_column("Description")
-        version_cmd_table.add_row("check", "Check for new release(s)")
-        version_cmd_table.add_row("info", "Version information")
-
-        syntax = f"{green}version:<command>{reset}"
-        xprint(f"{Help.usageText.format(syntax, 'version management')}")
-        xprint(version_cmd_table)
 
 
     def sourceCommand():
@@ -187,7 +170,6 @@ class Help:
         help_sub_cmd_table.add_row("repo", "List all repository investigation commands")
         help_sub_cmd_table.add_row("search", "List all target discovery commands")
         help_sub_cmd_table.add_row("source", "List all source code download commands (for developers)")
-        help_sub_cmd_table.add_row("version", "List all version management commands")
 
         syntax = f"{green}help:<command>{reset}"
         xprint(core_cmd_table)

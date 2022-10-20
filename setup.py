@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as file:
 
 setuptools.setup(
     name="octosuite",
-    version="2.2.3",
+    version="2.3.3",
     author="Richard Mwewa",
     author_email="rly0nheart@duck.com",
     packages=["octosuite"],

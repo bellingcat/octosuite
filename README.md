@@ -1,22 +1,23 @@
 ![logo](https://user-images.githubusercontent.com/74001397/175805580-fffc96d4-e0ef-48bb-a55c-80b2da3e714d.png)
 
-[![Upload Python Package](https://github.com/rly0nheart/octosuite/actions/workflows/python-publish.yml/badge.svg)](https://github.com/rly0nheart/octosuite/actions/workflows/python-publish.yml)
-[![CodeQL](https://github.com/rly0nheart/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/rly0nheart/octosuite/actions/workflows/codeql.yml)
-![GitHub](https://img.shields.io/github/license/rly0nheart/octosuite?style=flat)
+A framework for gathering osint on GitHub *users*, *repositories* and *organizations*
+
+[![Upload Python Package](https://github.com/bellingcat/octosuite/actions/workflows/python-publish.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/python-publish.yml)
+[![CodeQL](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml)
+![GitHub](https://img.shields.io/github/license/bellingcat/octosuite?style=flat)
 ![PyPI](https://img.shields.io/pypi/v/octosuite?style=flat&logo=pypi)
 ![PyPI - Downloads](https://img.shields.io/pypi/dw/octosuite?style=flat&logo=pypi)
 ![PyPI - Status](https://img.shields.io/pypi/status/octosuite?style=flat&logo=pypi)
-![GitHub repo size](https://img.shields.io/github/repo-size/rly0nheart/octosuite?style=flat&logo=github)
+![GitHub repo size](https://img.shields.io/github/repo-size/bellingcat/octosuite?style=flat&logo=github)
 
-> *Simply gather OSINT on Github users & organizations like a God🔥*
 ![octosuite_gui_exe (2)](https://user-images.githubusercontent.com/74001397/186889610-4530ee26-d3c6-46fc-8c92-8709f89617fd.png "Octosuite' about window")
 ![octosuite_gui_exe (4)](https://user-images.githubusercontent.com/74001397/186889897-c1c17fac-fddc-4967-9084-39cfe2d1307f.png "Octosuite user profile window")
 
 
-## Wiki
-[Refer to the Wiki](https://github.com/rly0nheart/octosuite/wiki) for installation instructions, in addition to all other documentation.
+# Wiki
+[Refer to the Wiki](https://github.com/bellingcat/octosuite/wiki) for installation instructions, in addition to all other documentation.
 
-## Features
+# Features
 - [x] Fetches an organization's profile information
 - [x] Fetches an oganization's events
 - [x] Returns an organization's repositories
@@ -52,10 +53,12 @@
 > Octosuite automatically logs network and user activity of each session, the logs are saved by date and time in the .logs folder
 
 
-## License
+# License
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)
 
-## Donations
-Buy a coffee to the creator of *Octosuite*
+# Donations
+If you like Octosuite and would like to show support, you can Buy A Coffee for the developer using the button below
 
 <a href="https://www.buymeacoffee.com/189381184" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
+Your support will be much appreciated😊

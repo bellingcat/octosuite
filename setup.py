@@ -25,7 +25,7 @@ setuptools.setup(
         ],
     entry_points={
         "console_scripts": [
-            "octosuite=octosuite.main:onStart",
+            "octosuite=octosuite.main:main",
         ]
     },
 )

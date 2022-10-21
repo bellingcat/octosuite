@@ -30,7 +30,6 @@ class Octosuite:
                    ("about", self.about),
                    ("author", self.author),
                    ("help", Help.helpCommand),
-                   ("help:version", Help.versionCommand),
                    ("help:source", Help.sourceCommand),
                    ("help:search", Help.searchCommand),
                    ("help:user", Help.userCommand),
@@ -367,9 +366,9 @@ class Octosuite:
         if response.status_code == 404:
             xprint(f"{SignVar.negative} {logRoller.orgNotFound.format(organization)}")
         elif response.status_code == 200:
-            org_profile_tree = Tree(f"\n{white}{response.json()['name']}{reset}")
+            org_profile_tree = Tree("\n" + response.json()['name'])
             for attr in self.org_attrs:
-                org_profile_tree.add(f"{white}{self.org_attr_dict[attr]}:{reset} {response.json()[attr]}")
+                org_profile_tree.add(f"{self.org_attr_dict[attr]}: {response.json()[attr]}")
             xprint(org_profile_tree)
             csvLogger.logOrgProfile(response)
         else:
@@ -384,9 +383,10 @@ class Octosuite:
         if response.status_code == 404:
             xprint(f"{SignVar.negative} {logRoller.userNotFound.format(username)}")
         elif response.status_code == 200:
-            xprint(f"\n{white}{response.json()['name']}{reset}")
+            user_profile_tree = Tree("\n" + response.json()['name'])
             for attr in self.profile_attrs:
-                xprint(f"{white}├─ {self.profile_attr_dict[attr]}:{reset} {response.json()[attr]}")
+                user_profile_tree.add(f"{self.profile_attr_dict[attr]}: {response.json()[attr]}")
+            xprint(user_profile_tree)
             csvLogger.logUserProfile(response)
         else:
             xprint(response.json())
@@ -402,9 +402,10 @@ class Octosuite:
         if response.status_code == 404:
             xprint(f"{SignVar.negative} {logRoller.repoOrUserNotFound.format(repo_name, username)}")
         elif response.status_code == 200:
-            xprint(f"\n{white}{response.json()['full_name']}{reset}")
+            repo_profile_tree = Tree("\n" + response.json()['full_name'])
             for attr in self.repo_attrs:
-                xprint(f"{white}├─ {self.repo_attr_dict[attr]}:{reset} {response.json()[attr]}")
+                repo_profile_tree.add(f"{self.repo_attr_dict[attr]}: {response.json()[attr]}")
+            xprint(repo_profile_tree)
             csvLogger.logRepoProfile(response)
         else:
             xprint(response.json())
@@ -423,9 +424,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.infoNotFound.format(repo_name, username, path_name)}")
         elif response.status_code == 200:
             for content_count, content in enumerate(response.json(), start=1):
-                xprint(f"\n{white}{content['name']}{reset}")
+                path_contents_tree = Tree("\n" + content['name'])
                 for attr in self.path_attrs:
-                    xprint(f"{white}├─ {self.path_attr_dict[attr]}:{reset} {content[attr]}")
+                    path_contents_tree.add(f"{self.path_attr_dict[attr]}: {content[attr]}")
+                xprint(path_contents_tree)
                 csvLogger.logRepoPathContents(content, repo_name)
             xprint(SignVar.info, f"Found {content_count} file(s) in {repo_name}/{path_name}.")
         else:
@@ -445,9 +447,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.repoOrUserNotFound.format(repo_name, username)}")
         elif response.status_code == 200:
             for contributor in response.json():
-                xprint(f"\n{white}{contributor['login']}{reset}")
+                contributor_tree = Tree("\n" + contributor['login'])
                 for attr in self.user_attrs:
-                    xprint(f"{white}├─ {self.user_attr_dict[attr]}:{reset} {contributor[attr]}")
+                    contributor_tree.add(f"{self.user_attr_dict[attr]}: {contributor[attr]}")
+                xprint(contributor_tree)
                 csvLogger.logRepoContributors(contributor, repo_name)
             else:
                 xprint(response.json())
@@ -468,9 +471,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} Repository does not have any stargazers -> ({repo_name})")
         elif response.status_code == 200:
             for stargazer in response.json():
-                xprint(f"\n{white}{stargazer['login']}{reset}")
+                stargazer_tree = Tree("\n" + stargazer['login'])
                 for attr in self.user_attrs:
-                    xprint(f"{white}├─ {self.user_attr_dict[attr]}:{reset} {stargazer[attr]}")
+                    stargazer_tree.add(f"{self.user_attr_dict[attr]}: {stargazer[attr]}")
+                xprint(stargazer_tree)
                 csvLogger.logRepoStargazers(stargazer, repo_name)
         else:
             xprint(response.json())
@@ -491,9 +495,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} Repository does not have forks -> ({repo_name})")
         elif response.status_code == 200:
             for count, fork in enumerate(response.json()):
-                xprint(f"\n{white}{fork['full_name']}{reset}")
+                fork_tree = Tree("\n" + fork['full_name'])
                 for attr in self.repo_attrs:
-                    xprint(f"{white}├─ {self.repo_attr_dict[attr]}:{reset} {fork[attr]}")
+                    fork_tree.add(f"{self.repo_attr_dict[attr]}: {fork[attr]}")
+                xprint(fork_tree)
                 csvLogger.logRepoForks(fork, count)
         else:
             xprint(response.json())
@@ -513,9 +518,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} Repository does not have open issues -> ({repo_name})")
         elif response.status_code == 200:
             for issue in response.json():
-                xprint(f"\n{white}{issue['title']}{reset}")
+                issues_tree = Tree("\n" + issue['title'])
                 for attr in self.repo_issues_attrs:
-                    xprint(f"{white}├─ {self.repo_issues_attr_dict[attr]}:{reset} {issue[attr]}")
+                    issues_tree.add(f"{self.repo_issues_attr_dict[attr]}: {issue[attr]}")
+                xprint(issues_tree)
                 xprint(issue['body'])
                 csvLogger.logRepoIssues(issue, repo_name)
         else:
@@ -537,9 +543,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} Repository does not have releases -> ({repo_name})")
         elif response.status_code == 200:
             for release in response.json():
-                xprint(f"\n{white}{release['name']}{reset}")
+                releases_tree = Tree("\n" + release['name'])
                 for attr in self.repo_releases_attrs:
-                    xprint(f"{white}├─ {self.repo_releases_attr_dict[attr]}:{reset} {release[attr]}")
+                    releases_tree.add(f"{self.repo_releases_attr_dict[attr]}: {release[attr]}")
+                xprint(releases_tree)
                 xprint(release['body'])
             csvLogger.logRepoReleases(release, repo_name)
         else:
@@ -557,9 +564,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.orgNotFound.format(organization)}")
         elif response.status_code == 200:
             for repository in response.json():
-                xprint(f"\n{white}{repository['full_name']}{reset}")
+                repos_tree = Tree("\n" + repository['full_name'])
                 for attr in self.repo_attrs:
-                    xprint(f"{white}├─ {self.repo_attr_dict[attr]}:{reset} {repository[attr]}")
+                    repos_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
+                xprint(repos_tree)
                 csvLogger.logOrgRepos(repository, organization)
         else:
             xprint(response.json())
@@ -576,8 +584,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.orgNotFound.format(organization)}")
         elif response.status_code == 200:
             for event in response.json():
-                xprint(f"\n{white}{event['id']}{reset}")
-                xprint(f"{white}├─ Type:{reset} {event['type']}\n{white}├─ Created at:{reset} {event['created_at']}")
+                events_tree = Tree("\n" + event['id'])
+                events_tree.add(f"Type: {event['type']}")
+                events_tree.add(f"Created at: {event['created_at']}")
+            xprint(events_tree)
             xprint(event['payload'])
             csvLogger.logOrgEvents(event, organization)
         else:
@@ -608,9 +618,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.userNotFound.format(username)}")
         elif response.status_code == 200:
             for repository in response.json():
-                xprint(f"\n{white}{repository['full_name']}{reset}")
+                repos_tree = Tree("\n" + repository['full_name'])
                 for attr in self.repo_attrs:
-                    xprint(f"{white}├─ {self.repo_attr_dict[attr]}:{reset} {repository[attr]}")
+                    repos_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
+                xprint(repos_tree)
                 csvLogger.logUserRepos(repository, username)
             else:
                 xprint(response.json())
@@ -629,9 +640,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.userNotFound.format(username)}")
         elif response.status_code == 200:
             for gist in response.json():
-                xprint(f"\n{white}{gist['id']}{reset}")
+                gists_tree = Tree("\n" + gist['id'])
                 for attr in self.gists_attrs:
-                    xprint(f"{white}├─ {self.gists_attr_dict[attr]}:{reset} {gist[attr]}")
+                    gists_tree.add(f"{self.gists_attr_dict[attr]}: {gist[attr]}")
+                xprint(gists_tree)
                 csvLogger.logUserGists(gist)
         else:
             xprint(response.json())
@@ -650,9 +662,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.userNotFound.format(username)}")
         elif response.status_code == 200:
             for organization in response.json():
-                print(f"\n{white}{organization['login']}{reset}")
+                org_tree = Tree("\n" + organization['login'])
                 for attr in self.user_orgs_attrs:
-                    xprint(f"{white}├─ {self.user_orgs_attr_dict[attr]}:{reset} {organization[attr]}")
+                    org_tree.add(f"{self.user_orgs_attr_dict[attr]}: {organization[attr]}")
+                xprint(org_tree)
                 csvLogger.logUserOrgs(organization, username)
         else:
             xprint(response.json())
@@ -669,11 +682,12 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.userNotFound.format(username)}")
         elif response.status_code == 200:
             for event in response.json():
-                xprint(f"\n{white}{event['id']}{reset}")
-                xprint(f"{white}├─ Actor:{reset} {event['actor']['login']}")
-                xprint(f"{white}├─ Type:{reset} {event['type']}")
-                xprint(f"{white}├─ Repository:{reset} {event['repo']['name']}")
-                xprint(f"{white}├─ Created at:{reset} {event['created_at']}")
+                events_tree = Tree("\n" + event['id'])
+                events_tree.add(f"Actor: {event['actor']['login']}")
+                events_tree.add(f"Type: {event['type']}")
+                events_tree.add(f"Repository: {event['repo']['name']}")
+                events_tree.add(f"Created at: {event['created_at']}")
+                xprint(events_tree)
                 xprint(event['payload'])
                 csvLogger.logUserEvents(event)
         else:
@@ -693,9 +707,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.userNotFound.format(username)}")
         elif response.status_code == 200:
             for repository in response.json():
-                xprint(f"\n{white}{repository['full_name']}{reset}")
+                subscriptions_tree =Tree("\n" + repository['full_name'])
                 for attr in self.repo_attrs:
-                    xprint(f"{white}├─ {self.repo_attr_dict[attr]}:{reset} {repository[attr]}")
+                    subscriptions_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
+                xprint(subscriptions_tree)
                 csvLogger.logUserSubscriptions(repository, username)
         else:
             xprint(response.json())
@@ -714,9 +729,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.userNotFound.format(username)}")
         elif response.status_code == 200:
             for user in response.json():
-                xprint(f"\n{white}@{user['login']}{reset}")
+                following_tree = Tree("\n" + user['login'])
                 for attr in self.user_attrs:
-                    xprint(f"{white}├─ {self.user_attr_dict[attr]}:{reset} {user[attr]}")
+                    following_tree.add(f"{self.user_attr_dict[attr]}: {user[attr]}")
+                xprint(following_tree)
                 csvLogger.logUserFollowing(user, username)
         else:
             xprint(response.json())
@@ -735,9 +751,10 @@ class Octosuite:
             xprint(f"{SignVar.negative} {logRoller.userNotFound.format(username)}")
         elif response.status_code == 200:
             for follower in response.json():
-                xprint(f"\n{white}@{follower['login']}{reset}")
+                followers_tree = Tree("\n" + follower['login'])
                 for attr in self.user_attrs:
-                    xprint(f"{white}├─ {self.user_attr_dict[attr]}:{reset} {follower[attr]}")
+                    followers_tree.add(f"{self.user_attr_dict[attr]}: {follower[attr]}")
+                xprint(followers_tree)
                 csvLogger.logUserFollowers(follower, username)
         else:
             xprint(response.json())
@@ -764,9 +781,10 @@ class Octosuite:
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/users?q={query}&per_page={limit}").json()
         for user in response['items']:
-            xprint(f"\n{white}@{user['login']}{reset}")
+            user_search_tree = Tree("\n" + user['login'])
             for attr in self.user_attrs:
-                xprint(f"{white}├─ {self.user_attr_dict[attr]}:{reset} {user[attr]}")
+                user_search_tree.add(f"{self.user_attr_dict[attr]}: {user[attr]}")
+            xprint(user_search_tree)
             csvLogger.logUserSearch(user, query)
             
             
@@ -778,9 +796,10 @@ class Octosuite:
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/repositories?q={query}&per_page={limit}").json()
         for repository in response['items']:
-            xprint(f"\n{white}{repository['full_name']}{reset}")
+            repo_search_tree = Tree("\n" + repository['full_name'])
             for attr in self.repo_attrs:
-                xprint(f"{white}├─ {self.repo_attr_dict[attr]}:{reset} {repository[attr]}")
+                repo_search_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
+            xprint(repo_search_tree)
             csvLogger.logRepoSearch(repository, query)
             
             
@@ -792,9 +811,10 @@ class Octosuite:
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/topics?q={query}&per_page={limit}").json()
         for topic in response['items']:
-            xprint(f"\n{white}{topic['name']}{reset}")
+            topic_search_tree = Tree("\n" + topic['name'])
             for attr in self.topic_attrs:
-                xprint(f"{white}├─ {self.topic_attr_dict[attr]}:{reset} {topic[attr]}")
+                topic_search_tree.add(f"{self.topic_attr_dict[attr]}: {topic[attr]}")
+            xprint(topic_search_tree)
             csvLogger.logTopicSearch(topic, query)
             
             
@@ -806,9 +826,10 @@ class Octosuite:
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/issues?q={query}&per_page={limit}").json()
         for issue in response['items']:
-            xprint(f"\n\n{white}{issue['title']}{reset}")
+            issue_search_tree = Tree("\n" + issue['title'])
             for attr in self.repo_issues_attrs:
-                xprint(f"{white}├─ {self.repo_issues_attr_dict[attr]}:{reset} {issue[attr]}")
+                issue_search_tree.add(f"{self.repo_issues_attr_dict[attr]}: {issue[attr]}")
+            xprint(issue_search_tree)
             xprint(issue['body'])
         csvLogger.logIssueSearch(issue, query)
         
@@ -821,13 +842,14 @@ class Octosuite:
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/commits?q={query}&per_page={limit}").json()
         for commit in response['items']:
-            xprint(f"\n{white}{commit['commit']['tree']['sha']}{reset}")
-            xprint(f"{white}├─ Author:{reset} {commit['commit']['author']['name']}")
-            xprint(f"{white}├─ Username:{reset} {commit['author']['login']}")
-            xprint(f"{white}├─ Email:{reset} {commit['commit']['author']['email']}")
-            xprint(f"{white}├─ Commiter:{reset} {commit['commit']['committer']['name']}")
-            xprint(f"{white}├─ Repository:{reset} {commit['repository']['full_name']}")
-            xprint(f"{white}├─ URL:{reset} {commit['html_url']}")
+            commits_search_tree = Tree("\n" + commit['commit']['tree']['sha'])
+            commits_search_tree.add(f"Author: {commit['commit']['author']['name']}")
+            commits_search_tree.add(f"Username: {commit['author']['login']}")
+            commits_search_tree.add(f"Email: {commit['commit']['author']['email']}")
+            commits_search_tree.add(f"Commiter: {commit['commit']['committer']['name']}")
+            commits_search_tree.add(f"Repository: {commit['repository']['full_name']}")
+            commits_search_tree.add(f"URL: {commit['html_url']}")
+            xprint(commits_search_tree)
             xprint(commit['commit']['message'])
             csvLogger.logCommitsSearch(commit, query)
             

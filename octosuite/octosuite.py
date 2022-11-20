@@ -862,7 +862,7 @@ class Octosuite:
         logging.info(logRoller.viewingCsv)
         csv_files = os.listdir("output")
         csv_table = Table(show_header=True, header_style=header_title)
-        csv_table.add_column("CSV", style="dim", width=12)
+        csv_table.add_column("CSV", style="dim")
         csv_table.add_column("Size (bytes)")
         for csv_file in csv_files:
             csv_table.add_row(str(csv_file), str(os.path.getsize("output/" + csv_file)))
@@ -905,7 +905,7 @@ class Octosuite:
         logging.info(logRoller.viewingLogs)
         logs = os.listdir(".logs")
         logs_table = Table(show_header=True, header_style=header_title)
-        logs_table.add_column("Log", style="dim", width=12)
+        logs_table.add_column("Log", style="dim")
         logs_table.add_column("Size (bytes)")
         for log in logs:
             logs_table.add_row(str(log), str(os.path.getsize(".logs/" + log)))

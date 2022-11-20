@@ -6,7 +6,7 @@ banner.py
 This file holds the program's banner logo and version tag
 """
 version_tag = "2.3.3"
-name_logo = f"""{white}
+name_logo = f"""
   _______        __          _______         __ __         
  |       |.----.|  |_.-----.|     __|.--.--.|__|  |_.-----.
  |   -   ||  __||   _|  _  ||__     ||  |  ||  |   _|  -__|

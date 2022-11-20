@@ -171,5 +171,5 @@ class Help:
         help_cmd_table.add_row("source", "List all source code download commands (for developers)")
 
         syntax = f"{green}help:<command>{reset}"
-        xprint(f"\n{Help.usageText.format(syntax, 'octosuite')}")
+        xprint(f"{Help.usageText.format(syntax, 'octosuite')}")
         xprint(help_cmd_table)

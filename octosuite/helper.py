@@ -50,7 +50,7 @@ class Help:
 
     def sourceCommand():
         source_cmd_table = Table(show_header=True, header_style=header_title)
-        source_cmd_table.add_column("Command", style="dim", width=12)
+        source_cmd_table.add_column("Command", style="dim")
         source_cmd_table.add_column("Description")
         source_cmd_table.add_row("zipball", "Download source code Zipball")
         source_cmd_table.add_row("tarball", "Download source code Tarball")
@@ -62,7 +62,7 @@ class Help:
 
     def searchCommand():
         search_cmd_table = Table(show_header=True, header_style=header_title)
-        search_cmd_table.add_column("Command", style="dim", width=12)
+        search_cmd_table.add_column("Command", style="dim")
         search_cmd_table.add_column("Description")
         search_cmd_table.add_row("users", "Search user(s)")
         search_cmd_table.add_row("repos", "Search repositor[y][ies]")
@@ -77,7 +77,7 @@ class Help:
 
     def userCommand():
         user_cmd_table = Table(show_header=True, header_style=header_title)
-        user_cmd_table.add_column("Command", style="dim", width=12)
+        user_cmd_table.add_column("Command", style="dim")
         user_cmd_table.add_column("Description")
         user_cmd_table.add_row("profile", "Get a target's profile info")
         user_cmd_table.add_row("gists", "Return a users's gists")
@@ -96,7 +96,7 @@ class Help:
 
     def orgCommand():
         org_cmd_table = Table(show_header=True, header_style=header_title)
-        org_cmd_table.add_column("Command", style="dim", width=12)
+        org_cmd_table.add_column("Command", style="dim")
         org_cmd_table.add_column("Description")
         org_cmd_table.add_row("profile", "Get a target organization' profile info")
         org_cmd_table.add_row("repos", "Return a target organization' repositories")
@@ -110,7 +110,7 @@ class Help:
 
     def repoCommand():
         repo_cmd_table = Table(show_header=True, header_style=header_title)
-        repo_cmd_table.add_column("Command", style="dim", width=12)
+        repo_cmd_table.add_column("Command", style="dim")
         repo_cmd_table.add_column("Description")
         repo_cmd_table.add_row("profile", "Get a repository's info")
         repo_cmd_table.add_row("issues", "Return a repository's issues")
@@ -126,11 +126,12 @@ class Help:
 
     def logsCommand():
         logs_cmd_table = Table(show_header=True, header_style=header_title)
-        logs_cmd_table.add_column("Command", style="dim", width=12)
+        logs_cmd_table.add_column("Command", style="dim")
         logs_cmd_table.add_column("Description")
         logs_cmd_table.add_row("view", "View logs")
         logs_cmd_table.add_row("read", "Read log")
         logs_cmd_table.add_row("delete", "Delete log")
+        logs_cmd_table.add_row("clear", "clear logs")
 
         syntax = f"{green}logs:<command>{reset}"
         xprint(f"{Help.usageText.format(syntax, 'log(s) management')}")
@@ -139,11 +140,12 @@ class Help:
 
     def csvCommand():
         csv_cmd_table = Table(show_header=True, header_style=header_title)
-        csv_cmd_table.add_column("Command", style="dim", width=12)
+        csv_cmd_table.add_column("Command", style="dim")
         csv_cmd_table.add_column("Description")
         csv_cmd_table.add_row("view", "View csv files")
         csv_cmd_table.add_row("read", "Read csv")
         csv_cmd_table.add_row("delete", "Delete csv")
+        csv_cmd_table.add_row("clear", "clear csv files")
 
         syntax = f"{green}csv:<command>{reset}"
         xprint(f"{Help.usageText.format(syntax, 'csv management')}")
@@ -151,27 +153,23 @@ class Help:
         
 
     def helpCommand():
-        core_cmd_table = Table(show_header=True, header_style=header_title)
-        core_cmd_table.add_column("Command", style="dim", width=12)
-        core_cmd_table.add_column("Description")
-        core_cmd_table.add_row("help", "Help menu")
-        core_cmd_table.add_row("exit", "Close session")
-        core_cmd_table.add_row("clear", "Clear screen")
-        core_cmd_table.add_row("about", "Program's info")
-        core_cmd_table.add_row("author", "Developer's info")
-
-        help_sub_cmd_table = Table(show_header=True, header_style=header_title)
-        help_sub_cmd_table.add_column("Command", style="dim", width=12)
-        help_sub_cmd_table.add_column("Description")
-        help_sub_cmd_table.add_row("csv", "List all csv management commands")
-        help_sub_cmd_table.add_row("logs", "List all logs management commands")
-        help_sub_cmd_table.add_row("org", "List all organization investigation commands")
-        help_sub_cmd_table.add_row("user", "List all users investigation commands")
-        help_sub_cmd_table.add_row("repo", "List all repository investigation commands")
-        help_sub_cmd_table.add_row("search", "List all target discovery commands")
-        help_sub_cmd_table.add_row("source", "List all source code download commands (for developers)")
+        help_cmd_table = Table(show_header=True, header_style=header_title)
+        help_cmd_table.add_column("Command", style="dim")
+        help_cmd_table.add_column("Description")
+        help_cmd_table.add_row("help", "Help menu")
+        help_cmd_table.add_row("exit", "Close session")
+        help_cmd_table.add_row("clear", "Clear screen")
+        help_cmd_table.add_row("about", "Program's info")
+        help_cmd_table.add_row("author", "Developer's info")
+        help_cmd_table.add_section()
+        help_cmd_table.add_row("csv", "List all csv management commands")
+        help_cmd_table.add_row("logs", "List all logs management commands")
+        help_cmd_table.add_row("org", "List all organization investigation commands")
+        help_cmd_table.add_row("user", "List all users investigation commands")
+        help_cmd_table.add_row("repo", "List all repository investigation commands")
+        help_cmd_table.add_row("search", "List all target discovery commands")
+        help_cmd_table.add_row("source", "List all source code download commands (for developers)")
 
         syntax = f"{green}help:<command>{reset}"
-        xprint(core_cmd_table)
         xprint(f"\n\n{Help.usageText.format(syntax, 'octosuite')}")
-        xprint(help_sub_cmd_table)
+        xprint(help_cmd_table)

@@ -988,6 +988,7 @@ With over 20+ features, Octosuite only runs on 2 external dependencies, and retu
 
 Whats new in v{version_tag}?
 [fixed] Minor fixes
+[improved] Removed width from tables, so that they can auto adjust
 [added] Added the 'log:clear' command, which will be used to clear all logs
 [added] Added the 'csv:clear' command, which will be used to clear all csv files
 

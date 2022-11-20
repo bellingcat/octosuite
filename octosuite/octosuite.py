@@ -79,7 +79,7 @@ class Octosuite:
                    ("csv:view", self.viewCsv),
                    ("csv:read", self.readCsv),
                    ("csv:delete", self.deleteCsv),
-                   ("csv:clear", self.clearCsv]
+                   ("csv:clear", self.clearCsv)]
 
         # Path attribute
         self.path_attrs = ['size', 'type', 'path', 'sha', 'html_url']

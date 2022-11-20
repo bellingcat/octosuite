@@ -2,6 +2,7 @@
 
 import os 
 import sys
+import shutil
 import logging
 import getpass
 import requests
@@ -73,10 +74,12 @@ class Octosuite:
                    ("logs:view", self.viewLogs),
                    ("logs:read", self.readLog),
                    ("logs:delete", self.deleteLog),
+                   ("logs:clear", self.clearLogs),
                    ("csv", Help.Csv),
                    ("csv:view", self.viewCsv),
                    ("csv:read", self.readCsv),
-                   ("csv:delete", self.deleteCsv)]
+                   ("csv:delete", self.deleteCsv),
+                   ("csv:clear", self.clearCsv]
 
         # Path attribute
         self.path_attrs = ['size', 'type', 'path', 'sha', 'html_url']
@@ -884,7 +887,18 @@ class Octosuite:
         os.remove(os.path.join("output", csv_file))
         logging.info(logRoller.deletedCsv.format(csv_file))
         xprint(f"{SignVar.positive} {logRoller.deletedCsv.format(csv_file)}")
-        
+                    
+                    
+    # Clear csv
+    def clearCsv(self):
+        xprint(f"{SignVar.prompt} This will clear all {len(os.listdir('output'))} csv files, continue? (y/n) ", end="")
+        prompt = input().lower()
+        if prompt == "y":
+            shutil.rmtree("output", ignore_errors=True)
+            xprint(f"{SignVar.info} CSV files cleared successfully!")
+        else:
+            pass
+                    
         
     # View octosuite log files
     def viewLogs(self):
@@ -914,6 +928,19 @@ class Octosuite:
         os.remove(os.path.join(".logs", log_file))
         logging.info(logRoller.deletedLog.format(log_file))
         xprint(f"{SignVar.positive} {logRoller.deletedLog.format(log_file)}")
+        
+        
+    # Clear logs
+    def clearLogs(self):
+        xprint(f"{SignVar.prompt} This will clear all {len(os.listdir('.logs'))} logs and close the current session, continue? (y/n) ", end="")
+        prompt = input().lower()
+        if prompt == "y":
+            shutil.rmtree(".logs", ignore_errors=True)
+            xprint(f"{SignVar.info} Logs cleared successfully!")
+            xprint(f"{SignVar.info} {logRoller.sessionClosed.format(datetime.now())}")
+            exit()
+        else:
+            pass
         
         
     # Downloading release tarball
@@ -953,23 +980,19 @@ class Octosuite:
     # About program
     def about(self):
         about_text = Text(f"""
-        {white_bold}OCTOSUITE © 2022 Richard Mwewa{reset}
+        OCTOSUITE © 2022 Richard Mwewa
         
 An advanced and lightning fast framework for gathering open-source intelligence on GitHub users and organizations.
 With over 20+ features, Octosuite only runs on 2 external dependencies, and returns the gathered intelligence in a highly readable format.
 
-'_This is how you gather GitHub OSINT like a god:fire:_'
 
+Whats new in v{version_tag}?
+[fixed] Minor fixes
+[added] Added the 'log:clear' command, which will be used to clear all logs
+[added] Added the 'csv:clear' command, which will be used to clear all csv files
 
-{white_bold}Whats new in v{version_tag}?{reset}
-[ {green}fixed{reset}  ] Minor bug in tarball download
-[ {green}change{reset}  ] The 'version' commands have been removed
-[ {green}improvement{reset}  ] Refactored code to OOP
-[ {green}improvement{reset}  ] Octosuite will now automatically check for update on launch
-[ {green}improvement{reset}  ] Version information will be available in the about screen
-
-{white_bold}Read the wiki:{reset} https://github.com/bellingcat/octosuite/wiki
-{white_bold}GitHub REST API documentation:{reset} https://docs.github.com/rest
+Read the wiki: https://github.com/bellingcat/octosuite/wiki
+GitHub REST API documentation: https://docs.github.com/rest
 """)
         xprint(about_text)
 

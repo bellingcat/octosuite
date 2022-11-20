@@ -339,7 +339,7 @@ class Octosuite:
         self.clearScreen()
         self.configure_logging()
         self.check_updates()
-        xprint(ascii_banner)
+        xprint(ascii_banner())
               
         """
         Main loop keeps octosuite running, this will break if Octosuite detects a KeyboardInterrupt (Ctrl+C)

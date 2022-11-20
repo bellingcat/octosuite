@@ -16,7 +16,7 @@ from octosuite.helper import Help
 from octosuite.sign_vars import SignVar
 from octosuite.log_roller import logRoller
 from octosuite.csv_loggers import csvLogger
-from octosuite.banner import name_logo, version_tag
+from octosuite.banners import version_tag, ascii_banner
 from octosuite.colors import red, white, green, white_bold, green_bold, header_title, reset
 
 

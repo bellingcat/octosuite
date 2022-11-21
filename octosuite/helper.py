@@ -161,7 +161,6 @@ class Help:
         help_cmd_table.add_row("clear", "Clear screen")
         help_cmd_table.add_row("about", "Program's info")
         help_cmd_table.add_row("author", "Developer's info")
-        help_cmd_table.add_section()
         help_cmd_table.add_row("csv", "List all csv management commands")
         help_cmd_table.add_row("logs", "List all logs management commands")
         help_cmd_table.add_row("org", "List all organization investigation commands")

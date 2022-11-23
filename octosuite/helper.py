@@ -117,6 +117,7 @@ class Help:
         repo_cmd_table.add_row("forks", "Return a repository's forks")
         repo_cmd_table.add_row("releases", "Return a repository's releases")
         repo_cmd_table.add_row("stargazers", "Return a repository's stargazers")
+        repo_cmd_table.add_row("contributors", "Return a repository's contributors")
         repo_cmd_table.add_row("path_contents", "List contents in a path of a repository")
 
         syntax = f"{green}repo:<command>{reset}"

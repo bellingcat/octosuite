@@ -8,15 +8,6 @@ from datetime import datetime
 # This file gets called first at start up before any other file gets called
 # colors.py is the reason why users get to choose whether to enable/disable colors
 # delete this file, the entire program breaks
-import psutil
-import platform
-from datetime import datetime
-
-
-# This file is responsible for enabling/disabling colors in OctoSuite
-# This file gets called first at start up before any other file gets called
-# colors.py is the reason why users get to choose whether to enable/disable colors
-# delete this file, the entire program breaks
 system_info = [("RAM", f"{str(round(psutil.virtual_memory().total / (1024.0 ** 3)))}GB"),
 
                ("Node", platform.node()),

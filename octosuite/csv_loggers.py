@@ -5,12 +5,8 @@ from octosuite.log_roller import LogRoller
 from octosuite.colors import red, white, green, reset
 
 
-
-"""
-CsvLogger
-This class holds the methods for creating .csv files of each functionality in main
-"""
-
+# CsvLogger
+# This class holds the methods for creating .csv files of each functionality in main
 class CsvLogger:
     # .csv for organization' profile
     def  log_org_profile(response):

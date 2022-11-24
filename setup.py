@@ -12,7 +12,7 @@ setuptools.setup(
     description="Advanced Github OSINT Framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/rly0nheart/octosuite",
+    url="https://github.com/bellingcat/octosuite",
     license="GNU General Public License v3 (GPLv3)",
     install_requires=["requests", "rich", "psutil"],
     classifiers=[

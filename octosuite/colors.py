@@ -9,7 +9,6 @@ from datetime import datetime
 # colors.py is the reason why users get to choose whether to enable/disable colors
 # delete this file, the entire program breaks
 system_info = [("RAM", f"{str(round(psutil.virtual_memory().total / (1024.0 ** 3)))}GB"),
-
                ("Node", platform.node()),
                ("Release", platform.release()),
                ("Version", platform.version()),

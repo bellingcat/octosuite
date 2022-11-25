@@ -1,19 +1,19 @@
 import logging
 from rich import print as xprint
-from octosuite.sign_vars import SignVar
-from octosuite.octosuite import Octosuite
-from octosuite.log_roller import logRoller
+from octosuite.octosuite import *
+from octosuite.log_roller import LogRoller
+from octosuite.message_prefixes import MessagePrefix
 
 
-def main():
+def octosuite():
     try:
         run = Octosuite()
-        run.onStart()
+        run.on_start()
         
     except KeyboardInterrupt:
-        logging.warning(logRoller.Ctrl.format("Ctrl+C"))
-        xprint(f"{SignVar.warning} {logRoller.Ctrl.format('Ctrl+C')}")
+        logging.warning(LogRoller.ctrl_c)
+        xprint(f"{MessagePrefix.warning} {LogRoller.ctrl_c}")
 
     except Exception as e:
-        logging.error(logRoller.Error.format(e))
-        xprint(f"{SignVar.error} {logRoller.Error.format(e)}")
+        logging.error(LogRoller.error.format(e))
+        xprint(f"{MessagePrefix.error} {LogRoller.error.format(e)}")

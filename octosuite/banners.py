@@ -1,5 +1,6 @@
 import random
 import getpass
+from rich.tree import Tree
 from octosuite.colors import red, white, green, reset
 
 

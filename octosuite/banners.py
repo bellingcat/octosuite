@@ -35,7 +35,7 @@ def ascii_banner():
  ▀▄▀ ▀▄▄  █  ▀▄▀ ▄██ ▀▄█ █  █  █▄▄
                               """]
     ascii_banner = random.choice(ascii_banners)
-    return banner_tree, f"""{ascii_banner} v{version_tag}
+    return banner_tree, f"""{ascii_banner} v{version_tag}#dev
                           {white}— Advanced Github {red}OSINT{white} Framework
 
 

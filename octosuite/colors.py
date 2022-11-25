@@ -20,31 +20,27 @@ first_banner = f"""
             
 """
 
-print(first_banner)
-system_tree = Tree(platform.system())
-for system_key, system_value in system_info:
-    system_tree.add(f"{system_key}: {system_value}")
-xprint(system_tree)
+print(banner)
+print(f"\t{platform.system()}")
+for key, value in system_info:
+    print(f"\t├─ {key}: {value()}")
 print("\n")
 while True:
     try:
-        color_chooser = input(f"[?] Welcome, would you like to enable colors for this session? (yes/no) ").lower()
-        if color_chooser == "yes":
+        color_chooser = input(f"[ ? ] Welcome, would you like to enable colors for this session? (Y/n) ").lower()
+        if color_chooser == "y":
             header_title = "bold white"
             red = "[red]"
             white = "[white]"
-            green = "[green]"
-            red_bold = "[white bold]"
-            white_bold = "[white bold]"
+@@ -33,11 +38,11 @@
             green_bold = "[green bold]"
             reset = "[/]"
             break
-        elif color_chooser == "no":
+        elif color_chooser == "n":
             header_title = red = white = green = red_bold = white_bold = green_bold = reset = ""
             break
         else:
-            print(f"\n[!] Your response '{color_chooser}' is invalid (expected yes or no)")
+            print(f"\n[ ! ] Your response '{color_chooser}' is invalid (expected y or n)")
 
     except KeyboardInterrupt:
-        exit(f"[!] Process interrupted with Ctrl+C.")
-      
+        exit(f"[ ! ] Process interrupted with [Ctrl+C].")

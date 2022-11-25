@@ -1,6 +1,4 @@
-import psutil
 import platform
-from richt.tree import Tree
 from datetime import datetime
 
 
@@ -8,17 +6,16 @@ from datetime import datetime
 # This file gets called first at start up before any other file gets called
 # colors.py is the reason why users get to choose whether to enable/disable colors
 # delete this file, the entire program breaks
-system_info = [("RAM", f"{str(round(psutil.virtual_memory().total / (1024.0 ** 3)))}GB"),
-               ("Node", platform.node()),
-               ("Release", platform.release()),
-               ("Version", platform.version()),
-               ("Processor", platform.processor()),
-               ("Architecture", platform.architecture())]
-first_banner = f"""
-            OCTOSUITE © 2023 Richard Mwewa
+system_info = [("Processor",platform.processor),
+                 ("Node", platform.node),
+                 ("Release", platform.release),
+                 ("Architecture", platform.architecture),
+                 ("Version", platform.version)]
+banner = f"""
+            OCTOSUITE © 2022 Richard Mwewa
             {datetime.now().strftime('%A %d %B %Y, %H:%M:%S%p')}
-            
-"""
+         
+         """
 
 print(banner)
 print(f"\t{platform.system()}")
@@ -32,7 +29,6 @@ while True:
             header_title = "bold white"
             red = "[red]"
             white = "[white]"
-@@ -33,11 +38,11 @@
             green_bold = "[green bold]"
             reset = "[/]"
             break

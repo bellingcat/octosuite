@@ -38,7 +38,7 @@ class Octosuite:
                             ("help:logs", Help.logs_command),
                             ("help:csv", Help.csv_command),
                             ("help:org", Help.org_command),
-                            ("source", Help.cource),
+                            ("source", Help.source),
                             ("source:tarball", self.download_tarball),
                             ("source:zipball", self.download_zipball),
                             ("org", Help.org),

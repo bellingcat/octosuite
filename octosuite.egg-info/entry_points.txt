@@ -1,0 +1,2 @@
+[console_scripts]
+octosuite = octosuite.main:octosuite

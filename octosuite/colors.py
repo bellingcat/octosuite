@@ -1,6 +1,6 @@
 import psutil
 import platform
-from richt.tree import Tree
+from rich.tree import Tree
 from datetime import datetime
 
 

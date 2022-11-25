@@ -3,7 +3,7 @@ import csv
 import logging
 from rich import print as xprint
 from octosuite.log_roller import LogRoller
-from octosuite.colors import red, white, green, reset
+from octosuite.message_prefixes import MessagePrefix
 
 
 # CsvLogger

@@ -7,6 +7,7 @@ import logging
 import getpass
 import requests
 import platform
+from rich.text import Text
 from rich.tree import Tree
 from rich.table import Table
 from datetime import datetime
@@ -26,59 +27,59 @@ class Octosuite:
         
         # A list of tuples mapping commands to their methods
         self.command_map = [("exit", self.exit_session),
-                   ("clear", self.clear_screen),
-                   ("about", self.about),
-                   ("author", self.author),
-                   ("help", Help.help_command),
-                   ("help:source", Help.source_command),
-                   ("help:search", Help.search_command),
-                   ("help:user", Help.user_command),
-                   ("help:repo", Help.repo_command),
-                   ("help:logs", Help.logs_command),
-                   ("help:csv", Help.csv_command),
-                   ("help:org", Help.org_command),
-                   ("source", Help.cource),
-                   ("source:tarball", self.download_tarball),
-                   ("source:zipball", self.download_zipball),
-                   ("org", Help.org),
-                   ("org:events", self.org_events),
-                   ("org:profile", self.org_profile),
-                   ("org:repos", self.org_repos),
-                   ("org:member", self.org_member),
-                   ("repo", Help.repo),
-                   ("repo:path_contents", self.path_contents),
-                   ("repo:profile", self.repo_profile),
-                   ("repo:contributors", self.repo_contributors),
-                   ("repo:stargazers", self.repo_stargazers),
-                   ("repo:forks", self.repo_forks),
-                   ("repo:issues", self.repo_issues),
-                   ("repo:releases", self.repo_releases),
-                   ("user", Help.user),
-                   ("user:repos", self.user_repos),
-                   ("user:gists", self.user_gists),
-                   ("user:orgs", self.user_orgs),
-                   ("user:profile", self.user_profile),
-                   ("user:events", self.user_events),
-                   ("user:followers", self.user_followers),
-                   ("user:follows", self.user_follows),
-                   ("user:following", self.user_following),
-                   ("user:subscriptions", self.user_subscriptions),
-                   ("search", Help.search),
-                   ("search:users", self.user_search),
-                   ("search:repos", self.repo_search),
-                   ("search:topics", self.topic_search),
-                   ("search:issues", self.issue_search),
-                   ("search:commits", self.commits_search),
-                   ("logs", Help.logs),
-                   ("logs:view", self.view_logs),
-                   ("logs:read", self.read_log),
-                   ("logs:delete", self.delete_log),
-                   ("logs:clear", self.clear_logs),
-                   ("csv", Help.csv),
-                   ("csv:view", self.view_csv),
-                   ("csv:read", self.read_csv),
-                   ("csv:delete", self.delete_csv),
-                   ("csv:clear", self.clear_csv)]
+                            ("clear", self.clear_screen),
+                            ("about", self.about),
+                            ("author", self.author),
+                            ("help", Help.help_command),
+                            ("help:source", Help.source_command),
+                            ("help:search", Help.search_command),
+                            ("help:user", Help.user_command),
+                            ("help:repo", Help.repo_command),
+                            ("help:logs", Help.logs_command),
+                            ("help:csv", Help.csv_command),
+                            ("help:org", Help.org_command),
+                            ("source", Help.cource),
+                            ("source:tarball", self.download_tarball),
+                            ("source:zipball", self.download_zipball),
+                            ("org", Help.org),
+                            ("org:events", self.org_events),
+                            ("org:profile", self.org_profile),
+                            ("org:repos", self.org_repos),
+                            ("org:member", self.org_member),
+                            ("repo", Help.repo),
+                            ("repo:path_contents", self.path_contents),
+                            ("repo:profile", self.repo_profile),
+                            ("repo:contributors", self.repo_contributors),
+                            ("repo:stargazers", self.repo_stargazers),
+                            ("repo:forks", self.repo_forks),
+                            ("repo:issues", self.repo_issues),
+                            ("repo:releases", self.repo_releases),
+                            ("user", Help.user),
+                            ("user:repos", self.user_repos),
+                            ("user:gists", self.user_gists),
+                            ("user:orgs", self.user_orgs),
+                            ("user:profile", self.user_profile),
+                            ("user:events", self.user_events),
+                            ("user:followers", self.user_followers),
+                            ("user:follows", self.user_follows),
+                            ("user:following", self.user_following),
+                            ("user:subscriptions", self.user_subscriptions),
+                            ("search", Help.search),
+                            ("search:users", self.users_search),
+                            ("search:repos", self.repos_search),
+                            ("search:topics", self.topics_search),
+                            ("search:issues", self.issues_search),
+                            ("search:commits", self.commits_search),
+                            ("logs", Help.logs),
+                            ("logs:view", self.view_logs),
+                            ("logs:read", self.read_log),
+                            ("logs:delete", self.delete_log),
+                            ("logs:clear", self.clear_logs),
+                            ("csv", Help.csv),
+                            ("csv:view", self.view_csv),
+                            ("csv:read", self.read_csv),
+                            ("csv:delete", self.delete_csv),
+                            ("csv:clear", self.clear_csv)]
 
         # Path attribute
         self.path_attrs = ['size', 'type', 'path', 'sha', 'html_url']
@@ -324,7 +325,7 @@ class Octosuite:
             """
             pass
         else:
-            xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}). Run 'pip install --upgrade octosuite' to get the updates.\n")
+            xprint(f"{MessagePrefix.info} A new release of Octosuite is available ({response['tag_name']}). Run 'pip install --upgrade octosuite' to get the updates.\n")
                   
                   
     """
@@ -484,7 +485,7 @@ class Octosuite:
     def repo_forks(self):
         xprint(f"{white}>> %{green}Repository{reset} ", end="")
         repo_name = input()
-        xprint(f"{white}>> @{green}Owner{white} (username){reset} ", end="")
+        xprint(f"{white}@{green}Owner{white} (username):{reset} ", end="")
         username = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("repository forks"), end="")
         limit = int(input())
@@ -781,10 +782,10 @@ class Octosuite:
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/users?q={query}&per_page={limit}").json()
         for user in response['items']:
-            user_search_tree = Tree("\n" + user['login'])
+            users_search_tree = Tree("\n" + user['login'])
             for attr in self.user_attrs:
-                user_search_tree.add(f"{self.user_attr_dict[attr]}: {user[attr]}")
-            xprint(user_search_tree)
+                users_search_tree.add(f"{self.user_attr_dict[attr]}: {user[attr]}")
+            xprint(users_search_tree)
             CsvLogger.log_users_search(user, query)
             
             
@@ -796,10 +797,10 @@ class Octosuite:
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/repositories?q={query}&per_page={limit}").json()
         for repository in response['items']:
-            repo_search_tree = Tree("\n" + repository['full_name'])
+            repos_search_tree = Tree("\n" + repository['full_name'])
             for attr in self.repo_attrs:
-                repo_search_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
-            xprint(repo_search_tree)
+                repos_search_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
+            xprint(repos_search_tree)
             CsvLogger.log_repos_search(repository, query)
             
             
@@ -811,10 +812,10 @@ class Octosuite:
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/topics?q={query}&per_page={limit}").json()
         for topic in response['items']:
-            topic_search_tree = Tree("\n" + topic['name'])
+            topics_search_tree = Tree("\n" + topic['name'])
             for attr in self.topic_attrs:
-                topic_search_tree.add(f"{self.topic_attr_dict[attr]}: {topic[attr]}")
-            xprint(topic_search_tree)
+                topics_search_tree.add(f"{self.topic_attr_dict[attr]}: {topic[attr]}")
+            xprint(topics_search_tree)
             CsvLogger.log_topics_search(topic, query)
             
             
@@ -826,10 +827,10 @@ class Octosuite:
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/issues?q={query}&per_page={limit}").json()
         for issue in response['items']:
-            issue_search_tree = Tree("\n" + issue['title'])
+            issues_search_tree = Tree("\n" + issue['title'])
             for attr in self.repo_issues_attrs:
-                issue_search_tree.add(f"{self.repo_issues_attr_dict[attr]}: {issue[attr]}")
-            xprint(issue_search_tree)
+                issues_search_tree.add(f"{self.repo_issues_attr_dict[attr]}: {issue[attr]}")
+            xprint(issues_search_tree)
             xprint(issue['body'])
         CsvLogger.log_issues_search(issue, query)
         
@@ -978,7 +979,8 @@ class Octosuite:
         about_text = f"""
         OCTOSUITE © 2023 Richard Mwewa
         
-An advanced and lightning fast framework for gathering open-source intelligence on GitHub users and organizations, with over 20+ features.
+An advanced and lightning fast framework for gathering open-source intelligence on GitHub users and organizations.
+With over 20+ features, Octosuite only runs on 2 external dependencies, and returns the gathered intelligence in a highly readable format.
 
 
 Whats new in v{version_tag}?

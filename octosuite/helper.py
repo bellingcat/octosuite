@@ -2,53 +2,44 @@ from rich.table import Table
 from rich import print as xprint
 from octosuite.colors import white, green, white_bold, green_bold, header_title, reset
 
-"""
-Help
-This class holds the help text for available commands.
-"""
-
-
+# Help
+# This class holds the help text for available commands.
 class Help:
-    usageText = 'Use syntax {} to get started with %s{}%s.' % (green_bold, reset)
-    usageText1 = '%sUse {} to view all available subcommands.%s' % (white, reset)
-    usageText2 = "%sThe {} command works with subcommands. %s" % (white, reset)
+    usage_text = 'Use syntax {} to get started with %s{}%s.' % (green_bold, reset)
+    usage_text_1 = '%sUse {} to view all available subcommands.%s' % (white, reset)
+    usage_text_2 = "%sThe {} command works with subcommands. %s" % (white, reset)
 
-    def Org():
+    def org():
         xprint(
-            Help.usageText2.format(f"{green_bold}org{reset}") + Help.usageText1.format(f"{green_bold}help:org{reset}"))
+            Help.usage_text_2.format(f"{green_bold}org{reset}") + Help.usage_text_1.format(
+                f"{green_bold}help:org{reset}"))
 
-
-    def Repo():
-        xprint(Help.usageText2.format(f"{green_bold}repo{reset}") + Help.usageText1.format(
+    def repo():
+        xprint(Help.usage_text_2.format(f"{green_bold}repo{reset}") + Help.usage_text_1.format(
             f"{green_bold}help:repo{reset}"))
 
-
-    def User():
-        xprint(Help.usageText2.format(f"{green_bold}user{reset}") + Help.usageText1.format(
+    def user():
+        xprint(Help.usage_text_2.format(f"{green_bold}user{reset}") + Help.usage_text_1.format(
             f"{green_bold}help:user{reset}"))
 
-
-    def Search():
-        xprint(Help.usageText2.format(f"{green_bold}search{reset}") + Help.usageText1.format(
+    def search():
+        xprint(Help.usage_text_2.format(f"{green_bold}search{reset}") + Help.usage_text_1.format(
             f"{green_bold}help:search{reset}"))
 
-
-    def Source():
-        xprint(Help.usageText2.format(f"{green_bold}source{reset}") + Help.usageText1.format(
+    def source():
+        xprint(Help.usage_text_2.format(f"{green_bold}source{reset}") + Help.usage_text_1.format(
             f"{green_bold}help:source{reset}"))
 
-
-    def Logs():
-        xprint(Help.usageText2.format(f"{green_bold}logs{reset}") + Help.usageText1.format(
+    def logs():
+        xprint(Help.usage_text_2.format(f"{green_bold}logs{reset}") + Help.usage_text_1.format(
             f"{green_bold}help:logs{reset}"))
 
-
-    def Csv():
+    def csv():
         xprint(
-            Help.usageText2.format(f"{green_bold}csv{reset}") + Help.usageText1.format(f"{green_bold}help:csv{reset}"))
+            Help.usage_text_2.format(f"{green_bold}csv{reset}") + Help.usage_text_1.format(
+                f"{green_bold}help:csv{reset}"))
 
-
-    def sourceCommand():
+    def source_command():
         source_cmd_table = Table(show_header=True, header_style=header_title)
         source_cmd_table.add_column("Command", style="dim")
         source_cmd_table.add_column("Description")
@@ -56,11 +47,10 @@ class Help:
         source_cmd_table.add_row("tarball", "Download source code Tarball")
 
         syntax = f"{green}source:<command>{reset}"
-        xprint(f"{Help.usageText.format(syntax, 'source code downloads')}")
+        xprint(f"{Help.usage_text.format(syntax, 'source code downloads')}")
         xprint(source_cmd_table)
 
-
-    def searchCommand():
+    def search_command():
         search_cmd_table = Table(show_header=True, header_style=header_title)
         search_cmd_table.add_column("Command", style="dim")
         search_cmd_table.add_column("Description")
@@ -71,11 +61,10 @@ class Help:
         search_cmd_table.add_row("commits", "Search commit(s)")
 
         syntax = f"{green}search:<command>{reset}"
-        xprint(f"{Help.usageText.format(syntax, 'target discovery')}")
+        xprint(f"{Help.usage_text.format(syntax, 'target discovery')}")
         xprint(search_cmd_table)
 
-
-    def userCommand():
+    def user_command():
         user_cmd_table = Table(show_header=True, header_style=header_title)
         user_cmd_table.add_column("Command", style="dim")
         user_cmd_table.add_column("Description")
@@ -90,11 +79,10 @@ class Help:
         user_cmd_table.add_row("subscriptions", "Return a target's subscriptions")
 
         syntax = f"{green}user:<command>{reset}"
-        xprint(f"{Help.usageText.format(syntax, 'user investigation(s)')}")
+        xprint(f"{Help.usage_text.format(syntax, 'user investigation(s)')}")
         xprint(user_cmd_table)
 
-
-    def orgCommand():
+    def org_command():
         org_cmd_table = Table(show_header=True, header_style=header_title)
         org_cmd_table.add_column("Command", style="dim")
         org_cmd_table.add_column("Description")
@@ -104,11 +92,10 @@ class Help:
         org_cmd_table.add_row("member", "Check if a specified user is a public member of the target organization")
 
         syntax = f"{green}org:<command>{reset}"
-        xprint(f"{Help.usageText.format(syntax, 'organization investigation(s)')}")
+        xprint(f"{Help.usage_text.format(syntax, 'organization investigation(s)')}")
         xprint(org_cmd_table)
 
-
-    def repoCommand():
+    def repo_command():
         repo_cmd_table = Table(show_header=True, header_style=header_title)
         repo_cmd_table.add_column("Command", style="dim")
         repo_cmd_table.add_column("Description")
@@ -121,11 +108,10 @@ class Help:
         repo_cmd_table.add_row("path_contents", "List contents in a path of a repository")
 
         syntax = f"{green}repo:<command>{reset}"
-        xprint(f"{Help.usageText.format(syntax, 'repository investigation(s)')}")
+        xprint(f"{Help.usage_text.format(syntax, 'repository investigation(s)')}")
         xprint(repo_cmd_table)
 
-
-    def logsCommand():
+    def logs_command():
         logs_cmd_table = Table(show_header=True, header_style=header_title)
         logs_cmd_table.add_column("Command", style="dim")
         logs_cmd_table.add_column("Description")
@@ -135,11 +121,10 @@ class Help:
         logs_cmd_table.add_row("clear", "clear logs")
 
         syntax = f"{green}logs:<command>{reset}"
-        xprint(f"{Help.usageText.format(syntax, 'log(s) management')}")
+        xprint(f"{Help.usage_text.format(syntax, 'log(s) management')}")
         xprint(logs_cmd_table)
 
-
-    def csvCommand():
+    def csv_command():
         csv_cmd_table = Table(show_header=True, header_style=header_title)
         csv_cmd_table.add_column("Command", style="dim")
         csv_cmd_table.add_column("Description")
@@ -149,11 +134,10 @@ class Help:
         csv_cmd_table.add_row("clear", "clear csv files")
 
         syntax = f"{green}csv:<command>{reset}"
-        xprint(f"{Help.usageText.format(syntax, 'csv management')}")
+        xprint(f"{Help.usage_text.format(syntax, 'csv management')}")
         xprint(csv_cmd_table)
-        
 
-    def helpCommand():
+    def help_command():
         core_cmd_table = Table(show_header=True, header_style=header_title)
         core_cmd_table.add_column("Command", style="dim", width=12)
         core_cmd_table.add_column("Description")
@@ -176,5 +160,5 @@ class Help:
 
         syntax = f"{green}help:<command>{reset}"
         xprint(core_cmd_table)
-        xprint(f"\n\n{Help.usageText.format(syntax, 'octosuite')}")
+        xprint(f"\n\n{Help.usage_text.format(syntax, 'octosuite')}")
         xprint(help_sub_cmd_table)

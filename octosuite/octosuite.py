@@ -325,7 +325,7 @@ class Octosuite:
             """
             pass
         else:
-            xprint(f"{MessagePrefix.info} A new release of Octosuite is available ({response['tag_name']}). Run 'pip install --upgrade octosuite' to get the updates.\n")
+            xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}). Run 'pip install --upgrade octosuite' to get the updates.\n")
                   
                   
     """
@@ -337,7 +337,7 @@ class Octosuite:
         self.clear_screen()
         self.configure_logging()
         self.check_updates()
-        xprint(ascii_banner())
+        xprint(ascii_banner()[1], ascii_banner()[0])
               
         """
         Main loop keeps octosuite running, this will break if Octosuite detects a KeyboardInterrupt (Ctrl+C)
@@ -361,7 +361,7 @@ class Octosuite:
                 
     # Fetching organization info
     def org_profile(self):
-        xprint(f"{white}>> @{green}Organization {white}(username){reset} ", end="")
+        xprint(f"{white}@{green}Organization {white}(username):{reset} ", end="")
         organization = input()
         response = requests.get(f"{self.endpoint}/orgs/{organization}")
         if response.status_code == 404:
@@ -378,7 +378,7 @@ class Octosuite:
             
     # Fetching user information
     def user_profile(self):
-        xprint(f"{white}>> @{green}Username{reset} ", end="")
+        xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
         response = requests.get(f"{self.endpoint}/users/{username}")
         if response.status_code == 404:
@@ -556,7 +556,7 @@ class Octosuite:
             
     # Fetching organization repositories
     def org_repos(self):
-        xprint(f"{white}>> @{green}Organization{white} (username){reset} ", end="")
+        xprint(f"{white}@{green}organization{white} (username):{reset} ", end="")
         organization = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("organization repositories"), end="")
         limit = int(input())
@@ -576,7 +576,7 @@ class Octosuite:
             
     # organization events
     def org_events(self):
-        xprint(f"{white}>> @{green}Organization{white} (username){reset} ", end="")
+        xprint(f"{white}@{green}organization{white} (username):{reset} ", end="")
         organization = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("organization repositories"), end="")
         limit = int(input())
@@ -597,9 +597,9 @@ class Octosuite:
             
     # organization member
     def org_member(self):
-        xprint(f"{white}>> @{green}Organization{white} (username){reset} ", end="")
+        xprint(f"{white}@{green}organization{white} (username):{reset} ", end="")
         organization = input()
-        xprint(f"{white}>> @{green}Username{reset} ", end="")
+        xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
         response = requests.get(f"{self.endpoint}/orgs/{organization}/public_members/{username}")
         if response.status_code == 204:
@@ -610,7 +610,7 @@ class Octosuite:
             
     # Fetching user repositories
     def user_repos(self):
-        xprint(f"{white}>> @{green}Username{reset} ", end="")
+        xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("repositories"), end="")
         limit = int(input())
@@ -630,7 +630,7 @@ class Octosuite:
                 
     # Fetching user's gists
     def user_gists(self):
-        xprint(f"{white}>> @{green}Username{reset} ", end="")
+        xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format('gists'), end="")
         limit = int(input())
@@ -652,7 +652,7 @@ class Octosuite:
             
     # Fetching a list of organizations that a user owns or belongs to
     def user_orgs(self):
-        xprint(f"{white}>> @{green}Username{reset} ", end="")
+        xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user organizations"), end="")
         limit = int(input())
@@ -674,7 +674,7 @@ class Octosuite:
             
     # Fetching a users events 
     def user_events(self):
-        xprint(f"{white}>> @{green}Username{reset} ", end="")
+        xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("events"), end="")
         limit = int(input())
@@ -697,7 +697,7 @@ class Octosuite:
             
     # Fetching a target user's subscriptions
     def user_subscriptions(self):
-        xprint(f"{white}>> @{green}Username{reset} ", end="")
+        xprint(f"{white}@{green}username:{reset} ", end="")
         username = input().lower()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user subscriptions"), end="")
         limit = int(input())
@@ -719,7 +719,7 @@ class Octosuite:
             
     # Fetching a list of users the target follows        
     def user_following(self):
-        xprint(f"{white}>> @{green}Username{reset} ", end="")
+        xprint(f"{white}@{green}username:{reset} ", end="")
         username = input().lower()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user' following"), end="")
         limit = int(input())
@@ -741,7 +741,7 @@ class Octosuite:
             
     # Fetching user's followers
     def user_followers(self):
-        xprint(f"{white}>> @{green}Username{reset} ", end="")
+        xprint(f"{white}@{green}username:{reset} ", end="")
         username = input().lower()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user followers"), end="")
         limit = int(input())
@@ -763,9 +763,9 @@ class Octosuite:
             
     # Checking whether user[A] follows user[B]
     def user_follows(self):
-        xprint(f"{white}>> @{green}user{white}(A) (username){reset} ", end="")
+        xprint(f"{white}@{green}user{white}(A) (username):{reset} ", end="")
         user_a = input()
-        xprint(f"{white}>> @{green}user{white}(B) (username){reset} ", end="")
+        xprint(f"{white}@{green}user{white}(B) (username):{reset} ", end="")
         user_b = input()
         response = requests.get(f"{self.endpoint}/users/{user_a}/following/{user_b}")
         if response.status_code == 204:
@@ -776,7 +776,7 @@ class Octosuite:
             
     # User search
     def users_search(self):
-        xprint(f"{white}>> @{green}Query{white} (eg. john){reset} ", end="")
+        xprint(f"{white}@{green}query{white} (eg. john):{reset} ", end="")
         query = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user search"), end="")
         limit = int(input())
@@ -791,7 +791,7 @@ class Octosuite:
             
     # Repository search
     def repos_search(self):
-        xprint(f"{white}>> %{green}Query{white} (eg. git){reset} ", end="")
+        xprint(f"{white}%{green}query{white} (eg. git):{reset} ", end="")
         query = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("repositor[y][ies] search"), end="")
         limit = int(input())
@@ -806,7 +806,7 @@ class Octosuite:
             
     # Topics search
     def topics_search(self):
-        xprint(f"{white}>> #{green}Query{white} (eg. osint){reset} ", end="")
+        xprint(f"{white}#{green}query{white} (eg. osint):{reset} ", end="")
         query = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("topic(s) search"), end="")
         limit = int(input())
@@ -821,7 +821,7 @@ class Octosuite:
             
     # Issue search
     def issues_search(self):
-        xprint(f"{white}>> !{green}Query{white} (eg. error){reset} ", end="")
+        xprint(f"{white}!{green}Query{white} (eg. error):{reset} ", end="")
         query = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("issue(s) search"), end="")
         limit = int(input())
@@ -837,7 +837,7 @@ class Octosuite:
         
     # Commits search
     def commits_search(self):
-        xprint(f"{white}>> :{green}Query{white} (eg. filename:index.php){reset} ", end="")
+        xprint(f"{white}:{green}Query{white} (eg. filename:index.php):{reset} ", end="")
         query = input()
         xprint(MessagePrefix.prompt, LogRoller.limit_output.format("commit(s) search"), end="")
         limit = int(input())
@@ -869,7 +869,7 @@ class Octosuite:
         
     # Read a specified csv file    
     def read_csv(self):
-        xprint(f"{white}>> {green}.csv {reset}(filename) ", end="")
+        xprint(f"{green}csv {white}(filename):{reset} ", end="")
         csv_file = input()
         with open(os.path.join("output", csv_file + ".csv"), "r") as file:
             logging.info(LogRoller.reading_csv.format(csv_file))
@@ -879,7 +879,7 @@ class Octosuite:
             
     # Delete a specified csv file
     def delete_csv(self):
-        xprint(f"{white}>> {green}.csv {reset}filename{reset} ", end="")
+        xprint(f"{green}csv {white}(filename):{reset} ", end="")
         csv_file = input()
         os.remove(os.path.join("output", csv_file))
         logging.info(LogRoller.deleted_csv.format(csv_file))
@@ -911,7 +911,7 @@ class Octosuite:
         
     # Read a specified log file
     def read_log(self):
-        xprint(f"{white}>> {green}.log date{reset} (eg. 2022-04-27 10:09:36AM) ", end="")
+        xprint(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM):{reset} ", end="")
         log_file = input()
         with open(os.path.join(".logs", log_file + ".log"), "r") as log:
             logging.info(LogRoller.reading_log.format(log_file))
@@ -920,7 +920,7 @@ class Octosuite:
             
     # Delete a specified log file
     def delete_log(self):
-        xprint(f"{white}>> {green}.log date{reset} (eg. 2022-04-27 10:09:36AM) ", end="")
+        xprint(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM):{reset} ", end="")
         log_file = input()
         os.remove(os.path.join(".logs", log_file))
         logging.info(LogRoller.deleted_log.format(log_file))

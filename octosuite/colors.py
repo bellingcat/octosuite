@@ -2,6 +2,7 @@ import psutil
 import platform
 from rich.tree import Tree
 from datetime import datetime
+from rich import print as xprint
 
 
 # This file is responsible for enabling/disabling colors in OctoSuite

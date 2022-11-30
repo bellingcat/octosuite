@@ -12,12 +12,13 @@ from rich.tree import Tree
 from rich.table import Table
 from datetime import datetime
 from rich import print as xprint
-from octosuite.helper import Help
-from octosuite.log_roller import LogRoller
-from octosuite.csv_loggers import CsvLogger
-from octosuite.message_prefixes import MessagePrefix
 from octosuite.banners import version_tag, ascii_banner
+from octosuite.message_prefixes import PROMPT, WARNING, ERROR, POSITIVE, NEGATIVE, INFO # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
 from octosuite.colors import red, white, green, white_bold, green_bold, header_title, reset
+# seriously now, the reason why I am doing this, is so that you know exactly what I am importing from a named module :)
+from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, logs_command, csv_command, org_command, source, org, repo, user, search, logs, csv
+from octosuite.log_roller import ctrl_c, error, session_opened, session_closed, viewing_logs, viewing_csv, deleted_log, reading_log, reading_csv, deleted_csv, file_downloading, file_downloaded, info_not_found, user_not_found, org_not_found, repo_or_user_not_found, prompt_log_csv, logged_to_csv, logging_skipped, limit_output
+from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_profile, log_repo_path_contents, log_repo_contributors, log_repo_startgazers, log_repo_forks, log_repo_issues, log_repo_releases, log_org_repos, log_org_events, log_user_repos, log_user_gists, log_user_orgs, log_user_events, log_user_subscriptions, log_user_following, log_user_followers, log_repos_search, log_users_search, log_topics_search, log_issues_search, log_commits_search
 
 
 class Octosuite:
@@ -30,23 +31,23 @@ class Octosuite:
                             ("clear", self.clear_screen),
                             ("about", self.about),
                             ("author", self.author),
-                            ("help", Help.help_command),
-                            ("help:source", Help.source_command),
-                            ("help:search", Help.search_command),
-                            ("help:user", Help.user_command),
-                            ("help:repo", Help.repo_command),
-                            ("help:logs", Help.logs_command),
-                            ("help:csv", Help.csv_command),
-                            ("help:org", Help.org_command),
-                            ("source", Help.source),
+                            ("help", help_command),
+                            ("help:source", source_command),
+                            ("help:search", search_command),
+                            ("help:user", user_command),
+                            ("help:repo", repo_command),
+                            ("help:logs", logs_command),
+                            ("help:csv", csv_command),
+                            ("help:org", org_command),
+                            ("source", source),
                             ("source:tarball", self.download_tarball),
                             ("source:zipball", self.download_zipball),
-                            ("org", Help.org),
+                            ("org", org),
                             ("org:events", self.org_events),
                             ("org:profile", self.org_profile),
                             ("org:repos", self.org_repos),
                             ("org:member", self.org_member),
-                            ("repo", Help.repo),
+                            ("repo", repo),
                             ("repo:path_contents", self.path_contents),
                             ("repo:profile", self.repo_profile),
                             ("repo:contributors", self.repo_contributors),
@@ -54,7 +55,7 @@ class Octosuite:
                             ("repo:forks", self.repo_forks),
                             ("repo:issues", self.repo_issues),
                             ("repo:releases", self.repo_releases),
-                            ("user", Help.user),
+                            ("user", user),
                             ("user:repos", self.user_repos),
                             ("user:gists", self.user_gists),
                             ("user:orgs", self.user_orgs),
@@ -64,18 +65,18 @@ class Octosuite:
                             ("user:follows", self.user_follows),
                             ("user:following", self.user_following),
                             ("user:subscriptions", self.user_subscriptions),
-                            ("search", Help.search),
+                            ("search", search),
                             ("search:users", self.users_search),
                             ("search:repos", self.repos_search),
                             ("search:topics", self.topics_search),
                             ("search:issues", self.issues_search),
                             ("search:commits", self.commits_search),
-                            ("logs", Help.logs),
+                            ("logs", logs),
                             ("logs:view", self.view_logs),
                             ("logs:read", self.read_log),
                             ("logs:delete", self.delete_log),
                             ("logs:clear", self.clear_logs),
-                            ("csv", Help.csv),
+                            ("csv", csv),
                             ("csv:view", self.view_csv),
                             ("csv:read", self.read_csv),
                             ("csv:delete", self.delete_csv),
@@ -313,7 +314,7 @@ class Octosuite:
         logging.basicConfig(filename=f".logs/{now_formatted}.log", format="[%(asctime)s] [%(levelname)s] %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S%p", level=logging.DEBUG)
         # Log the start of a session
-        logging.info(LogRoller.session_opened.format(platform.node(), getpass.getuser()))
+        logging.info(session_opened.format(platform.node(), getpass.getuser()))
               
           
     # Check for updates     
@@ -365,13 +366,13 @@ class Octosuite:
         organization = input()
         response = requests.get(f"{self.endpoint}/orgs/{organization}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.org_not_found.format(organization)}")
+            xprint(f"{NEGATIVE} {org_not_found.format(organization)}")
         elif response.status_code == 200:
             org_profile_tree = Tree("\n" + response.json()['name'])
             for attr in self.org_attrs:
                 org_profile_tree.add(f"{self.org_attr_dict[attr]}: {response.json()[attr]}")
             xprint(org_profile_tree)
-            CsvLogger.log_org_profile(response)
+            log_org_profile(response)
         else:
             xprint(response.json())
             
@@ -382,13 +383,13 @@ class Octosuite:
         username = input()
         response = requests.get(f"{self.endpoint}/users/{username}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.userNotFound.format(username)}")
+            xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
             user_profile_tree = Tree("\n" + response.json()['name'])
             for attr in self.profile_attrs:
                 user_profile_tree.add(f"{self.profile_attr_dict[attr]}: {response.json()[attr]}")
             xprint(user_profile_tree)
-            CsvLogger.log_user_profile(response)
+            log_user_profile(response)
         else:
             xprint(response.json())
             
@@ -401,13 +402,13 @@ class Octosuite:
         username = input()
         response = requests.get(f"{self.endpoint}/repos/{username}/{repo_name}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.repo_or_user_not_found.format(repo_name, username)}")
+            xprint(f"{NEGATIVE} {repo_or_user_not_found.format(repo_name, username)}")
         elif response.status_code == 200:
             repo_profile_tree = Tree("\n" + response.json()['full_name'])
             for attr in self.repo_attrs:
                 repo_profile_tree.add(f"{self.repo_attr_dict[attr]}: {response.json()[attr]}")
             xprint(repo_profile_tree)
-            CsvLogger.log_repo_profile(response)
+            log_repo_profile(response)
         else:
             xprint(response.json())
             
@@ -422,15 +423,15 @@ class Octosuite:
         path_name = input()
         response = requests.get(f"{self.endpoint}/repos/{username}/{repo_name}/contents/{path_name}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.info_not_found.format(repo_name, username, path_name)}")
+            xprint(f"{NEGATIVE} {info_not_found.format(repo_name, username, path_name)}")
         elif response.status_code == 200:
             for content_count, content in enumerate(response.json(), start=1):
                 path_contents_tree = Tree("\n" + content['name'])
                 for attr in self.path_attrs:
                     path_contents_tree.add(f"{self.path_attr_dict[attr]}: {content[attr]}")
                 xprint(path_contents_tree)
-                CsvLogger.log_repo_path_contents(content, repo_name)
-            xprint(MessagePrefix.info, f"Found {content_count} file(s) in {repo_name}/{path_name}.")
+                log_repo_path_contents(content, repo_name)
+            xprint(INFO, f"Found {content_count} file(s) in {repo_name}/{path_name}.")
         else:
             xprint(response.json())
             
@@ -441,18 +442,18 @@ class Octosuite:
         repo_name = input()
         xprint(f"{white}>> @{green}Owner{white} (username) ", end="")
         username = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("contributors"), end="")
+        xprint(PROMPT, limit_output.format("contributors"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/repos/{username}/{repo_name}/contributors?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.repo_or_user_not_found.format(repo_name, username)}")
+            xprint(f"{NEGATIVE} {repo_or_user_not_found.format(repo_name, username)}")
         elif response.status_code == 200:
             for contributor in response.json():
                 contributor_tree = Tree("\n" + contributor['login'])
                 for attr in self.user_attrs:
                     contributor_tree.add(f"{self.user_attr_dict[attr]}: {contributor[attr]}")
                 xprint(contributor_tree)
-                CsvLogger.log_repo_contributors(contributor, repo_name)
+                log_repo_contributors(contributor, repo_name)
             else:
                 xprint(response.json())
                 
@@ -463,20 +464,20 @@ class Octosuite:
         repo_name = input()
         xprint(f"{white}>> @{green}Owner{white} (username){reset} ", end="")
         username = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("repository stargazers"), end="")
+        xprint(PROMPT, limit_output.format("repository stargazers"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/repos/{username}/{repo_name}/stargazers?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.repo_or_user_not_found.format(repo_name, username)}")
+            xprint(f"{NEGATIVE} {repo_or_user_not_found.format(repo_name, username)}")
         elif response.json() == {}:
-            xprint(f"{MessagePrefix.negative} Repository does not have any stargazers -> ({repo_name})")
+            xprint(f"{NEGATIVE} Repository does not have any stargazers -> ({repo_name})")
         elif response.status_code == 200:
             for stargazer in response.json():
                 stargazer_tree = Tree("\n" + stargazer['login'])
                 for attr in self.user_attrs:
                     stargazer_tree.add(f"{self.user_attr_dict[attr]}: {stargazer[attr]}")
                 xprint(stargazer_tree)
-                CsvLogger.log_repo_stargazers(stargazer, repo_name)
+                log_repo_stargazers(stargazer, repo_name)
         else:
             xprint(response.json())
             
@@ -487,20 +488,20 @@ class Octosuite:
         repo_name = input()
         xprint(f"{white}@{green}Owner{white} (username):{reset} ", end="")
         username = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("repository forks"), end="")
+        xprint(PROMPT, limit_output.format("repository forks"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/repos/{username}/{repo_name}/forks?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.repo_or_user_not_found.format(repo_name, username)}")
+            xprint(f"{NEGATIVE} {repo_or_user_not_found.format(repo_name, username)}")
         elif response.json() == {}:
-            xprint(f"{MessagePrefix.negative} Repository does not have forks -> ({repo_name})")
+            xprint(f"{NEGATIVE} Repository does not have forks -> ({repo_name})")
         elif response.status_code == 200:
             for count, fork in enumerate(response.json()):
                 fork_tree = Tree("\n" + fork['full_name'])
                 for attr in self.repo_attrs:
                     fork_tree.add(f"{self.repo_attr_dict[attr]}: {fork[attr]}")
                 xprint(fork_tree)
-                CsvLogger.log_repo_forks(fork, count)
+                log_repo_forks(fork, count)
         else:
             xprint(response.json())
             
@@ -510,13 +511,13 @@ class Octosuite:
         repo_name = input()
         xprint(f"{white}>> @{green}Owner{white} (username){reset} ", end="")
         username = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("repository issues"), end="")
+        xprint(PROMPT, limit_output.format("repository issues"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/repos/{username}/{repo_name}/issues?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.repo_or_user_not_found.format(repo_name, username)}")
+            xprint(f"{NEGATIVE} {repo_or_user_not_found.format(repo_name, username)}")
         elif response.json() == []:
-            xprint(f"{MessagePrefix.negative} Repository does not have open issues -> ({repo_name})")
+            xprint(f"{NEGATIVE} Repository does not have open issues -> ({repo_name})")
         elif response.status_code == 200:
             for issue in response.json():
                 issues_tree = Tree("\n" + issue['title'])
@@ -524,7 +525,7 @@ class Octosuite:
                     issues_tree.add(f"{self.repo_issues_attr_dict[attr]}: {issue[attr]}")
                 xprint(issues_tree)
                 xprint(issue['body'])
-                CsvLogger.log_repo_issues(issue, repo_name)
+                log_repo_issues(issue, repo_name)
         else:
             xprint(response.json())
             
@@ -535,13 +536,13 @@ class Octosuite:
         repo_name = input()
         xprint(f"{white}>> @{green}Owner{white} (username){reset} ", end="")
         username = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("repository releases"), end="")
+        xprint(PROMPT, limit_output.format("repository releases"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/repos/{username}/{repo_name}/releases?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.repo_or_user_not_found.format(repo_name, username)}")
+            xprint(f"{NEGATIVE} {repo_or_user_not_found.format(repo_name, username)}")
         elif response.json() == []:
-            xprint(f"{MessagePrefix.negative} Repository does not have releases -> ({repo_name})")
+            xprint(f"{NEGATIVE} Repository does not have releases -> ({repo_name})")
         elif response.status_code == 200:
             for release in response.json():
                 releases_tree = Tree("\n" + release['name'])
@@ -549,7 +550,7 @@ class Octosuite:
                     releases_tree.add(f"{self.repo_releases_attr_dict[attr]}: {release[attr]}")
                 xprint(releases_tree)
                 xprint(release['body'])
-            CsvLogger.log_repo_releases(release, repo_name)
+            log_repo_releases(release, repo_name)
         else:
             xprint(response.json())
             
@@ -558,18 +559,18 @@ class Octosuite:
     def org_repos(self):
         xprint(f"{white}@{green}organization{white} (username):{reset} ", end="")
         organization = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("organization repositories"), end="")
+        xprint(PROMPT, limit_output.format("organization repositories"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/orgs/{organization}/repos?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.org_not_found.format(organization)}")
+            xprint(f"{NEGATIVE} {org_not_found.format(organization)}")
         elif response.status_code == 200:
             for repository in response.json():
                 repos_tree = Tree("\n" + repository['full_name'])
                 for attr in self.repo_attrs:
                     repos_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
                 xprint(repos_tree)
-                CsvLogger.log_org_repos(repository, organization)
+                log_org_repos(repository, organization)
         else:
             xprint(response.json())
             
@@ -578,11 +579,11 @@ class Octosuite:
     def org_events(self):
         xprint(f"{white}@{green}organization{white} (username):{reset} ", end="")
         organization = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("organization repositories"), end="")
+        xprint(PROMPT, limit_output.format("organization repositories"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/orgs/{organization}/events?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.org_not_found.format(organization)}")
+            xprint(f"{NEGATIVE} {org_not_found.format(organization)}")
         elif response.status_code == 200:
             for event in response.json():
                 events_tree = Tree("\n" + event['id'])
@@ -590,7 +591,7 @@ class Octosuite:
                 events_tree.add(f"Created at: {event['created_at']}")
             xprint(events_tree)
             xprint(event['payload'])
-            CsvLogger.log_org_events(event, organization)
+            log_org_events(event, organization)
         else:
             xprint(response.json())
             
@@ -603,27 +604,27 @@ class Octosuite:
         username = input()
         response = requests.get(f"{self.endpoint}/orgs/{organization}/public_members/{username}")
         if response.status_code == 204:
-            xprint(f"{MessagePrefix.positive} User ({username}) is a public member of the organization -> ({organization})")
+            xprint(f"{POSITIVE} User ({username}) is a public member of the organization -> ({organization})")
         else:
-            xprint(f"{MessagePrefix.negative} {response.json()['message']}")
+            xprint(f"{NEGATIVE} {response.json()['message']}")
             
             
     # Fetching user repositories
     def user_repos(self):
         xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("repositories"), end="")
+        xprint(PROMPT, limit_output.format("repositories"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/users/{username}/repos?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.userNotFound.format(username)}")
+            xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
             for repository in response.json():
                 repos_tree = Tree("\n" + repository['full_name'])
                 for attr in self.repo_attrs:
                     repos_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
                 xprint(repos_tree)
-                CsvLogger.log_user_repos(repository, username)
+                log_user_repos(repository, username)
             else:
                 xprint(response.json())
                 
@@ -632,20 +633,20 @@ class Octosuite:
     def user_gists(self):
         xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format('gists'), end="")
+        xprint(PROMPT, limit_output.format('gists'), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/users/{username}/gists?per_page={limit}")
         if response.json() == []:
-            xprint(f"{MessagePrefix.negative} User does not have gists.")
+            xprint(f"{NEGATIVE} User does not have gists.")
         elif response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.userNotFound.format(username)}")
+            xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
             for gist in response.json():
                 gists_tree = Tree("\n" + gist['id'])
                 for attr in self.gists_attrs:
                     gists_tree.add(f"{self.gists_attr_dict[attr]}: {gist[attr]}")
                 xprint(gists_tree)
-                CsvLogger.log_user_gists(gist)
+                log_user_gists(gist)
         else:
             xprint(response.json())
             
@@ -654,20 +655,20 @@ class Octosuite:
     def user_orgs(self):
         xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user organizations"), end="")
+        xprint(PROMPT, limit_output.format("user organizations"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/users/{username}/orgs?per_page={limit}")
         if response.json() == []:
-            xprint(f"{MessagePrefix.negative} User ({username}) does not (belong to/own) any organizations.")
+            xprint(f"{NEGATIVE} User ({username}) does not (belong to/own) any organizations.")
         elif response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.userNotFound.format(username)}")
+            xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
             for organization in response.json():
                 org_tree = Tree("\n" + organization['login'])
                 for attr in self.user_orgs_attrs:
                     org_tree.add(f"{self.user_orgs_attr_dict[attr]}: {organization[attr]}")
                 xprint(org_tree)
-                CsvLogger.log_user_orgs(organization, username)
+                log_user_orgs(organization, username)
         else:
             xprint(response.json())
             
@@ -676,11 +677,11 @@ class Octosuite:
     def user_events(self):
         xprint(f"{white}@{green}username:{reset} ", end="")
         username = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("events"), end="")
+        xprint(PROMPT, limit_output.format("events"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/users/{username}/events/public?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.userNotFound.format(username)}")
+            xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
             for event in response.json():
                 events_tree = Tree("\n" + event['id'])
@@ -690,7 +691,7 @@ class Octosuite:
                 events_tree.add(f"Created at: {event['created_at']}")
                 xprint(events_tree)
                 xprint(event['payload'])
-                CsvLogger.log_user_events(event)
+                log_user_events(event)
         else:
             xprint(response.json())
             
@@ -699,20 +700,20 @@ class Octosuite:
     def user_subscriptions(self):
         xprint(f"{white}@{green}username:{reset} ", end="")
         username = input().lower()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user subscriptions"), end="")
+        xprint(PROMPT, limit_output.format("user subscriptions"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/users/{username}/subscriptions?per_page={limit}")
         if response.json() == []:
-            xprint(f"{MessagePrefix.negative} User does not have any subscriptions.")
+            xprint(f"{NEGATIVE} User does not have any subscriptions.")
         elif response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.userNotFound.format(username)}")
+            xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
             for repository in response.json():
                 subscriptions_tree =Tree("\n" + repository['full_name'])
                 for attr in self.repo_attrs:
                     subscriptions_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
                 xprint(subscriptions_tree)
-                CsvLogger.log_user_subscriptions(repository, username)
+                log_user_subscriptions(repository, username)
         else:
             xprint(response.json())
             
@@ -721,20 +722,20 @@ class Octosuite:
     def user_following(self):
         xprint(f"{white}@{green}username:{reset} ", end="")
         username = input().lower()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user' following"), end="")
+        xprint(PROMPT, limit_output.format("user' following"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/users/{username}/following?per_page={limit}")
         if response.json() == []:
-            xprint(f"{MessagePrefix.negative} User ({username})does not follow anyone.")
+            xprint(f"{NEGATIVE} User ({username})does not follow anyone.")
         elif response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.userNotFound.format(username)}")
+            xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
             for user in response.json():
                 following_tree = Tree("\n" + user['login'])
                 for attr in self.user_attrs:
                     following_tree.add(f"{self.user_attr_dict[attr]}: {user[attr]}")
                 xprint(following_tree)
-                CsvLogger.log_user_following(user, username)
+                log_user_following(user, username)
         else:
             xprint(response.json())
             
@@ -743,20 +744,20 @@ class Octosuite:
     def user_followers(self):
         xprint(f"{white}@{green}username:{reset} ", end="")
         username = input().lower()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user followers"), end="")
+        xprint(PROMPT, limit_output.format("user followers"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/users/{username}/followers?per_page={limit}")
         if response.json() == []:
-            xprint(f"{MessagePrefix.negative} User ({username})does not have followers.")
+            xprint(f"{NEGATIVE} User ({username})does not have followers.")
         elif response.status_code == 404:
-            xprint(f"{MessagePrefix.negative} {LogRoller.userNotFound.format(username)}")
+            xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
             for follower in response.json():
                 followers_tree = Tree("\n" + follower['login'])
                 for attr in self.user_attrs:
                     followers_tree.add(f"{self.user_attr_dict[attr]}: {follower[attr]}")
                 xprint(followers_tree)
-                CsvLogger.log_user_followers(follower, username)
+                log_user_followers(follower, username)
         else:
             xprint(response.json())
             
@@ -769,16 +770,16 @@ class Octosuite:
         user_b = input()
         response = requests.get(f"{self.endpoint}/users/{user_a}/following/{user_b}")
         if response.status_code == 204:
-            xprint(f"{MessagePrefix.positive} @{user_a} FOLLOWS @{user_b}")
+            xprint(f"{POSITIVE} @{user_a} FOLLOWS @{user_b}")
         else:
-            xprint(f"{MessagePrefix.negative} @{user_a} DOES NOT FOLLOW @{user_b}")
+            xprint(f"{NEGATIVE} @{user_a} DOES NOT FOLLOW @{user_b}")
             
             
     # User search
     def users_search(self):
         xprint(f"{white}@{green}query{white} (eg. john):{reset} ", end="")
         query = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("user search"), end="")
+        xprint(PROMPT, limit_output.format("user search"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/users?q={query}&per_page={limit}").json()
         for user in response['items']:
@@ -786,14 +787,14 @@ class Octosuite:
             for attr in self.user_attrs:
                 users_search_tree.add(f"{self.user_attr_dict[attr]}: {user[attr]}")
             xprint(users_search_tree)
-            CsvLogger.log_users_search(user, query)
+            log_users_search(user, query)
             
             
     # Repository search
     def repos_search(self):
         xprint(f"{white}%{green}query{white} (eg. git):{reset} ", end="")
         query = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("repositor[y][ies] search"), end="")
+        xprint(PROMPT, limit_output.format("repositor[y][ies] search"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/repositories?q={query}&per_page={limit}").json()
         for repository in response['items']:
@@ -801,14 +802,14 @@ class Octosuite:
             for attr in self.repo_attrs:
                 repos_search_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
             xprint(repos_search_tree)
-            CsvLogger.log_repos_search(repository, query)
+            log_repos_search(repository, query)
             
             
     # Topics search
     def topics_search(self):
         xprint(f"{white}#{green}query{white} (eg. osint):{reset} ", end="")
         query = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("topic(s) search"), end="")
+        xprint(PROMPT, limit_output.format("topic(s) search"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/topics?q={query}&per_page={limit}").json()
         for topic in response['items']:
@@ -816,14 +817,14 @@ class Octosuite:
             for attr in self.topic_attrs:
                 topics_search_tree.add(f"{self.topic_attr_dict[attr]}: {topic[attr]}")
             xprint(topics_search_tree)
-            CsvLogger.log_topics_search(topic, query)
+            log_topics_search(topic, query)
             
             
     # Issue search
     def issues_search(self):
         xprint(f"{white}!{green}Query{white} (eg. error):{reset} ", end="")
         query = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("issue(s) search"), end="")
+        xprint(PROMPT, limit_output.format("issue(s) search"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/issues?q={query}&per_page={limit}").json()
         for issue in response['items']:
@@ -832,14 +833,14 @@ class Octosuite:
                 issues_search_tree.add(f"{self.repo_issues_attr_dict[attr]}: {issue[attr]}")
             xprint(issues_search_tree)
             xprint(issue['body'])
-        CsvLogger.log_issues_search(issue, query)
+        log_issues_search(issue, query)
         
         
     # Commits search
     def commits_search(self):
         xprint(f"{white}:{green}Query{white} (eg. filename:index.php):{reset} ", end="")
         query = input()
-        xprint(MessagePrefix.prompt, LogRoller.limit_output.format("commit(s) search"), end="")
+        xprint(PROMPT, limit_output.format("commit(s) search"), end="")
         limit = int(input())
         response = requests.get(f"{self.endpoint}/search/commits?q={query}&per_page={limit}").json()
         for commit in response['items']:
@@ -852,12 +853,12 @@ class Octosuite:
             commits_search_tree.add(f"URL: {commit['html_url']}")
             xprint(commits_search_tree)
             xprint(commit['commit']['message'])
-            CsvLogger.log_commits_search(commit, query)
+            log_commits_search(commit, query)
             
             
     # View csv files
     def view_csv(self):
-        logging.info(LogRoller.viewing_csv)
+        logging.info(viewing_csv)
         csv_files = os.listdir("output")
         csv_table = Table(show_header=True, header_style=header_title)
         csv_table.add_column("CSV", style="dim")
@@ -872,7 +873,7 @@ class Octosuite:
         xprint(f"{green}csv {white}(filename):{reset} ", end="")
         csv_file = input()
         with open(os.path.join("output", csv_file + ".csv"), "r") as file:
-            logging.info(LogRoller.reading_csv.format(csv_file))
+            logging.info(reading_csv.format(csv_file))
             text = Text(file.read())
             xprint(text)
             
@@ -882,24 +883,24 @@ class Octosuite:
         xprint(f"{green}csv {white}(filename):{reset} ", end="")
         csv_file = input()
         os.remove(os.path.join("output", csv_file))
-        logging.info(LogRoller.deleted_csv.format(csv_file))
-        xprint(f"{MessagePrefix.positive} {LogRoller.deleted_csv.format(csv_file)}")
+        logging.info(deleted_csv.format(csv_file))
+        xprint(f"{POSITIVE} {deleted_csv.format(csv_file)}")
                     
                     
     # Clear csv
     def clear_csv(self):
-        xprint(f"{MessagePrefix.prompt} This will clear all {len(os.listdir('output'))} csv files, continue? (yes/no) ", end="")
+        xprint(f"{PROMPT} This will clear all {len(os.listdir('output'))} csv files, continue? (yes/no) ", end="")
         prompt = input().lower()
         if prompt == "yes":
             shutil.rmtree("output", ignore_errors=True)
-            xprint(f"{MessagePrefix.info} CSV files cleared successfully!")
+            xprint(f"{INFO} CSV files cleared successfully!")
         else:
             pass
                     
         
     # View octosuite log files
     def view_logs(self):
-        logging.info(LogRoller.viewing_logs)
+        logging.info(viewing_logs)
         logs = os.listdir(".logs")
         logs_table = Table(show_header=True, header_style=header_title)
         logs_table.add_column("Log", style="dim")
@@ -914,7 +915,7 @@ class Octosuite:
         xprint(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM):{reset} ", end="")
         log_file = input()
         with open(os.path.join(".logs", log_file + ".log"), "r") as log:
-            logging.info(LogRoller.reading_log.format(log_file))
+            logging.info(reading_log.format(log_file))
             xprint("\n" + log.read())
             
             
@@ -923,18 +924,18 @@ class Octosuite:
         xprint(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM):{reset} ", end="")
         log_file = input()
         os.remove(os.path.join(".logs", log_file))
-        logging.info(LogRoller.deleted_log.format(log_file))
-        xprint(f"{MessagePrefix.positive} {LogRoller.deleted_log.format(log_file)}")
+        logging.info(deleted_log.format(log_file))
+        xprint(f"{POSITIVE} {deleted_log.format(log_file)}")
         
         
     # Clear logs
     def clear_logs(self):
-        xprint(f"{MessagePrefix.prompt} This will clear all {len(os.listdir('.logs'))} logs and close the current session, continue? (yes/no) ", end="")
+        xprint(f"{PROMPT} This will clear all {len(os.listdir('.logs'))} logs and close the current session, continue? (yes/no) ", end="")
         prompt = input().lower()
         if prompt == "yes":
             shutil.rmtree(".logs", ignore_errors=True)
-            xprint(f"{MessagePrefix.info} Logs cleared successfully!")
-            xprint(f"{MessagePrefix.info} {LogRoller.session_closed.format(datetime.now())}")
+            xprint(f"{INFO} Logs cleared successfully!")
+            xprint(f"{INFO} {session_closed.format(datetime.now())}")
             exit()
         else:
             pass
@@ -942,28 +943,28 @@ class Octosuite:
         
     # Downloading release tarball
     def download_tarball(self):
-        logging.info(LogRoller.file_downloading.format(f"octosuite.v{version_tag}.tar"))
-        xprint(MessagePrefix.info, LogRoller.file_downloading.format(f"octosuite.v{version_tag}.tar"))
+        logging.info(file_downloading.format(f"octosuite.v{version_tag}.tar"))
+        xprint(INFO, file_downloading.format(f"octosuite.v{version_tag}.tar"))
         data = requests.get(f"{self.endpoint}/repos/bellingcat/octosuite/tarball/{version_tag}")
         with open(os.path.join("downloads", f"octosuite.v{version_tag}.tar"), "wb") as file:
             file.write(data.content)
             file.close()
             
-        logging.info(LogRoller.file_downloaded.format(f"octosuite.v{version_tag}.tar"))
-        xprint(MessagePrefix.positive, LogRoller.file_downloaded.format(f"octosuite.v{version_tag}.tar"))
+        logging.info(file_downloaded.format(f"octosuite.v{version_tag}.tar"))
+        xprint(POSITIVE, file_downloaded.format(f"octosuite.v{version_tag}.tar"))
         
         
     # Downloading release zipball
     def download_zipball(self):
-        logging.info(LogRoller.file_downloading.format(f"octosuite.v{version_tag}.zip"))
-        xprint(MessagePrefix.info, LogRoller.file_downloading.format(f"octosuite.v{version_tag}.zip"))
+        logging.info(file_downloading.format(f"octosuite.v{version_tag}.zip"))
+        xprint(INFO, file_downloading.format(f"octosuite.v{version_tag}.zip"))
         data = requests.get(f"{self.endpoint}/repos/rly0nheart/octosuite/zipball/{version_tag}")
         with open(os.path.join("downloads", f"octosuite.v{version_tag}.zip"), "wb") as file:
             file.write(data.content)
             file.close()
             
-        logging.info(LogRoller.file_downloaded.format(f"octosuite.v{version_tag}.zip"))
-        xprint(MessagePrefix.positive, LogRoller.file_downloaded.format(f"octosuite.v{version_tag}.zip"))
+        logging.info(file_downloaded.format(f"octosuite.v{version_tag}.zip"))
+        xprint(POSITIVE, file_downloaded.format(f"octosuite.v{version_tag}.zip"))
         
         
     # Author info
@@ -997,11 +998,11 @@ GitHub REST API documentation: https://docs.github.com/rest
     
     # Close session
     def exit_session(self):
-        xprint(f"{MessagePrefix.prompt} This will close the current session, continue? (yes/no) ", end="")
+        xprint(f"{PROMPT} This will close the current session, continue? (yes/no) ", end="")
         prompt = input().lower()
         if prompt == "yes":
-            logging.info(LogRoller.session_closed.format(datetime.now()))
-            xprint(f"{MessagePrefix.info} {LogRoller.session_closed.format(datetime.now())}")
+            logging.info(session_closed.format(datetime.now()))
+            xprint(f"{INFO} {session_closed.format(datetime.now())}")
             exit()
         else:
             pass

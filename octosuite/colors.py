@@ -29,7 +29,7 @@ xprint(system_tree)
 print("\n")
 while True:
     try:
-        color_chooser = input(f"[?] Welcome, would you like to enable colors for this session? (yes/no) ").lower()
+        color_chooser = input(f"[PROMPT] Welcome, would you like to enable colors for this session? (yes/no) ").lower()
         if color_chooser == "yes":
             header_title = "bold white"
             red = "[red]"
@@ -44,8 +44,8 @@ while True:
             header_title = red = white = green = red_bold = white_bold = green_bold = reset = ""
             break
         else:
-            print(f"\n[!] Your response '{color_chooser}' is invalid (expected yes or no)")
+            print(f"\n[INVALID] Your response '{color_chooser}' is invalid (expected yes or no)")
 
     except KeyboardInterrupt:
-        exit(f"[!] Process interrupted with Ctrl+C.")
+        exit(f"[WARNING] Process interrupted with Ctrl+C.")
       

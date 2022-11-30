@@ -1,5 +1,5 @@
 # import everything from the octosuite.py file
-from octosuite.octosuite import *
+from octosuite.octosuite import * # I drifted away from the 'pythonic way' here
 
 
 def octosuite():
@@ -8,9 +8,9 @@ def octosuite():
         run.on_start()
         
     except KeyboardInterrupt:
-        logging.warning(LogRoller.ctrl_c)
-        xprint(f"{MessagePrefix.warning} {LogRoller.ctrl_c}")
+        logging.warning(ctrl_c)
+        xprint(f"{WARNING} {ctrl_c}")
 
     except Exception as e:
-        logging.error(LogRoller.error.format(e))
-        xprint(f"{MessagePrefix.error} {LogRoller.error.format(e)}")
+        logging.error(error.format(e))
+        xprint(f"{ERROR} {error.format(e)}")

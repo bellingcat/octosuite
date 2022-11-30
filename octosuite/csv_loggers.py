@@ -7,7 +7,7 @@ from octosuite.message_prefixes import PROMPT, WARNING, POSITIVE, NEGATIVE, INFO
 
 
 # csv_loggers.py
-# This class holds the functions for creating .csv files of each functionality in main
+# This file holds the functions for creating .csv files of each functionality in main
 def log_org_profile(response):
     org_profile_fields = ['Profile photo', 'Name', 'Username', 'ID', 'Node ID', 'Email', 'About', 'Location', 'Blog',
                           'Followers', 'Following', 'Twitter handle', 'Gists', 'Repositories', 'Account type',

@@ -9,7 +9,7 @@ def octosuite():
         
     except KeyboardInterrupt:
         logging.warning(ctrl_c)
-        xprint(f"{WARNING} {ctrl_c}")
+        xprint(f"\n{WARNING} {ctrl_c}")
 
     except Exception as e:
         logging.error(error.format(e))

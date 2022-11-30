@@ -13,12 +13,12 @@ from rich.table import Table
 from datetime import datetime
 from rich import print as xprint
 from octosuite.banners import version_tag, ascii_banner
-from octosuite.message_prefixes import PROMPT, WARNING, ERROR, POSITIVE, NEGATIVE, INFO # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
-from octosuite.colors import red, white, green, white_bold, green_bold, header_title, reset
+from octosuite.colors import red, white, green, header_title, reset
+from octosuite.message_prefixes import PROMPT, POSITIVE, NEGATIVE, INFO # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
 # seriously now, the reason why I am doing this, is so that you know exactly what I am importing from a named module :)
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, logs_command, csv_command, org_command, source, org, repo, user, search, logs, csv
-from octosuite.log_roller import ctrl_c, error, session_opened, session_closed, viewing_logs, viewing_csv, deleted_log, reading_log, reading_csv, deleted_csv, file_downloading, file_downloaded, info_not_found, user_not_found, org_not_found, repo_or_user_not_found, prompt_log_csv, logged_to_csv, logging_skipped, limit_output
-from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_profile, log_repo_path_contents, log_repo_contributors, log_repo_startgazers, log_repo_forks, log_repo_issues, log_repo_releases, log_org_repos, log_org_events, log_user_repos, log_user_gists, log_user_orgs, log_user_events, log_user_subscriptions, log_user_following, log_user_followers, log_repos_search, log_users_search, log_topics_search, log_issues_search, log_commits_search
+from octosuite.log_roller import ctrl_c, error, session_opened, session_closed, viewing_logs, viewing_csv, deleted_log, reading_log, reading_csv, deleted_csv, file_downloading, file_downloaded, info_not_found, user_not_found, org_not_found, repo_or_user_not_found, limit_output
+from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_profile, log_repo_path_contents, log_repo_contributors, log_repo_stargazers, log_repo_forks, log_repo_issues, log_repo_releases, log_org_repos, log_org_profile, log_user_repos, log_user_gists, log_user_orgs, log_user_events, log_user_subscriptions, log_user_following, log_user_followers, log_repos_search, log_users_search, log_topics_search, log_issues_search, log_commits_search  # log_org_events
 
 
 class Octosuite:
@@ -591,7 +591,7 @@ class Octosuite:
                 events_tree.add(f"Created at: {event['created_at']}")
             xprint(events_tree)
             xprint(event['payload'])
-            log_org_events(event, organization)
+            # log_org_events(event, organization)
         else:
             xprint(response.json())
             

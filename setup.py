@@ -14,7 +14,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/bellingcat/octosuite",
     license="GNU General Public License v3 (GPLv3)",
-    install_requires=["requests", "rich", "psutil"],
+    install_requires=["requests", "rich", "psutil", "pyreadline3"],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Information Technology',

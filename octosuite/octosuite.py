@@ -11,6 +11,7 @@ from rich.text import Text
 from rich.tree import Tree
 from rich.table import Table
 from datetime import datetime
+from pyreadline3 import Readline
 from rich import print as xprint
 from octosuite.banners import version_tag, ascii_banner
 from octosuite.colors import red, white, green, header_title, reset
@@ -20,6 +21,7 @@ from octosuite.helper import help_command, source_command, search_command, user_
 from octosuite.log_roller import ctrl_c, error, session_opened, session_closed, viewing_logs, viewing_csv, deleted_log, reading_log, reading_csv, deleted_csv, file_downloading, file_downloaded, info_not_found, user_not_found, org_not_found, repo_or_user_not_found, limit_output
 from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_profile, log_repo_path_contents, log_repo_contributors, log_repo_stargazers, log_repo_forks, log_repo_issues, log_repo_releases, log_org_repos, log_org_profile, log_user_repos, log_user_gists, log_user_orgs, log_user_events, log_user_subscriptions, log_user_following, log_user_followers, log_repos_search, log_users_search, log_topics_search, log_issues_search, log_commits_search  # log_org_events
 
+readline = Readline()
 
 class Octosuite:
     def __init__(self):

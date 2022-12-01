@@ -992,6 +992,7 @@ Whats new in v{version_tag}?
 [{green}ADDED{reset}] Added the 'log:clear' command, which will be used to clear all logs
 [{green}ADDED{reset}] Added the 'csv:clear' command, which will be used to clear all csv files
 [{green}GUI{reset}] The GUI will now come as a standalone executable
+[{green}GUI{reset}] Added an option to check for updates
 
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest

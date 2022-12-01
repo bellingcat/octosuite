@@ -12,5 +12,3 @@ RUN python -m build
 RUN pip install dist/*.whl
 
 ENTRYPOINT ["octosuite"]
-
-

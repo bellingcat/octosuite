@@ -987,10 +987,11 @@ With over 20+ features, Octosuite only runs on 2 external dependencies, and retu
 
 
 Whats new in v{version_tag}?
-[{green}fixed{reset}] Minor fixes
-[{green}improved{reset}] Removed width from tables, so that they can auto adjust
-[{green}added{reset}] Added the 'log:clear' command, which will be used to clear all logs
-[{green}added{reset}] Added the 'csv:clear' command, which will be used to clear all csv files
+[{green}IMPROVED{reset}] Users will now be able to view previous commands with the ↑ ↓ arrow keys
+[{green}IMPROVED{reset}] Removed width from tables, so that they can auto adjust
+[{green}ADDED{reset}] Added the 'log:clear' command, which will be used to clear all logs
+[{green}ADDED{reset}] Added the 'csv:clear' command, which will be used to clear all csv files
+[{green}GUI{reset}] The GUI will now come as a standalone executable
 
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest

@@ -23,6 +23,7 @@ from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_pr
 
 readline = Readline()
 
+
 class Octosuite:
     def __init__(self):
         # API endpoint
@@ -92,8 +93,7 @@ class Octosuite:
                   'path': 'Path',
                   'sha': 'SHA',
                   'html_url': 'URL'}
-                  
-                  
+
         # Organization attributes
         self.org_attrs = ['avatar_url', 'login', 'id', 'node_id', 'email', 'description', 'blog', 'location', 'followers',
              'following', 'twitter_username', 'public_gists', 'public_repos', 'type', 'is_verified',

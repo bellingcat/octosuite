@@ -6,7 +6,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN python setup.py sdist bdist_wheel
+RUN pip install --upgrade pip
+RUN pip install build
+RUN python -m build
 RUN pip install dist/*.whl
 
 ENTRYPOINT ["octosuite"]

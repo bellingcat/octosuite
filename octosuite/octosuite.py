@@ -15,7 +15,7 @@ from pyreadline3 import Readline
 from rich import print as xprint
 from octosuite.banners import version_tag, ascii_banner
 from octosuite.colors import red, white, green, header_title, reset
-from octosuite.message_prefixes import PROMPT, POSITIVE, NEGATIVE, INFO # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
+from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
 # seriously now, the reason why I am doing this, is so that you know exactly what I am importing from a named module :)
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, logs_command, csv_command, org_command, source, org, repo, user, search, logs, csv
 from octosuite.log_roller import ctrl_c, error, session_opened, session_closed, viewing_logs, viewing_csv, deleted_log, reading_log, reading_csv, deleted_csv, file_downloading, file_downloaded, info_not_found, user_not_found, org_not_found, repo_or_user_not_found, limit_output

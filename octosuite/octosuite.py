@@ -329,37 +329,6 @@ class Octosuite:
             pass
         else:
             xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}). Run 'pip install --upgrade octosuite' to get the updates.\n")
-                  
-                  
-    """
-    on_start()
-    This is the main method, responsible for mapping commands, calling other methods, and catching exceptions
-    """
-    def on_start(self):
-        self.path_finder()
-        self.clear_screen()
-        self.configure_logging()
-        self.check_updates()
-        xprint(ascii_banner()[1], ascii_banner()[0])
-              
-        """
-        Main loop keeps octosuite running, this will break if Octosuite detects a KeyboardInterrupt (Ctrl+C)
-        or if the 'exit' command is entered.
-        """
-        while True:
-            xprint(f"{white}┌──({red}{getpass.getuser()}{white}@{red}octosuite{white})\n├──[~{green}{os.getcwd()}{white}]\n└╼ {reset}",end="")
-            command_input = input().lower()
-            print("\n")
-            """
-            Iterate over the command_map and check if the user input matches any command in it [command_map],
-            if there's a match, we return its method. If no match is found, we ignore it.
-            """
-            for command, method in self.command_map:
-                if command_input == command:
-                    method()
-                    print("\n")
-                else:
-                    pass
                 
                 
     # Fetching organization info

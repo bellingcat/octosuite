@@ -11,11 +11,11 @@ from rich.text import Text
 from rich.tree import Tree
 from rich.table import Table
 from datetime import datetime
-from pyreadline3 import Readline
+# from pyreadline3 import Readline
 from rich import print as xprint
-from octosuite.banners import version_tag, ascii_banner
-from octosuite.colors import red, white, green, header_title, reset
-from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO  # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
+from banners import version_tag, ascii_banner
+from colors import red, white, green, header_title, reset
+from message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO  # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
 # seriously now, the reason why I am doing this, is so that you know exactly what I am importing from a named module :)
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, \
     logs_command, csv_command, org_command, source, org, repo, user, search, logs, csv
@@ -28,7 +28,7 @@ from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_pr
     log_user_following, log_user_followers, log_repos_search, log_users_search, log_topics_search, log_issues_search, \
     log_commits_search  # log_org_events
 
-readline = Readline()
+# readline = Readline()
 
 """
 path_finder()

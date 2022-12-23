@@ -7,85 +7,135 @@ from rich import print as xprint
 
 def usage():
     return """
-    Basic usage
+    Basic Usage
     ===========
 
-        Get user profile info
+        Get User Profile Info
         ---------------------
-        octosuite --module user_profile --username <username>
+        octosuite --method user_profile --username <username>
 
 
-        Get user repos
+        Get User Repos
         --------------
-        octosuite --module user_repos --username <username>
+        octosuite --method user_repos --username <username>
 
 
-        Get organization profile info
+        Get Organi[sz]ation Profile Info
         -----------------------------
-        octosuite --module org_profile --organization <organization_name>
+        octosuite --method org_profile --organization <organization_name>
 
 
-        Get organi[sz]ation repos
+        Get Organi[sz]ation Repos
         -----------------------------
-        octosuite --module org_repos --organization <organization_name>
+        octosuite --method org_repos --organization <organization_name>
 
         
-        Get repo profile info
+        Get Repo Profile Info
         ---------------------
-        octosuite --module repo_profile --username <username> --repository <repo_name>
+        octosuite --method repo_profile --username <username> --repository <repo_name>
 
 
-        Get repo forks
+        Get Repo Forks
         --------------
-        octosuite --module repo_forks --username <username> --repository <repo_name>
+        octosuite --method repo_forks --username <username> --repository <repo_name>
         
     
     
     Searching
     =========
 
-        Search users
+        Search Users
         ------------
-        octosuite --module users_search --query <query>
+        octosuite --method users_search --query <query>
 
         
-        Search issues
+        Search Issues
         -------------
-        octosuite --module issues_search --query <query>
+        octosuite --method issues_search --query <query>
 
         
-        Search commits
+        Search Commits
         --------------
-        octosuite --module commits_search --query <query>
+        octosuite --method commits_search --query <query>
         
 
-        Search topics
+        Search Topics
         -------------
-        octosuite --module topics_search --query <query>
+        octosuite --method topics_search --query <query>
         
 
-        Search repositories
+        Search Repositories
         -------------------
-        octosuite --module repos_search --query <query>
+        octosuite --method repos_search --query <query>
+
+
+    Log Management
+    ==============
+
+        View logs
+        ---------
+        octosuite --method view_logs
+
+
+        Read log
+        --------
+        octosuite --method read_log --log_file <log_file>
+
+
+        Delete log
+        ----------
+        octosuite --method delete_log --log_file <log_file>
+
+
+        Clear logs
+        ----------
+        octosuite --method clear_logs
+
+
+
+    CSV Management
+    ==============
+
+        View CSV
+        ---------
+        octosuite --method view_csv
+
+
+        Read CSV
+        --------
+        octosuite --method read_csv --csv_file <csv_file>
+
+
+        Delete CSV
+        ----------
+        octosuite --method delete_csv --csv_file <csv_file>
+
+
+        Clear CSV's
+        -----------
+        octosuite --method clear_csv
         """
 
 
 def create_parser():
     parser = argparse.ArgumentParser(description='OCTOSUITE: Advanced GitHub osint framework  — by Richard Mwewa | https://about.me/rly0nheart', usage=usage())
-    parser.add_argument('-m', '--module', help='module', choices=['user_profile', 'user_repos', 'user_gists', 'user_orgs', 'user_events',
+    parser.add_argument('-m', '--method', help='method', choices=['user_profile', 'user_repos', 'user_gists', 'user_orgs', 'user_events',
                                                                   'user_subscriptions', 'user_following', 'user_followers', 'user_follows',
                                                                   'org_profile', 'org_repos', 'org_events', 'org_member',
                                                                   'repo_profile', 'repo_contributors', 'repo_stargazers', 'repo_forks',
                                                                   'repo_issues', 'repo_releases', 'repo_path_contents', 'users_search', 'issues_search',
-                                                                  'commits_search', 'topics_search', 'repos_search'])
+                                                                  'commits_search', 'topics_search', 'repos_search', 'view_logs', 'read_log', 'delete_log', 
+                                                                  'clear_logs', 'view_csv', 'read_csv', 'delete_csv', 'clear_csv', 'about', 'author'])
     parser.add_argument('-u', '--username', help='username')
     parser.add_argument('-uB', '--username_b', help='username_B (used with user_follows)')
     parser.add_argument('-o', '--organization', '--organisation', help='organi[sz]ation name')
     parser.add_argument('-r', '--repository', help='repository name')
     parser.add_argument('-p', '--path_name', help='path name (used with repo_path_contents)')
-    parser.add_argument('-q', '--query', help='query (used with search modules)')
-    parser.add_argument('-l', '--limit', help='output limit (used with modules that return results in bulk) (default: %(default)s)', default=10)
+    parser.add_argument('-q', '--query', help='query (used with search methods)')
+    parser.add_argument('-l', '--limit', help='output limit (used with methods that return results in bulk) (default: %(default)s)', default=10)
     parser.add_argument('-c', '--colors', '--colours', help='specify to run octosuite cli with colo[u]rs enabled', action='store_true')
+    parser.add_argument('--csv_file', help='specify a csv file (used with csv management methods)')
+    parser.add_argument('--log_file', help='specify a log file (used with logs management methods)')
     return parser
 
 

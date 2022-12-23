@@ -20,7 +20,7 @@ from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIV
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, \
     logs_command, csv_command, org_command, source, org, repo, user, search, logs, csv
 from octosuite.log_roller import ctrl_c, error, session_opened, session_closed, viewing_logs, viewing_csv, \
-    deleted, reading_log, reading_csv, file_downloading, file_downloaded, info_not_found, \
+    deleted, reading, file_downloading, file_downloaded, info_not_found, \
     user_not_found, org_not_found, repo_or_user_not_found, limit_output
 from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_profile, log_repo_path_contents, \
     log_repo_contributors, log_repo_stargazers, log_repo_forks, log_repo_issues, log_repo_releases, log_org_repos, \
@@ -132,7 +132,7 @@ def read_csv():
         xprint(f"{green}csv {white}(filename.csv):{reset} ", end="")
         csv_file = input()
     with open(os.path.join("output", csv_file), "r") as file:
-        logging.info(reading_csv.format(csv_file))
+        logging.info(reading.format(csv_file))
         text = Text(file.read())
         xprint(text)
 
@@ -156,7 +156,7 @@ def read_log():
     xprint(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM):{reset} ", end="")
     log_file = input()
     with open(os.path.join(".logs", log_file + ".log"), "r") as log:
-        logging.info(reading_log.format(log_file))
+        logging.info(reading.format(log_file))
         xprint("\n" + log.read())
 
 

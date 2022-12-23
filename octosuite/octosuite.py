@@ -30,30 +30,24 @@ from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_pr
 
 
 
-def set_readline():
-    if os.name == "nt":
-        try:
-            from pyreadline3 import Readline
-        except ImportError:
-            subprocess.run(['pip3', 'install', 'pyreadline3'])
-        readline = Readline()
-    else:
-        import readline
+if os.name == "nt":
+    try:
+        from pyreadline3 import Readline
+    except ImportError:
+        subprocess.run(['pip3', 'install', 'pyreadline3'])
+    readline = Readline()
+else:
+    import readline
 
-        def completer(text, state):
-            options = [i for i in commands if i.startswith(text)]
-            if state < len(options):
-                return options[state]
-            else:
-                return None
+    def completer(text, state):
+        options = [i for i in commands if i.startswith(text)]
+        if state < len(options):
+            return options[state]
+        else:
+            return None
 
-        readline.parse_and_bind("tab: complete")
-        readline.set_completer(completer)
-
-    return readline
-
-
-set_readline()
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer(completer)
 
 
 # path_finder()

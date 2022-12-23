@@ -9,56 +9,10 @@ def octosuite():
         clear_screen()
         configure_logging()
         check_updates()
-        if args.module == "user_profile":
-            run.user_profile()
-        elif args.module == "user_repos":
-            run.user_repos()
-        elif args.module == "user_gists":
-            run.user_gists()
-        elif args.module == "user_orgs":
-            run.user_orgs()
-        elif args.module == "user_events":
-            run.user_events()
-        elif args.module == "user_subscriptions":
-            run.user_subscriptions()
-        elif args.module == "user_following":
-            run.user_following()
-        elif args.module == "user_followers":
-            run.user_followers()
-        elif args.module == "user_follows":
-            run.user_follows()
-        elif args.module == "users_search":
-            run.users_search()
-        elif args.module == "issues_search":
-            run.issues_search()
-        elif args.module == "commits_search":
-            run.commits_search()
-        elif args.module == "topics_search":
-            run.topics_search()
-        elif args.module == "repos_search":
-            run.repos_search()
-        elif args.module == "org_profile":
-            run.org_profile()
-        elif args.module == "org_repos":
-            run.org_repos()
-        elif args.module == "org_events":
-            run.org_events()
-        elif args.module == "org_member":
-            run.org_member()
-        elif args.module == "repo_profile":
-            run.repo_profile()
-        elif args.module == "repo_contributors":
-            run.repo_contributors()
-        elif args.module == "repo_stargazers":
-            run.repo_stargazers()
-        elif args.module == "repo_forks":
-            run.repo_forks()
-        elif args.module == "repo_issues":
-            run.repo_issues()
-        elif args.module == "repo_releases":
-            run.repo_releases()
-        elif args.module == "repo_path_contents":
-            run.path_contents()
+        if args:
+            for argument, method in run.argument_map:
+                if args.method == argument:
+                    method()
         else:
             """
             Main loop keeps octosuite running, this will break if Octosuite detects a KeyboardInterrupt (Ctrl+C)

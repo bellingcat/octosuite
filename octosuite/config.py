@@ -8,33 +8,64 @@ from rich import print as xprint
 def usage():
     return """
     Basic usage
-    -----------
-        # Get user profile info
+    ===========
+
+        Get user profile info
+        ---------------------
         octosuite --module user_profile --username <username>
-        
-        # Get organization profile info
+
+
+        Get user repos
+        --------------
+        octosuite --module user_repos --username <username>
+
+
+        Get organization profile info
+        -----------------------------
         octosuite --module org_profile --organization <organization_name>
+
+
+        Get organi[sz]ation repos
+        -----------------------------
+        octosuite --module org_repos --organization <organization_name>
+
         
-        # Get repo profile info
+        Get repo profile info
+        ---------------------
         octosuite --module repo_profile --username <username> --repository <repo_name>
+
+
+        Get repo forks
+        --------------
+        octosuite --module repo_forks --username <username> --repository <repo_name>
         
     
     
     Searching
-    ---------
-        # Search users
+    =========
+
+        Search users
+        ------------
         octosuite --module users_search --query <query>
+
         
-        # Search issues
+        Search issues
+        -------------
         octosuite --module issues_search --query <query>
+
         
-        # Search commits
+        Search commits
+        --------------
         octosuite --module commits_search --query <query>
         
-        # Search topics
+
+        Search topics
+        -------------
         octosuite --module topics_search --query <query>
         
-        # Search repositories
+
+        Search repositories
+        -------------------
         octosuite --module repos_search --query <query>
         """
 
@@ -49,12 +80,12 @@ def create_parser():
                                                                   'commits_search', 'topics_search', 'repos_search'])
     parser.add_argument('-u', '--username', help='username')
     parser.add_argument('-uB', '--username_b', help='username_B (used with user_follows)')
-    parser.add_argument('-org', '--organization', help='organization name')
-    parser.add_argument('-repo', '--repository', help='repository name')
-    parser.add_argument('-pn', '--path_name', help='path name (used with repo_path_contents)')
+    parser.add_argument('-o', '--organization', '--organisation', help='organi[sz]ation name')
+    parser.add_argument('-r', '--repository', help='repository name')
+    parser.add_argument('-p', '--path_name', help='path name (used with repo_path_contents)')
     parser.add_argument('-q', '--query', help='query (used with search modules)')
     parser.add_argument('-l', '--limit', help='output limit (used with modules that return results in bulk) (default: %(default)s)', default=10)
-    parser.add_argument('-c', '--colors', help='specify to run octosuite cli with colors enabled', action='store_true')
+    parser.add_argument('-c', '--colors', '--colours', help='specify to run octosuite cli with colo[u]rs enabled', action='store_true')
     return parser
 
 

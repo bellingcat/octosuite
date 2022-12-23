@@ -92,10 +92,10 @@ def create_parser():
 parser = create_parser()
 args = parser.parse_args()
 
-# This file is responsible for enabling/disabling colors in OctoSuite
-# This file gets called first at start up before any other file gets called
-# colors.py is the reason why users get to choose whether to enable/disable colors
-# delete this file, the entire program breaks
+# This file is responsible for enabling/disabling colo[u]rs and configuring argparse in OctoSuite
+# This file gets called first at start up before any other file
+# config.py is the reason why users get to choose whether to enable/disable colo[u]rs, and call the program with command line arguments
+# delete this file (I dare you), the entire program breaks
 system_info = [("RAM", f"{str(round(psutil.virtual_memory().total / (1024.0 ** 3)))}GB"),
                ("Node", platform.node()),
                ("Release", platform.release()),
@@ -125,7 +125,7 @@ else:
     xprint(system_tree)
     print("\n")
     try:
-        color_chooser = input(f"[PROMPT] Welcome, would you like to enable colors for this session? (yes/no) ").lower()
+        color_chooser = input(f"[PROMPT] Welcome, would you like to enable colo[u]rs for this session? (yes/no) ").lower()
         if color_chooser == "yes":
             header_title = "bold white"
             red = "[red]"

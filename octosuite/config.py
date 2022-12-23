@@ -54,7 +54,7 @@ def create_parser():
     parser.add_argument('-pn', '--path_name', help='path name (used with repo_path_contents)')
     parser.add_argument('-q', '--query', help='query (used with search modules)')
     parser.add_argument('-l', '--limit', help='output limit (used with modules that return results in bulk) (default: %(default)s)', default=10)
-    parser.add_argument('-c', '--colors', help='specify to run octosuite with colors enabled', action='store_true')
+    parser.add_argument('-c', '--colors', help='specify to run octosuite cli with colors enabled', action='store_true')
     return parser
 
 

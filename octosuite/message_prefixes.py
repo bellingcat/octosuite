@@ -1,4 +1,4 @@
-from octosuite.colors import red, white, green, reset
+from octosuite.config import red, white, green, reset
 
 """
 message prefixes that show what 

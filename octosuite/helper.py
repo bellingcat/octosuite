@@ -1,6 +1,6 @@
 from rich.table import Table
 from rich import print as xprint
-from octosuite.colors import white, green, white_bold, green_bold, header_title, reset
+from octosuite.config import white, green, white_bold, green_bold, header_title, reset
 
 # helper.py
 # This file holds the help text for available commands.

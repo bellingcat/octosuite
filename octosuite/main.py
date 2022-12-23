@@ -9,7 +9,6 @@ def octosuite():
         clear_screen()
         configure_logging()
         check_updates()
-        xprint(banner()[0], banner()[1])
         if args.module == "user_profile":
             run.user_profile()
         elif args.module == "user_repos":
@@ -65,6 +64,7 @@ def octosuite():
             Main loop keeps octosuite running, this will break if Octosuite detects a KeyboardInterrupt (Ctrl+C)
             or if the 'exit' command is entered.
             """
+            xprint(banner()[0], banner()[1])
             while True:
                 xprint(f"{white}┌──({red}{getpass.getuser()}{white}@{red}octosuite{white})\n├──[~{green}{os.getcwd()}{white}]\n└╼ {reset}",end="")
                 command_input = input().lower()

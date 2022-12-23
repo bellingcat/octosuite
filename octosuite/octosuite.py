@@ -85,6 +85,10 @@ def check_updates():
             f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}). Run 'pip install --upgrade octosuite' to get the updates.\n")
 
 
+def list_dir_and_files():
+    os.system('dir' if os.name == 'nt' else 'ls')
+
+
 # Delete a specified csv file
 def delete_csv():
     xprint(f"{green}csv {white}(filename):{reset} ", end="")
@@ -198,19 +202,18 @@ def clear_screen():
 def about():
     about_text = f"""
     OCTOSUITE © 2023 Richard Mwewa
-    
+        
 An advanced and lightning fast framework for gathering open-source intelligence on GitHub users and organizations.
-With over 20+ features, Octosuite only runs on 2 external dependencies, and returns the gathered intelligence in a highly readable format.
 
 
 Whats new in v{version_tag}?
-[{green}IMPROVED{reset}] Users will now be able to view previous commands with the ↑ ↓ arrow keys
+[{green}IMPROVED{reset}] Users will now be able to view previous commands with the ↑ ↓ arrow keys (for Windows systems)
 [{green}IMPROVED{reset}] Removed width from tables, so that they can auto adjust
+[{green}ADDED{reset}] Added the 'ls' command, which will be used to list all files and directories in the current working directory (beta)
+[{green}ADDED{reset}] Added the 'cd' command, which will be used to move to a specified directory (beta)
 [{green}ADDED{reset}] Added the 'log:clear' command, which will be used to clear all logs
 [{green}ADDED{reset}] Added the 'csv:clear' command, which will be used to clear all csv files
-[{green}GUI{reset}] GUI app for OSX is now  available
 [{green}GUI{reset}] The GUI will now come as a standalone executable
-[{green}GUI{reset}] Added an option to check for updates
 
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest
@@ -225,7 +228,8 @@ class Octosuite:
         self.endpoint = 'https://api.github.com'
 
         # A list of tuples mapping commands to their methods
-        self.command_map = [("exit", exit_session),
+        self.command_map = [('ls', list_dir_and_files),
+                            ("exit", exit_session),
                             ("clear", clear_screen),
                             ("about", about),
                             ("author", self.author),

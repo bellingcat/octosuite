@@ -20,7 +20,7 @@ from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIV
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, \
     logs_command, csv_command, org_command, source, org, repo, user, search, logs, csv
 from octosuite.log_roller import ctrl_c, error, session_opened, session_closed, viewing_logs, viewing_csv, \
-    deleted_log, reading_log, reading_csv, deleted_csv, file_downloading, file_downloaded, info_not_found, \
+    deleted, reading_log, reading_csv, file_downloading, file_downloaded, info_not_found, \
     user_not_found, org_not_found, repo_or_user_not_found, limit_output
 from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_profile, log_repo_path_contents, \
     log_repo_contributors, log_repo_stargazers, log_repo_forks, log_repo_issues, log_repo_releases, log_org_repos, \
@@ -91,11 +91,14 @@ def list_dir_and_files():
 
 # Delete a specified csv file
 def delete_csv():
-    xprint(f"{green}csv {white}(filename):{reset} ", end="")
-    csv_file = input()
+    if args.csv_file:
+        csv_file = args.csv_file
+    else:
+        xprint(f"{green}csv {white}(filename):{reset} ", end="")
+        csv_file = input()
     os.remove(os.path.join("output", csv_file))
-    logging.info(deleted_csv.format(csv_file))
-    xprint(f"{POSITIVE} {deleted_csv.format(csv_file)}")
+    logging.info(deleted.format(csv_file))
+    xprint(f"{POSITIVE} {deleted.format(csv_file)}")
 
 
 # Clear csv files
@@ -123,9 +126,12 @@ def view_csv():
 
 # Read csv
 def read_csv():
-    xprint(f"{green}csv {white}(filename):{reset} ", end="")
-    csv_file = input()
-    with open(os.path.join("output", csv_file + ".csv"), "r") as file:
+    if args.csv_file:
+        csv_file = args.csv_file
+    else:
+        xprint(f"{green}csv {white}(filename.csv):{reset} ", end="")
+        csv_file = input()
+    with open(os.path.join("output", csv_file), "r") as file:
         logging.info(reading_csv.format(csv_file))
         text = Text(file.read())
         xprint(text)
@@ -145,6 +151,8 @@ def view_logs():
 
 # Read log
 def read_log():
+    if args.log_file:
+        log_file = args.log_file
     xprint(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM):{reset} ", end="")
     log_file = input()
     with open(os.path.join(".logs", log_file + ".log"), "r") as log:
@@ -154,11 +162,14 @@ def read_log():
 
 # Delete log
 def delete_log():
-    xprint(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM):{reset} ", end="")
-    log_file = input()
+    if args.log_file:
+        log_file = args.log_file
+    else:
+        xprint(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM):{reset} ", end="")
+        log_file = input()
     os.remove(os.path.join(".logs", log_file))
-    logging.info(deleted_log.format(log_file))
-    xprint(f"{POSITIVE} {deleted_log.format(log_file)}")
+    logging.info(deleted.format(log_file))
+    xprint(f"{POSITIVE} {deleted.format(log_file)}")
 
 
 # Clear logs
@@ -276,6 +287,43 @@ class Octosuite:
                             ("csv:read", read_csv),
                             ("csv:delete", delete_csv),
                             ("csv:clear", clear_csv)]
+
+        # Arguments map will be used to run Octosuite with argparse
+        self.argument_map = [("user_profile", self.user_profile),
+                             ("user_repos", self.user_repos),
+                             ("user_gists", self.user_gists),
+                             ("user_orgs", self.user_orgs),
+                             ("user_events", self.user_events),
+                             ("user_subscriptions", self.user_subscriptions),
+                             ("user_following", self.user_following),
+                             ("user_followers", self.user_followers),
+                             ("user_follows", self.user_follows),
+                             ("users_search", self.users_search),
+                             ("issues_search", self.issues_search),
+                             ("commits_search", self.commits_search),
+                             ("topics_search", self.topics_search),
+                             ("repos_search", self.repos_search),
+                             ("org_profile", self.org_profile),
+                             ("org_repos", self.org_repos),
+                             ("org_events", self.org_events),
+                             ("org_member", self.org_member),
+                             ("repo_profile", self.repo_profile),
+                             ("repo_contributors", self.repo_contributors),
+                             ("repo_stargazers", self.repo_stargazers),
+                             ("repo_forks", self.repo_forks),
+                             ("repo_issues", self.repo_issues),
+                             ("repo_releases", self.repo_releases),
+                             ("repo_path_contents", self.path_contents),
+                             ("view_logs", view_logs),
+                             ("read_log", read_log),
+                             ("delete_log", delete_log),
+                             ("clear_logs", clear_logs),
+                             ("view_csv", view_csv),
+                             ("read_csv", read_csv),
+                             ("delete_csv", delete_csv),
+                             ("clear_csv", clear_csv),
+                             ("about", about),
+                             ("author", self.author)]
 
         # Path attribute
         self.path_attrs = ['size', 'type', 'path', 'sha', 'html_url']

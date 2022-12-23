@@ -1,63 +1,5 @@
 # import everything from the octosuite.py file
-import argparse
 from octosuite.octosuite import *  # I drifted away from the 'pythonic way' here
-
-
-def usage():
-    return """
-    Basic usage
-    -----------
-        # Get user profile info
-        octosuite --module user_profile --username <username>
-        
-        # Get organization profile info
-        octosuite --module org_profile --organization <organization_name>
-        
-        # Get repo profile info
-        octosuite --module repo_profile --username <username> --repository <repo_name>
-        
-    
-    
-    Searching
-    ---------
-        # Search users
-        octosuite --module users_search --query <query>
-        
-        # Search issues
-        octosuite --module issues_search --query <query>
-        
-        # Search commits
-        octosuite --module commits_search --query <query>
-        
-        # Search topics
-        octosuite --module topics_search --query <query>
-        
-        # Search repositories
-        octosuite --module repos_search --query <query>
-        """
-
-
-def create_parser():
-    parser = argparse.ArgumentParser(description='OCTOSUITE: Advanced GitHub osint framework  — by Richard Mwewa | https://about.me/rly0nheart', usage=usage())
-    parser.add_argument('-m', '--module', help='module', choices=['user_profile', 'user_repos', 'user_gists', 'user_orgs', 'user_events',
-                                                                  'user_subscriptions', 'user_following', 'user_followers', 'user_follows',
-                                                                  'org_profile', 'org_repos', 'org_events', 'org_member',
-                                                                  'repo_profile', 'repo_contributors', 'repo_stargazers', 'repo_forks',
-                                                                  'repo_issues', 'repo_releases', 'repo_path_contents', 'users_search', 'issues_search',
-                                                                  'commits_search', 'topics_search', 'repos_search'])
-    parser.add_argument('-u', '--username', help='username')
-    parser.add_argument('-uB', '--username_b', help='username_B (used with user_follows)')
-    parser.add_argument('-org', '--organization', help='organization name')
-    parser.add_argument('-repo', '--repository', help='repository name')
-    parser.add_argument('-pn', '--path_name', help='path name (used with repo_path_contents)')
-    parser.add_argument('-q', '--query', help='query (used with search modules)')
-    parser.add_argument('-l', '--limit', help='output limit (used with modules that return results in bulk) (default: %(default)s)', default=10)
-    parser.add_argument('--colors', help='enable or disable colors (default: %(default)s)', type=bool, default=True)
-    return parser
-
-
-parser = create_parser()
-args = parser.parse_args()
 
 
 def octosuite():
@@ -67,7 +9,7 @@ def octosuite():
         clear_screen()
         configure_logging()
         check_updates()
-        xprint(ascii_banner()[1], ascii_banner()[0])
+        xprint(banner()[0], banner()[1])
         if args.module == "user_profile":
             run.user_profile()
         elif args.module == "user_repos":

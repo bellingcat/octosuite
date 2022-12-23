@@ -13,8 +13,9 @@ from rich.table import Table
 from datetime import datetime
 # from pyreadline3 import Readline
 from rich import print as xprint
-from octosuite.banners import version_tag, ascii_banner
-from octosuite.colors import red, white, green, header_title, reset
+from octosuite.config import *
+from octosuite.banner import version_tag, banner
+from octosuite.config import red, white, green, header_title, reset
 from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO  # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
 # seriously now, the reason why I am doing this, is so that you know exactly what I am importing from a named module :)
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, \

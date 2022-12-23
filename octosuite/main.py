@@ -68,17 +68,21 @@ def octosuite():
             while True:
                 xprint(f"{white}┌──({red}{getpass.getuser()}{white}@{red}octosuite{white})\n├──[~{green}{os.getcwd()}{white}]\n└╼ {reset}",end="")
                 command_input = input().lower()
-                print("\n")
                 """
                 Iterate over the command_map and check if the user input matches any command in it [command_map],
                 if there's a match, we return its method. If no match is found, we ignore it.
                 """
-                for command, method in run.command_map:
-                    if command_input == command:
-                        method()
-                        print("\n")
-                    else:
-                        pass
+                if command_input[:2] == 'cd':
+                    os.chdir(command_input[3:])
+                elif command_input[:2] == 'ls':
+                    os.system(f'dir {command_input[3:]}' if os.name == 'nt' else f'ls {command_input[3:]}')
+                else:
+                    for command, method in run.command_map:
+                        if command_input == command:
+                            method()
+                            print("\n")
+                        else:
+                            pass
         
     except KeyboardInterrupt:
         logging.warning(ctrl_c)

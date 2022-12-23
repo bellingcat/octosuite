@@ -209,7 +209,7 @@ An advanced and lightning fast framework for gathering open-source intelligence 
 Whats new in v{version_tag}?
 [{green}IMPROVED{reset}] Users will now be able to view previous commands with the ↑ ↓ arrow keys (for Windows systems)
 [{green}IMPROVED{reset}] Removed width from tables, so that they can auto adjust
-[{green}ADDED{reset}] Added the 'ls' command, which will be used to list all files and directories in the current working directory (beta)
+[{green}ADDED{reset}] Added the 'ls' command, which will be used to list all files and directories of the specified directory (beta)
 [{green}ADDED{reset}] Added the 'cd' command, which will be used to move to a specified directory (beta)
 [{green}ADDED{reset}] Added the 'log:clear' command, which will be used to clear all logs
 [{green}ADDED{reset}] Added the 'csv:clear' command, which will be used to clear all csv files

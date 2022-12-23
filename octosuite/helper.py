@@ -146,6 +146,8 @@ def help_command():
     core_cmd_table = Table(show_header=True, header_style=header_title)
     core_cmd_table.add_column("Command", style="dim", width=12)
     core_cmd_table.add_column("Description")
+    core_cmd_table.add_row("ls", "list contents of current directory")
+    core_cmd_table.add_row("cd", "move to specified directory")
     core_cmd_table.add_row("help", "Help menu")
     core_cmd_table.add_row("exit", "Close session")
     core_cmd_table.add_row("clear", "Clear screen")

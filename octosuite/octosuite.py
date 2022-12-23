@@ -103,11 +103,8 @@ def clear_csv():
     xprint(f"{PROMPT} This will clear all {len(os.listdir('output'))} csv files, continue? (yes/no) ", end="")
     prompt = input().lower()
     if prompt == "yes":
-        files = os.listdir('output')
-        for file in files:
-            if os.path.isfile(file):
-                os.remove(file)
-        xprint(f"{INFO} Cleared {len(files)} .csv files!")
+        shutil.rmtree('output', ignore_errors=True)
+        xprint(f"{INFO} .csv files cleared successfully!")
     else:
         pass
 
@@ -166,15 +163,11 @@ def delete_log():
 
 # Clear logs
 def clear_logs():
-    xprint(
-        f"{PROMPT} This will clear all {len(os.listdir('.logs'))} logs and close the current session, continue? (yes/no) ", end="")
+    xprint(f"{PROMPT} This will clear all {len(os.listdir('.logs'))} logs and close the current session, continue? (yes/no) ", end="")
     prompt = input().lower()
     if prompt == "yes":
-        files = os.listdir('.logs')
-        for file in files:
-            if os.path.isfile(file):
-                os.remove(file)
-        xprint(f"{INFO} Cleared {len(files)} .log files!")
+        shutil.rmtree('.logs', ignore_errors=True)
+        xprint(f"{INFO} .log files cleared successfully!")
         exit()
     else:
         pass

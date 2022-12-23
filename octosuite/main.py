@@ -10,6 +10,10 @@ def octosuite():
         configure_logging()
         check_updates()
         if args:
+            """
+            Iterate over the argument_map and check if the passed command line argument matches any argument in it [argument_map],
+            if there's a match, we return its method. If no match is found, we do nothing (which will return the usage).
+            """
             for argument, method in run.argument_map:
                 if args.method == argument:
                     method()

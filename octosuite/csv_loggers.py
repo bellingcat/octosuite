@@ -2,7 +2,7 @@ import os
 import csv
 import logging
 from rich import print as xprint
-from octosuite.log_roller import prompt_log_csv, logged_to_csv, logging_skipped
+from octosuite.log_roller import prompt_log_csv, logged_to_csv
 from octosuite.message_prefixes import PROMPT, WARNING, POSITIVE, NEGATIVE, INFO
 
 
@@ -440,4 +440,3 @@ def log_commits_search(commit, query):
 
         logging.info(logged_to_csv.format(file.name))
         xprint(f"{POSITIVE} {logged_to_csv.format(file.name)}")
-        

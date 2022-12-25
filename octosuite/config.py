@@ -1,7 +1,6 @@
 import psutil
 import platform
 import argparse
-
 from rich.tree import Tree
 from rich.text import Text
 from rich.table import Table
@@ -142,7 +141,7 @@ def create_parser():
     parser.add_argument('-c', '--colors', '--colours', help='specify to run octosuite cli with colo[u]rs enabled', action='store_true')
     parser.add_argument('--csv_file', help='specify a csv file (used with csv management methods)')
     parser.add_argument('--log_file', help='specify a log file (used with logs management methods)')
-    parser.add_argument('--log_csv', help='specify to log output to a csv', action='store_true')
+    parser.add_argument('--log_csv', help='log output to a csv (default: %(default)s)', choices=['yes', 'no'], default='no')
     return parser
 
 

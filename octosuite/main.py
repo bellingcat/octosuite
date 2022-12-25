@@ -4,7 +4,7 @@ from octosuite.octosuite import *  # I drifted away from the 'pythonic way' here
 
 def octosuite():
     try:
-        run = Octosuite(args)
+        run = Octosuite()
         path_finder()
         clear_screen()
         configure_logging()
@@ -17,30 +17,30 @@ def octosuite():
             for argument, method in run.argument_map:
                 if args.method == argument:
                     method()
-        else:
+                    print("\n")
+        
+        """
+        Main loop keeps octosuite running, this will break if Octosuite detects a KeyboardInterrupt (Ctrl+C)
+        or if the 'exit' command is entered.
+        """
+        xprint(banner()[0], banner()[1])
+        while True:
+            command_input = Prompt.ask(f"{white}┌──({red}{getpass.getuser()}{white}@{red}octosuite{white})\n├──[~{green}{os.getcwd()}{white}]\n└╼ {reset}")
             """
-            Main loop keeps octosuite running, this will break if Octosuite detects a KeyboardInterrupt (Ctrl+C)
-            or if the 'exit' command is entered.
+            Iterate over the command_map and check if the user input matches any command in it [command_map],
+            if there's a match, we return its method. If no match is found, we ignore it.
             """
-            xprint(banner()[0], banner()[1])
-            while True:
-                xprint(f"{white}┌──({red}{getpass.getuser()}{white}@{red}octosuite{white})\n├──[~{green}{os.getcwd()}{white}]\n└╼ {reset}",end="")
-                command_input = input().lower()
-                """
-                Iterate over the command_map and check if the user input matches any command in it [command_map],
-                if there's a match, we return its method. If no match is found, we ignore it.
-                """
-                if command_input[:2] == 'cd':
-                    os.chdir(command_input[3:])
-                elif command_input[:2] == 'ls':
-                    os.system(f'dir {command_input[3:]}' if os.name == 'nt' else f'ls {command_input[3:]}')
-                else:
-                    for command, method in run.command_map:
-                        if command_input == command:
-                            method()
-                            print("\n")
-                        else:
-                            pass
+            if command_input[:2] == 'cd':
+                os.chdir(command_input[3:])
+            elif command_input[:2] == 'ls':
+                os.system(f'dir {command_input[3:]}' if os.name == 'nt' else f'ls {command_input[3:]}')
+            else:
+                for command, method in run.command_map:
+                    if command_input == command:
+                        method()
+                        print("\n")
+                    else:
+                        pass
         
     except KeyboardInterrupt:
         logging.warning(ctrl_c)

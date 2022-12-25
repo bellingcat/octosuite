@@ -1,9 +1,14 @@
 import psutil
 import platform
 import argparse
+
 from rich.tree import Tree
+from rich.text import Text
+from rich.table import Table
 from datetime import datetime
+from rich.prompt import Prompt
 from rich import print as xprint
+
 
 def usage():
     return """
@@ -137,6 +142,7 @@ def create_parser():
     parser.add_argument('-c', '--colors', '--colours', help='specify to run octosuite cli with colo[u]rs enabled', action='store_true')
     parser.add_argument('--csv_file', help='specify a csv file (used with csv management methods)')
     parser.add_argument('--log_file', help='specify a log file (used with logs management methods)')
+    parser.add_argument('--log_csv', help='specify to log output to a csv', action='store_true')
     return parser
 
 
@@ -164,6 +170,7 @@ if args.colors:
     red = "[red]"
     white = "[white]"
     green = "[green]"
+    yellow = "[yellow]"
     red_bold = "[white bold]"
     white_bold = "[white bold]"
     green_bold = "[green bold]"
@@ -176,18 +183,19 @@ else:
     xprint(system_tree)
     print("\n")
     try:
-        color_chooser = input(f"[PROMPT] Welcome, would you like to enable colo[u]rs for this session? (yes/no) ").lower()
+        color_chooser = Prompt.ask(f"Welcome, would you like to enable colo(u)rs for this session?", choices=['yes', 'no'])
         if color_chooser == "yes":
             header_title = "bold white"
             red = "[red]"
             white = "[white]"
             green = "[green]"
+            yellow = "[yellow]"
             red_bold = "[white bold]"
             white_bold = "[white bold]"
             green_bold = "[green bold]"
             reset = "[/]"
         else:
-            header_title = red = white = green = red_bold = white_bold = green_bold = reset = ""
+            header_title = red = white = green = red_bold = white_bold = green_bold = reset = yellow = ""
     except KeyboardInterrupt:
         exit(f"[WARNING] Process interrupted with Ctrl+C.")
       

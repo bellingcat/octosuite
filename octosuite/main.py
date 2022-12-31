@@ -9,7 +9,7 @@ def octosuite():
         clear_screen()
         configure_logging()
         check_updates()
-        if args:
+        if args.method:
             """
             Iterate over the argument_map and check if the passed command line argument matches any argument in it [argument_map],
             if there's a match, we return its method. If no match is found, we do nothing (which will return the usage).
@@ -18,29 +18,31 @@ def octosuite():
                 if args.method == argument:
                     method()
                     print("\n")
-        
-        """
-        Main loop keeps octosuite running, this will break if Octosuite detects a KeyboardInterrupt (Ctrl+C)
-        or if the 'exit' command is entered.
-        """
-        xprint(banner()[0], banner()[1])
-        while True:
-            command_input = Prompt.ask(f"{white}┌──({red}{getpass.getuser()}{white}@{red}octosuite{white})\n├──[~{green}{os.getcwd()}{white}]\n└╼ {reset}")
+                else:
+                    pass
+        else:
             """
-            Iterate over the command_map and check if the user input matches any command in it [command_map],
-            if there's a match, we return its method. If no match is found, we ignore it.
+            Main loop keeps octosuite running, this will break if Octosuite detects a KeyboardInterrupt (Ctrl+C)
+            or if the 'exit' command is entered.
             """
-            if command_input[:2] == 'cd':
-                os.chdir(command_input[3:])
-            elif command_input[:2] == 'ls':
-                os.system(f'dir {command_input[3:]}' if os.name == 'nt' else f'ls {command_input[3:]}')
-            else:
-                for command, method in run.command_map:
-                    if command_input == command:
-                        method()
-                        print("\n")
-                    else:
-                        pass
+            xprint(banner()[0], banner()[1])
+            while True:
+                command_input = Prompt.ask(f"{white}┌──({red}{getpass.getuser()}{white}@{red}octosuite{white})\n├──[~{green}{os.getcwd()}{white}]\n└╼{reset}")
+                """
+                Iterate over the command_map and check if the user input matches any command in it [command_map],
+                if there's a match, we return its method. If no match is found, we ignore it.
+                """
+                if command_input[:2] == 'cd':
+                    os.chdir(command_input[3:])
+                elif command_input[:2] == 'ls':
+                    os.system(f'dir {command_input[3:]}' if os.name == 'nt' else f'ls {command_input[3:]}')
+                else:
+                    for command, method in run.command_map:
+                        if command_input == command:
+                            method()
+                            print("\n")
+                        else:
+                            pass
         
     except KeyboardInterrupt:
         logging.warning(ctrl_c)

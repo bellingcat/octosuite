@@ -10,14 +10,14 @@ import platform
 import subprocess
 from datetime import datetime
 from octosuite.banner import version_tag, banner
-from octosuite.config import Tree, Text, Table, Prompt, xprint, create_parser, args, red, white, green, yellow, header_title, reset
+from octosuite.config import Tree, Text, Table, Prompt, Confirm, xprint, create_parser, args, red, white, green, yellow, header_title, reset
 from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO  # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
 # seriously now, the reason why I am doing this, is so that you know exactly what I am importing from a named module :)
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, \
     logs_command, csv_command, org_command, source, org, repo, user, search, logs, csv
 from octosuite.log_roller import ctrl_c, error, session_opened, session_closed, viewing_logs, viewing_csv, \
     deleted, reading, file_downloading, file_downloaded, info_not_found, \
-    user_not_found, org_not_found, repo_or_user_not_found, limit_output, prompt_log_csv, logging_skipped
+    user_not_found, org_not_found, repo_or_user_not_found, limit_output, prompt_log_csv
 from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_profile, log_repo_path_contents, \
     log_repo_contributors, log_repo_stargazers, log_repo_forks, log_repo_issues, log_repo_releases, log_org_repos, \
     log_org_profile, log_user_repos, log_user_gists, log_user_orgs, log_user_events, log_user_subscriptions, \
@@ -88,7 +88,7 @@ def delete_csv():
     if args.csv_file:
         csv_file = args.csv_file
     else:
-        csv_file = Prompt.ask(f"{green}csv {white}(filename){reset}")
+        csv_file = Prompt.ask(f"{green}.csv {white}(filename){reset}")
     os.remove(os.path.join("output", csv_file))
     logging.info(deleted.format(csv_file))
     xprint(f"{POSITIVE} {deleted.format(csv_file)}")
@@ -96,8 +96,8 @@ def delete_csv():
 
 # Clear csv files
 def clear_csv():
-    prompt = Prompt.ask(f"{PROMPT} This will clear all {len(os.listdir('output'))} csv files, continue?", choices=['yes', 'no'])
-    if prompt == "yes":
+    clear_csv_prompt = Confirm.ask(f"{PROMPT} This will clear all {len(os.listdir('output'))} csv files, continue?")
+    if clear_csv_prompt:
         shutil.rmtree('output', ignore_errors=True)
         xprint(f"{INFO} csv files cleared successfully!")
     else:
@@ -121,7 +121,7 @@ def read_csv():
     if args.csv_file:
         csv_file = args.csv_file
     else:
-        csv_file = Prompt.ask(f"{green}csv {white}(filename){reset}")
+        csv_file = Prompt.ask(f"{green}.csv {white}(filename){reset}")
     with open(os.path.join("output", csv_file), "r") as file:
         logging.info(reading.format(csv_file))
         text = Text(file.read())
@@ -145,7 +145,7 @@ def read_log():
     if args.log_file:
         log_file = args.log_file
     else:
-        log_file = Prompt.ask(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM){reset}")
+        log_file = Prompt.ask(f"{green}.log date{white} (eg. 2022-04-27 10:09:36AM){reset}")
     with open(os.path.join(".logs", log_file + ".log"), "r") as log:
         logging.info(reading.format(log_file))
         xprint("\n" + log.read())
@@ -156,7 +156,7 @@ def delete_log():
     if args.log_file:
         log_file = args.log_file
     else:
-        log_file = Prompt.ask(f"{green}log date{white} (eg. 2022-04-27 10:09:36AM){reset}")
+        log_file = Prompt.ask(f"{green}.log date{white} (eg. 2022-04-27 10:09:36AM){reset}")
     os.remove(os.path.join(".logs", log_file))
     logging.info(deleted.format(log_file))
     xprint(f"{POSITIVE} {deleted.format(log_file)}")
@@ -164,8 +164,8 @@ def delete_log():
 
 # Clear logs
 def clear_logs():
-    prompt = Prompt.ask(f"{PROMPT} This will clear all {len(os.listdir('output'))} log files, continue?", choices=['yes', 'no'])
-    if prompt == "yes":
+    clear_logs_prompt = Confirm.ask(f"{PROMPT} This will clear all {len(os.listdir('output'))} log files, continue?")
+    if clear_logs_prompt:
         shutil.rmtree('.logs', ignore_errors=True)
         xprint(f"{INFO} .log files cleared successfully!")
         exit()
@@ -175,8 +175,8 @@ def clear_logs():
 
 # Exit session
 def exit_session():
-    exit_prompt = Prompt.ask(f"{PROMPT} This will close the current session, continue?", choices=['yes', 'no'])
-    if exit_prompt == "yes":
+    exit_prompt = Confirm.ask(f"{PROMPT} This will close the current session, continue?")
+    if exit_prompt:
         logging.info(session_closed.format(datetime.now()))
         xprint(f"{INFO} {session_closed.format(datetime.now())}")
         exit()
@@ -521,7 +521,7 @@ class Octosuite:
         if args.organization:
             organization = args.organization
         else:
-            organization = Prompt.ask(f"{white}@{green}Organization{reset}")
+            organization = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
         response = requests.get(f"{self.endpoint}/orgs/{organization}")
         if response.status_code == 404:
             xprint(f"{NEGATIVE} {org_not_found.format(organization)}")
@@ -530,7 +530,9 @@ class Octosuite:
             for attr in self.org_attrs:
                 org_profile_tree.add(f"{self.org_attr_dict[attr]}: {response.json()[attr]}")
             xprint(org_profile_tree)
-            log_org_profile(response)
+
+            if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
+                log_org_profile(response)
         else:
             xprint(response.json())
 
@@ -550,7 +552,7 @@ class Octosuite:
             xprint(user_profile_tree)
 
             # Logging output to a csv file
-            if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+            if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                 log_user_profile(response)
         else:
             xprint(response.json())
@@ -572,7 +574,7 @@ class Octosuite:
                 repo_profile_tree.add(f"{self.repo_attr_dict[attr]}: {response.json()[attr]}")
             xprint(repo_profile_tree)
 
-            if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+            if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                 log_repo_profile(response)
         else:
             xprint(response.json())
@@ -621,7 +623,7 @@ class Octosuite:
                     contributor_tree.add(f"{self.user_attr_dict[attr]}: {contributor[attr]}")
                 xprint(contributor_tree)
 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_repo_contributors(contributor, repo_name)
             else:
                 xprint(response.json())
@@ -648,7 +650,7 @@ class Octosuite:
                     stargazer_tree.add(f"{self.user_attr_dict[attr]}: {stargazer[attr]}")
                 xprint(stargazer_tree)
                 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_repo_stargazers(stargazer, repo_name)
         else:
             xprint(response.json())
@@ -675,7 +677,7 @@ class Octosuite:
                     fork_tree.add(f"{self.repo_attr_dict[attr]}: {fork[attr]}")
                 xprint(fork_tree)
 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_repo_forks(fork, count)
         else:
             xprint(response.json())
@@ -729,7 +731,7 @@ class Octosuite:
                 xprint(releases_tree)
                 xprint(release['body'])
 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_repo_releases(release, repo_name)
         else:
             xprint(response.json())
@@ -740,7 +742,7 @@ class Octosuite:
             organization = args.organization
             limit = args.limit
         else:
-            organization = Prompt.ask(f"{white}@{green}Organization{reset}")
+            organization = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
             limit = Prompt.ask(limit_output.format("organization repositories"))
         response = requests.get(f"{self.endpoint}/orgs/{organization}/repos?per_page={limit}")
         if response.status_code == 404:
@@ -752,7 +754,7 @@ class Octosuite:
                     repos_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
                 xprint(repos_tree)
                 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}") == "yes":
                     log_org_repos(repository, organization)
         else:
             xprint(response.json())
@@ -763,7 +765,7 @@ class Octosuite:
             organization = args.organization
             limit = args.limit
         else:
-            organization = Prompt.ask(f"{white}@{green}Organization{reset}")
+            organization = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
             limit = Prompt.ask(limit_output.format("organization events"))
         response = requests.get(f"{self.endpoint}/orgs/{organization}/events?per_page={limit}")
         if response.status_code == 404:
@@ -785,7 +787,7 @@ class Octosuite:
             organization = args.organization
             username = args.username
         else:
-            organization = Prompt.ask(f"{white}@{green}Organization{reset}")
+            organization = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
             username = Prompt.ask(f"{white}@{green}Username{reset}")
         response = requests.get(f"{self.endpoint}/orgs/{organization}/public_members/{username}")
         if response.status_code == 204:
@@ -811,7 +813,7 @@ class Octosuite:
                     repos_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
                 xprint(repos_tree)
 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_user_repos(repository, username)
         else:
             xprint(response.json())
@@ -836,7 +838,7 @@ class Octosuite:
                     gists_tree.add(f"{self.gists_attr_dict[attr]}: {gist[attr]}")
                 xprint(gists_tree)
                 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_user_gists(gist)
         else:
             xprint(response.json())
@@ -861,7 +863,7 @@ class Octosuite:
                     org_tree.add(f"{self.user_orgs_attr_dict[attr]}: {organization[attr]}")
                 xprint(org_tree)
                 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_user_orgs(organization, username)
         else:
             xprint(response.json())
@@ -910,7 +912,7 @@ class Octosuite:
                     subscriptions_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
                 xprint(subscriptions_tree)
                 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_user_subscriptions(repository, username)
         else:
             xprint(response.json())
@@ -935,7 +937,7 @@ class Octosuite:
                     following_tree.add(f"{self.user_attr_dict[attr]}: {user[attr]}")
                 xprint(following_tree)
                 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_user_following(user, username)
         else:
             xprint(response.json())
@@ -960,7 +962,7 @@ class Octosuite:
                     followers_tree.add(f"{self.user_attr_dict[attr]}: {follower[attr]}")
                 xprint(followers_tree)
                 
-                if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+                if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                     log_user_followers(follower, username)
         else:
             xprint(response.json())
@@ -994,7 +996,7 @@ class Octosuite:
                 users_search_tree.add(f"{self.user_attr_dict[attr]}: {user[attr]}")
             xprint(users_search_tree)
             
-            if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+            if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                 log_users_search(user, query)
 
     # Repository search
@@ -1012,7 +1014,7 @@ class Octosuite:
                 repos_search_tree.add(f"{self.repo_attr_dict[attr]}: {repository[attr]}")
             xprint(repos_search_tree)
             
-            if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+            if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                 log_repos_search(repository, query)
 
     # Topics search
@@ -1030,7 +1032,7 @@ class Octosuite:
                 topics_search_tree.add(f"{self.topic_attr_dict[attr]}: {topic[attr]}")
             xprint(topics_search_tree)
             
-            if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+            if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                 log_topics_search(topic, query)
 
     # Issue search
@@ -1049,7 +1051,7 @@ class Octosuite:
             xprint(issues_search_tree)
             xprint(issue['body'])
             
-            if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+            if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                 log_issues_search(issue, query)
 
     # Commits search
@@ -1072,7 +1074,7 @@ class Octosuite:
             xprint(commits_search_tree)
             xprint(commit['commit']['message'])
             
-            if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}", choices=['yes', 'no']) == "yes":
+            if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
                 log_commits_search(commit, query)
 
     # Downloading release tarball

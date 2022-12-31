@@ -1,6 +1,6 @@
 ![logo](https://user-images.githubusercontent.com/74001397/175805580-fffc96d4-e0ef-48bb-a55c-80b2da3e714d.png)
 
-A framework fro gathering osint on GitHub users, repositories and organizations
+A framework for gathering osint on GitHub users, repositories and organizations
 
 [![Upload Python Package](https://github.com/bellingcat/octosuite/actions/workflows/python-publish.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/python-publish.yml)
 [![CodeQL](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml)

@@ -5,8 +5,8 @@ from rich.tree import Tree
 from rich.text import Text
 from rich.table import Table
 from datetime import datetime
-from rich.prompt import Prompt
 from rich import print as xprint
+from rich.prompt import Prompt, Confirm
 
 
 def usage():
@@ -84,12 +84,12 @@ def usage():
 
         Read log
         --------
-        octosuite --method read_log --log-file <log_file>
+        octosuite --method read_log --log_file <log_file>
 
 
         Delete log
         ----------
-        octosuite --method delete_log --log-file <log_file>
+        octosuite --method delete_log --log_file <log_file>
 
 
         Clear logs
@@ -108,12 +108,12 @@ def usage():
 
         Read CSV
         --------
-        octosuite --method read_csv --csv-file <csv_file>
+        octosuite --method read_csv --csv_file <csv_file>
 
 
         Delete CSV
         ----------
-        octosuite --method delete_csv --csv-file <csv_file>
+        octosuite --method delete_csv --csv_file <csv_file>
 
 
         Clear CSV's
@@ -139,9 +139,9 @@ def create_parser():
     parser.add_argument('-q', '--query', help='query (used with search methods)')
     parser.add_argument('-l', '--limit', help='output limit (used with methods that return results in bulk) (default: %(default)s)', default=10)
     parser.add_argument('-c', '--colors', '--colours', help='specify to run octosuite cli with colo[u]rs enabled', action='store_true')
-    parser.add_argument('--csv-file', help='specify a csv file (used with csv management methods)', dest='csv_file')
-    parser.add_argument('--log-file', help='specify a log file (used with logs management methods)', dest='log_file')
-    parser.add_argument('--log-to-csv', help='log output to a csv (default: %(default)s)', choices=['yes', 'no'], default='no')
+    parser.add_argument('--csv_file', help='csv file (used with csv management methods)')
+    parser.add_argument('--log_file', help='log file (used with logs management methods)')
+    parser.add_argument('--log-to-csv', help='log output to a csv file', action='store_true', dest='log_csv')
     return parser
 
 
@@ -182,8 +182,8 @@ else:
     xprint(system_tree)
     print("\n")
     try:
-        color_chooser = Prompt.ask(f"Welcome, would you like to enable colo(u)rs for this session?", choices=['yes', 'no'])
-        if color_chooser == "yes":
+        color_chooser = Confirm.ask(f"Welcome, would you like to enable colo(u)rs for this session?")
+        if color_chooser:
             header_title = "bold white"
             red = "[red]"
             white = "[white]"

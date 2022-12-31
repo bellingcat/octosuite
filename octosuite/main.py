@@ -27,7 +27,7 @@ def octosuite():
             """
             xprint(banner()[0], banner()[1])
             while True:
-                command_input = Prompt.ask(f"{white}┌──({red}{getpass.getuser()}{white}@{red}octosuite{white})\n├──[~{green}{os.getcwd()}{white}]\n└╼ {reset}")
+                command_input = Prompt.ask(f"{white}┌──({red}{getpass.getuser()}{white}@{red}octosuite{white})\n├──[~{green}{os.getcwd()}{white}]\n└╼{reset}")
                 """
                 Iterate over the command_map and check if the user input matches any command in it [command_map],
                 if there's a match, we return its method. If no match is found, we ignore it.

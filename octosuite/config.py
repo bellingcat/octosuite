@@ -84,12 +84,12 @@ def usage():
 
         Read log
         --------
-        octosuite --method read_log --log_file <log_file>
+        octosuite --method read_log --log-file <log_file>
 
 
         Delete log
         ----------
-        octosuite --method delete_log --log_file <log_file>
+        octosuite --method delete_log --log-file <log_file>
 
 
         Clear logs
@@ -108,12 +108,12 @@ def usage():
 
         Read CSV
         --------
-        octosuite --method read_csv --csv_file <csv_file>
+        octosuite --method read_csv --csv-file <csv_file>
 
 
         Delete CSV
         ----------
-        octosuite --method delete_csv --csv_file <csv_file>
+        octosuite --method delete_csv --csv-file <csv_file>
 
 
         Clear CSV's

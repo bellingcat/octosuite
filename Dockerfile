@@ -6,9 +6,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install --upgrade pip
-RUN pip install build
-RUN python -m build
-RUN pip install dist/*.whl
+RUN pip install --upgrade pip && pip install build && python -m build && pip install dist/*.whl
 
 ENTRYPOINT ["octosuite"]

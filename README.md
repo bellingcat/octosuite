@@ -49,6 +49,7 @@ A framework for gathering osint on GitHub users, repositories and organizations
 - [x] Searches commits
 - [x] Automatically logs network activity (.logs folder)
 - [x] User can view, read and delete logs
+- [x] All the above can be used with command-line arguments (PyPI Package only)
 - [x] ...And more
 
 ## Note

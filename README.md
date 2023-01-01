@@ -1,6 +1,6 @@
 ![logo](https://user-images.githubusercontent.com/74001397/175805580-fffc96d4-e0ef-48bb-a55c-80b2da3e714d.png)
 
-A framework for gathering osint on GitHub users, repositories and organizations
+A framework for gathering open-source intelligence on GitHub users, repositories and organizations
 
 [![Upload Python Package](https://github.com/bellingcat/octosuite/actions/workflows/python-publish.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/python-publish.yml)
 [![CodeQL](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml)
@@ -60,7 +60,7 @@ A framework for gathering osint on GitHub users, repositories and organizations
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)
 
 # Donations
-If you like Octosuite and would like to show support, you can Buy A Coffee for the developer using the button below
+If you like OctoSuite and would like to show support, you can Buy A Coffee for the developer using the button below
 
 <a href="https://www.buymeacoffee.com/189381184" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 

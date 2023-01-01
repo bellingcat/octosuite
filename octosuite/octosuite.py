@@ -164,7 +164,7 @@ def delete_log():
 
 # Clear logs
 def clear_logs():
-    clear_logs_prompt = Confirm.ask(f"{PROMPT} This will clear all {len(os.listdir('output'))} log files, continue?")
+    clear_logs_prompt = Confirm.ask(f"{PROMPT} This will clear all {len(os.listdir('output'))} log files and close the current session, continue?")
     if clear_logs_prompt:
         shutil.rmtree('.logs', ignore_errors=True)
         xprint(f"{INFO} .log files cleared successfully!")

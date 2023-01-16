@@ -6,7 +6,6 @@ def octosuite():
     try:
         run = Octosuite()
         path_finder()
-        clear_screen()
         configure_logging()
         check_updates()
         if args.method:

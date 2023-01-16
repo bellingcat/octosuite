@@ -4,7 +4,7 @@ from octosuite.config import red, white, green, reset, Tree
 
 # banner.py
 # This file holds the program's banner and version tag
-version_tag = "3.0.0"
+version_tag = "3.0.1"
 
 
 def banner():

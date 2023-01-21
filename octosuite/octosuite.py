@@ -527,7 +527,7 @@ class Octosuite:
         if response.status_code == 404:
             xprint(f"{NEGATIVE} {org_not_found.format(organization)}")
         elif response.status_code == 200:
-            org_profile_tree = Tree("\n" + response.json()['name'])
+            org_profile_tree = Tree("\n{response.json()['name']}")
             for attr in self.org_attrs:
                 org_profile_tree.add(f"{self.org_attr_dict[attr]}: {response.json()[attr]}")
             xprint(org_profile_tree)
@@ -547,7 +547,7 @@ class Octosuite:
         if response.status_code == 404:
             xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
-            user_profile_tree = Tree("\n" + response.json()['name'])
+            user_profile_tree = Tree(f"\n{response.json()['name']}")
             for attr in self.profile_attrs:
                 user_profile_tree.add(f"{self.profile_attr_dict[attr]}: {response.json()[attr]}")
             xprint(user_profile_tree)
@@ -570,7 +570,7 @@ class Octosuite:
         if response.status_code == 404:
             xprint(f"{NEGATIVE} {repo_or_user_not_found.format(repo_name, username)}")
         elif response.status_code == 200:
-            repo_profile_tree = Tree("\n" + response.json()['full_name'])
+            repo_profile_tree = Tree(f"\n{response.json()['full_name']}")
             for attr in self.repo_attrs:
                 repo_profile_tree.add(f"{self.repo_attr_dict[attr]}: {response.json()[attr]}")
             xprint(repo_profile_tree)

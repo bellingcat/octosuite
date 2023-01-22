@@ -199,14 +199,7 @@ An advanced and lightning fast framework for gathering open-source intelligence 
 
 
 Whats new in v{version_tag}?
-[{green}IMPROVED{reset}] Octosuite will now also run with command line arguments (use 'octosuite --help', to show usage)
-[{green}IMPROVED{reset}] Users will now be able to view previous commands with the ↑ ↓ arrow keys (for Windows systems)
-[{green}IMPROVED{reset}] Removed width from tables, so that they can auto adjust
-[{green}ADDED{reset}] Added the 'ls' command, which will be used to list all files and directories of the specified directory (beta)
-[{green}ADDED{reset}] Added the 'cd' command, which will be used to move to a specified directory (beta)
-[{green}ADDED{reset}] Added the 'log:clear' command, which will be used to clear all logs
-[{green}ADDED{reset}] Added the 'csv:clear' command, which will be used to clear all csv files
-[{green}GUI{reset}] The GUI will now come as a standalone executable
+[{green}FIXED{reset}] Fixed a bug '[ERROR] An error occurred: can only concatenate str (not "NoneType") to str'
 
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest

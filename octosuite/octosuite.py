@@ -199,7 +199,7 @@ An advanced and lightning fast framework for gathering open-source intelligence 
 
 
 Whats new in v{version_tag}?
-[{green}FIXED{reset}] Fixed a bug '[ERROR] An error occurred: can only concatenate str (not "NoneType") to str'
+[{green}FIXED{reset}]  Merged pull request from #9: bad indentation leading to reference before assignment error #9 
 
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest

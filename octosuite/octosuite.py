@@ -769,8 +769,8 @@ class Octosuite:
                 events_tree = Tree("\n" + event['id'])
                 events_tree.add(f"Type: {event['type']}")
                 events_tree.add(f"Created at: {event['created_at']}")
-            xprint(events_tree)
-            xprint(event['payload'])
+                xprint(events_tree)
+                xprint(event['payload'])
             # log_org_events(event, organization)
         else:
             xprint(response.json())

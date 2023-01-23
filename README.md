@@ -10,10 +10,14 @@ A framework for gathering open-source intelligence on GitHub users, repositories
 ![PyPI - Status](https://img.shields.io/pypi/status/octosuite?style=flat&logo=pypi)
 ![GitHub repo size](https://img.shields.io/github/repo-size/bellingcat/octosuite?style=flat&logo=github)
 
+> About
+![2023-01-23_01-01](https://user-images.githubusercontent.com/74001397/213950701-44b3f98b-89e1-443a-abb5-1be8969b611f.png "Octosuite about")
 
-![octosuite_gui_exe (2)](https://user-images.githubusercontent.com/74001397/186889610-4530ee26-d3c6-46fc-8c92-8709f89617fd.png "Octosuite' about window")
+> User profile
+![2023-01-23_01-02](https://user-images.githubusercontent.com/74001397/213950792-0fcf3aef-4921-4701-84ee-0c7a6043c61b.png "User profile window")
 
-![octosuite_gui_exe (4)](https://user-images.githubusercontent.com/74001397/186889897-c1c17fac-fddc-4967-9084-39cfe2d1307f.png "Octosuite user profile window")
+> Organisation profile
+![2023-01-23_01-03](https://user-images.githubusercontent.com/74001397/213950889-d034b432-2ef1-4118-8eff-946f8fb566f4.png)
 
 
 # Wiki

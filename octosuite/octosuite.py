@@ -210,7 +210,6 @@ GitHub REST API documentation: https://docs.github.com/rest
 
 
 def get_email_from_contributor(username, repo, contributor):
-    json_output = {}
     response = requests.get(f"https://github.com/{username}/{repo}/commits?author={contributor}",
                             auth=HTTPBasicAuth(username, '')).text
     latest_commit = re.search(rf'href="/{username}/{repo}/commit/(.*?)"', response)

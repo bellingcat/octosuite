@@ -1,5 +1,6 @@
 #!usr/bin/python
 
+import re
 import os
 import sys
 import shutil
@@ -9,6 +10,7 @@ import requests
 import platform
 import subprocess
 from datetime import datetime
+from requests.auth import HTTPBasicAuth
 from octosuite.banner import version_tag, banner
 from octosuite.config import Tree, Text, Table, Prompt, Confirm, xprint, create_parser, args, red, white, green, yellow, header_title, reset
 from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO  # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
@@ -29,7 +31,7 @@ if os.name == "nt":
     try:
         from pyreadline3 import Readline
     except ImportError:
-        subprocess.run(['pip3', 'install', 'pyreadline3'])
+        subprocess.run(['pip3', 'install', 'pyreadline3'], shell=False)
     readline = Readline()
 else:
     import readline
@@ -199,12 +201,31 @@ An advanced and lightning fast framework for gathering open-source intelligence 
 
 
 Whats new in v{version_tag}?
-[{green}FIXED{reset}]  Merged pull request from #9: bad indentation leading to reference before assignment error #9 
+[{green}IMPROVED{reset}] Added a subcommand to the 'user' commands, that will be used to get a user's email (user:email)
 
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest
 """
     xprint(about_text)
+
+
+def get_email_from_contributor(username, repo, contributor):
+    json_output = {}
+    response = requests.get(f"https://github.com/{username}/{repo}/commits?author={contributor}",
+                            auth=HTTPBasicAuth(username, '')).text
+    latest_commit = re.search(rf'href="/{username}/{repo}/commit/(.*?)"', response)
+    if latest_commit:
+        latest_commit = latest_commit.group(1)
+    else:
+        latest_commit = 'dummy'
+    commit_details = requests.get(f"https://github.com/{username}/{repo}/commit/{latest_commit}.patch",
+                                  auth=HTTPBasicAuth(username, '')).text
+    email = re.search(r'<(.*)>', commit_details)
+    if email:
+        email = email.group(1)
+        json_output[contributor] = {}
+        json_output[contributor] = email
+    return email
 
 
 class Octosuite:
@@ -243,6 +264,7 @@ class Octosuite:
                             ("repo:issues", self.repo_issues),
                             ("repo:releases", self.repo_releases),
                             ("user", user),
+                            ("user:email", self.get_user_email),
                             ("user:repos", self.user_repos),
                             ("user:gists", self.user_gists),
                             ("user:orgs", self.user_orgs),
@@ -271,6 +293,7 @@ class Octosuite:
 
         # Arguments map will be used to run Octosuite with argparse
         self.argument_map = [("user_profile", self.user_profile),
+                             ("user_email", self.get_user_email),
                              ("user_repos", self.user_repos),
                              ("user_gists", self.user_gists),
                              ("user_orgs", self.user_orgs),
@@ -509,6 +532,28 @@ class Octosuite:
                             'Country': ':zambia: Zambia, Africa',
                             'About.me': 'https://about.me/rly0nheart',
                             'Buy Me A Coffee': 'https://buymeacoffee.com/189381184'}
+
+    def get_repos_from_username(self, username):
+        response = requests.get(f"{self.endpoint}/users/{username}/repos?per_page=100&sort=pushed",
+                                auth=HTTPBasicAuth(username, '')).text
+        repositories = re.findall(rf'"full_name":"{username}/(.*?)",.*?"fork":(.*?),', response)
+        unforked_repos = []
+        for repository in repositories:
+            if repository[1] == 'false':
+                unforked_repos.append(repository[0])
+        return unforked_repos
+
+    def get_user_email(self):
+        if args.username:
+            username = args.username
+        else:
+            username = Prompt.ask(f"{white}@{green}Username{reset}")
+        repos = self.get_repos_from_username(username)
+        for repo in repos:
+            email = get_email_from_contributor(username, repo, username)
+            if email:
+                xprint(f"{username}: {email}")
+                break
 
     # Fetching organization info
     def org_profile(self):

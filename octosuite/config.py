@@ -124,7 +124,7 @@ def usage():
 
 def create_parser():
     parser = argparse.ArgumentParser(description='OCTOSUITE: Advanced GitHub osint framework  — by Richard Mwewa | https://about.me/rly0nheart', usage=usage())
-    parser.add_argument('-m', '--method', help='method', choices=['user_profile', 'user_repos', 'user_gists', 'user_orgs', 'user_events',
+    parser.add_argument('-m', '--method', help='method', choices=['user_email', 'user_profile', 'user_repos', 'user_gists', 'user_orgs', 'user_events',
                                                                   'user_subscriptions', 'user_following', 'user_followers', 'user_follows',
                                                                   'org_profile', 'org_repos', 'org_events', 'org_member',
                                                                   'repo_profile', 'repo_contributors', 'repo_stargazers', 'repo_forks',

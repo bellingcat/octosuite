@@ -67,6 +67,7 @@ def user_command():
     user_cmd_table = Table(show_header=True, header_style=header_title)
     user_cmd_table.add_column("Command", style="dim")
     user_cmd_table.add_column("Description")
+    user_cmd_table.add_row("email", "Return a target's email")
     user_cmd_table.add_row("profile", "Get a target's profile info")
     user_cmd_table.add_row("gists", "Return a users's gists")
     user_cmd_table.add_row("org", "Return organizations that a target belongs to/owns")

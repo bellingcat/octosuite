@@ -223,8 +223,6 @@ def get_email_from_contributor(username, repo, contributor):
     email = re.search(r'<(.*)>', commit_details)
     if email:
         email = email.group(1)
-        json_output[contributor] = {}
-        json_output[contributor] = email
     return email
 
 

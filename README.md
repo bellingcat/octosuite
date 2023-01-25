@@ -65,7 +65,7 @@ A framework for gathering open-source intelligence on GitHub users, repositories
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)
 
 # Credits
-* The code used for finding user emails is taken from [Somdev Sangwan](https://github.com/s0md3v)'s [Zen](https://github.com/s0md3v/zen)
+* The code used for finding emails from usernames is taken from [Somdev Sangwan](https://github.com/s0md3v)'s [Zen](https://github.com/s0md3v/zen)
 
 
 # Donations

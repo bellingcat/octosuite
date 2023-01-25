@@ -56,46 +56,17 @@ A framework for gathering open-source intelligence on GitHub users, repositories
 - [x] All the above can be used with command-line arguments (PyPI Package only)
 - [x] ...And more
 
-**Used the following implementation from [Somdev Sangwan](https://github.com/s0md3v)'s [Zen](https://github.com/s0md3v/zen) to get an email from a username**
-```python
-def findReposFromUsername(username):
-    response = get('https://api.github.com/users/%s/repos?per_page=100&sort=pushed' % username, auth=HTTPBasicAuth(uname, '')).text
-    repos = re.findall(r'"full_name":"%s/(.*?)",.*?"fork":(.*?),' % username, response)
-    nonForkedRepos = []
-    for repo in repos:
-	if repo[1] == 'false':
-	    nonForkedRepos.append(repo[0])
-    return nonForkedRepos
 
-
-def findEmailFromContributor(username, repo, contributor):
-    response = get('https://github.com/%s/%s/commits?author=%s' % (username, repo, contributor), auth=HTTPBasicAuth(uname, '')).text
-    latestCommit = re.search(r'href="/%s/%s/commit/(.*?)"' % (username, repo), response)
-    if latestCommit:
-	latestCommit = latestCommit.group(1)
-    else:
-	latestCommit = 'dummy'
-    commitDetails = get('https://github.com/%s/%s/commit/%s.patch' % (username, repo, latestCommit), auth=HTTPBasicAuth(uname, '')).text
-    email = re.search(r'<(.*)>', commitDetails)
-    if email:
-	email = email.group(1)
-    return email
-    
-
-def findEmailFromUsername(username):
-    repos = findReposFromUsername(username)
-    for repo in repos:
-	email = findEmailFromContributor(username, repo, username)
-	if email:
-	    print (username + ' : ' + email)
-	    break
-```
 ## Note
 > Octosuite automatically logs network and user activity of each session, the logs are saved by date and time in the .logs folder
 
 
 # License
 ![license](https://user-images.githubusercontent.com/74001397/137917929-2f2cdb0c-4d1d-4e4b-9f0d-e01589e027b5.png)
+
+# Credits
+* The code used for finding user emails is taken from [Somdev Sangwan](https://github.com/s0md3v)'s [Zen](https://github.com/s0md3v/zen)
+
 
 # Donations
 If you like OctoSuite and would like to show support, you can Buy A Coffee for the developer using the button below

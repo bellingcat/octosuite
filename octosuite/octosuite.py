@@ -201,7 +201,7 @@ An advanced and lightning fast framework for gathering open-source intelligence 
 
 
 Whats new in v{version_tag}?
-[{green}IMPROVED{reset}] Added a subcommand to the 'user' commands, that will be used to get a user's email (user:email)
+[{green}IMPROVED{reset}] Added a subcommand to the 'user' commands, that will be used to get a user's email 'user:email' (CLI only)
 
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest

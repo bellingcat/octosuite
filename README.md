@@ -10,15 +10,11 @@ A framework for gathering open-source intelligence on GitHub users, repositories
 ![PyPI - Status](https://img.shields.io/pypi/status/octosuite?style=flat&logo=pypi)
 ![GitHub repo size](https://img.shields.io/github/repo-size/bellingcat/octosuite?style=flat&logo=github)
 
-> About
+
 ![2023-01-23_01-01](https://user-images.githubusercontent.com/74001397/213950701-44b3f98b-89e1-443a-abb5-1be8969b611f.png "Octosuite about")
 
-> User profile
-![2023-01-23_01-02](https://user-images.githubusercontent.com/74001397/213950792-0fcf3aef-4921-4701-84ee-0c7a6043c61b.png "User profile window")
 
-> Organisation profile
-![2023-01-23_01-03](https://user-images.githubusercontent.com/74001397/213950889-d034b432-2ef1-4118-8eff-946f8fb566f4.png)
-
+![Screen Shot 2023-01-26 at 9 27 22 PM](https://user-images.githubusercontent.com/74001397/214932206-40ec42ba-4fe8-4115-b2dd-52c4d7be9b5c.png)
 
 # Wiki
 [Refer to the Wiki](https://github.com/bellingcat/octosuite/wiki) for installation instructions, in addition to all other documentation.

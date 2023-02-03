@@ -78,7 +78,7 @@ def check_updates():
     if response['tag_name'] == version_tag:
         pass
     else:
-        xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}). Run 'pip install --upgrade octosuite' to get the updates.\n")
+        xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}).\n\n{response['body']}\n\nRun 'pip install --upgrade octosuite' to get the updates.\n")
 
 
 def list_dir_and_files():
@@ -201,7 +201,7 @@ An advanced and lightning fast framework for gathering open-source intelligence 
 
 
 Whats new in v{version_tag}?
-[{green}IMPROVED{reset}] Added a subcommand to the 'user' commands, that will be used to get a user's email 'user:email' (CLI only)
+[{green}IMPROVED{reset}] Minor improvements
 
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest

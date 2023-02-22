@@ -12,7 +12,7 @@ import subprocess
 from datetime import datetime
 from requests.auth import HTTPBasicAuth
 from octosuite.banner import version_tag, banner
-from octosuite.config import Tree, Text, Table, Prompt, Confirm, xprint, create_parser, args, red, white, green, yellow, header_title, reset
+from octosuite.config import Tree, Text, Table, Prompt, Confirm, Markdown, xprint, create_parser, args, red, white, green, yellow, header_title, reset
 from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO  # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
 # seriously now, the reason why I am doing this, is so that you know exactly what I am importing from a named module :)
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, \
@@ -78,7 +78,9 @@ def check_updates():
     if response['tag_name'] == version_tag:
         pass
     else:
-        xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}).\n\n{response['body']}\n\nRun 'pip install --upgrade octosuite' to get the updates.\n")
+        markdown = response['body']
+        release_notes = Markdown(markdown)
+        xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}).\n\n{release_notes}\n\nRun 'pip install --upgrade octosuite' to get the updates.\n")
 
 
 def list_dir_and_files():

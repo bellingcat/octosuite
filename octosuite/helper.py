@@ -70,7 +70,7 @@ def user_command():
     user_cmd_table.add_row("email", "Return a target's email")
     user_cmd_table.add_row("profile", "Get a target's profile info")
     user_cmd_table.add_row("gists", "Return a users's gists")
-    user_cmd_table.add_row("org", "Return organizations that a target belongs to/owns")
+    user_cmd_table.add_row("orgs", "Return organizations that a target belongs to/owns")
     user_cmd_table.add_row("repos", "Return a target's repositories")
     user_cmd_table.add_row("events", "Return a target's events")
     user_cmd_table.add_row("follows", "Check if user(A) follows user(B)")

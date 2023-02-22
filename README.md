@@ -39,18 +39,21 @@ A framework for gathering open-source intelligence on GitHub users, repositories
 - [x] Fetches a user's followers
 - [x] Checks if user A follows user B
 - [x] Checks if  user is a public member of an organizations
-- [x] Returns a user's subscriptions
 - [x] Gets a user's subscriptions
-- [x] Gets a user's events
 - [x] Searches users
 - [x] Searches repositories
 - [x] Searches topics
 - [x] Searches issues
 - [x] Searches commits
-- [x] Automatically logs network activity (.logs folder)
-- [x] User can view, read and delete logs
+- [x] Automatically logs network/user activity (.logs folder)
+- [x] User can manage logs (view, read, delete)
+- [x] Results can be saved to a .csv file (varies)
+- [x] User can manage csv files (view, read, delete)
 - [x] All the above can be used with command-line arguments (PyPI Package only)
-- [x] ...And more
+- [x] And more...
+
+# TODO
+- [ ] Rewrite the GUI in Visual Basic .NET (in progress)
 
 
 ## Note

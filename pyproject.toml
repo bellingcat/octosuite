@@ -1,1 +1,48 @@
+[project]
+name = "octosuite"
+version = "3.1.1"
+description = "Advanced GitHub OSINT Framework"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+keywords = ["github", "python", "github-api", "framework", "osint", "osint-framework", "osint-python", "osint-tool"]
+authors = [{name = "Richard Mwewa", email = "rly0nheart@duck.com"}]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Programming Language :: Python :: 3",
+  "Intended Audience :: Information Technology",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Operating System :: OS Independent",
+  "Natural Language :: English",
+  ""
+]
 
+dependencies = [
+  "rich",
+  "psutil",
+  "requests",
+  "pyreadline3",
+]
+
+# dynamic = ["version", "description"]
+
+# [project.optional-dependencies]
+# gui = ["PyQt5"]
+# cli = [
+#  "rich",
+#  "click",
+# ]
+
+[project.urls]
+homepage = "https://github.com/bellingcat/octosuite"
+documentation = "https://github.com/bellingcat/octosuite/wiki"
+repository = "https://github.com/bellingcat/octosuite.git"
+
+[project.scripts]
+octosuite = "octosuite.main:octosuite"
+
+# [project.gui-scripts]
+# spam-gui = "spam:main_gui"
+
+# [project.entry-points."spam.magical"]
+# tomatoes = "spam:main_tomatoes"

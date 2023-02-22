@@ -78,10 +78,10 @@ def check_updates():
     if response['tag_name'] == version_tag:
         pass
     else:
-        markdown_text = response['body']
-        release_notes = Markdown(markdown_text)
+        raw_release_notes = response['body']
+        markdown_release_notes = Markdown(raw_release_notes)
         xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}). Run 'pip install --upgrade octosuite' to get the updates.\n")
-        xprint(release_notes)
+        xprint(markdown_release_notes)
 
 
 def list_dir_and_files():

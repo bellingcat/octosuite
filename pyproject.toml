@@ -24,15 +24,6 @@ dependencies = [
   "pyreadline3",
 ]
 
-# dynamic = ["version", "description"]
-
-# [project.optional-dependencies]
-# gui = ["PyQt5"]
-# cli = [
-#  "rich",
-#  "click",
-# ]
-
 [project.urls]
 homepage = "https://github.com/bellingcat/octosuite"
 documentation = "https://github.com/bellingcat/octosuite/wiki"
@@ -40,9 +31,3 @@ repository = "https://github.com/bellingcat/octosuite.git"
 
 [project.scripts]
 octosuite = "octosuite.main:octosuite"
-
-# [project.gui-scripts]
-# spam-gui = "spam:main_gui"
-
-# [project.entry-points."spam.magical"]
-# tomatoes = "spam:main_tomatoes"

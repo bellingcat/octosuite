@@ -6,6 +6,7 @@ from rich.text import Text
 from rich.table import Table
 from datetime import datetime
 from rich import print as xprint
+from rich.markdown import Markdown
 from rich.prompt import Prompt, Confirm
 
 

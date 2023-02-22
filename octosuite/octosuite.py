@@ -74,6 +74,8 @@ def configure_logging():
 # if it does, it means the program is up-to-date.
 # If it doesn't match, notify the user about a new release
 def check_updates():
+    global markdown_release_notes
+    
     response = requests.get("https://api.github.com/repos/bellingcat/octosuite/releases/latest").json()
     if response['tag_name'] == version_tag:
         pass
@@ -202,14 +204,12 @@ def about():
         
 An advanced and lightning fast framework for gathering open-source intelligence on GitHub users and organizations.
 
-
-Whats new in v{version_tag}?
-[{green}IMPROVED{reset}] Minor improvements
-
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest
+
 """
     xprint(about_text)
+    xprint(markdown_release_notes)
 
 
 def get_email_from_contributor(username, repo, contributor):

@@ -13,21 +13,19 @@ classifiers = [
   "Intended Audience :: Information Technology",
   "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
   "Operating System :: OS Independent",
-  "Natural Language :: English",
-  ""
+  "Natural Language :: English"
 ]
 
-dependencies = [
-  "rich",
-  "psutil",
-  "requests",
-  "pyreadline3",
-]
+[tool.poetry.dependencies]
+rich = "*"
+psutil = "*"
+requests = "*"
+pyreadline3 = "*"
 
-[project.urls]
+[tool.poetry.scripts]
+octosuite = "octosuite.main:octosuite"
+
+[tool.poetry.urls]
 homepage = "https://github.com/bellingcat/octosuite"
 documentation = "https://github.com/bellingcat/octosuite/wiki"
 repository = "https://github.com/bellingcat/octosuite.git"
-
-[project.scripts]
-octosuite = "octosuite.main:octosuite"

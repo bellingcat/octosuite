@@ -16,16 +16,16 @@ classifiers = [
   "Natural Language :: English"
 ]
 
-[tool.poetry.dependencies]
+[project.dependencies]
 rich = "*"
 psutil = "*"
 requests = "*"
 pyreadline3 = "*"
 
-[tool.poetry.scripts]
+[project.scripts]
 octosuite = "octosuite.main:octosuite"
 
-[tool.poetry.urls]
+[project.urls]
 homepage = "https://github.com/bellingcat/octosuite"
 documentation = "https://github.com/bellingcat/octosuite/wiki"
 repository = "https://github.com/bellingcat/octosuite.git"

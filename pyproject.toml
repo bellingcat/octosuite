@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "octosuite"
 version = "3.1.1"
@@ -16,16 +20,17 @@ classifiers = [
   "Natural Language :: English"
 ]
 
-[project.dependencies]
-rich = "*"
-psutil = "*"
-requests = "*"
-pyreadline3 = "*"
-
-[project.scripts]
-octosuite = "octosuite.main:octosuite"
+dependencies = [
+    "rich",
+    "psutil",
+    "requests",
+    "pyreadline3",
+]
 
 [project.urls]
 homepage = "https://github.com/bellingcat/octosuite"
 documentation = "https://github.com/bellingcat/octosuite/wiki"
 repository = "https://github.com/bellingcat/octosuite.git"
+
+[project.scripts]
+octosuite = "octosuite.main:octosuite"

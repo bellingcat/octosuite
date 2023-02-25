@@ -11,14 +11,14 @@ from octosuite.message_prefixes import PROMPT, WARNING, POSITIVE, NEGATIVE, INFO
 def log_org_profile(response):
     org_profile_fields = ['Profile photo', 'Name', 'Username', 'ID', 'Node ID', 'Email', 'About', 'Location', 'Blog',
                           'Followers', 'Following', 'Twitter handle', 'Gists', 'Repositories', 'Account type',
-                          'Is verified?', 'Has organization projects?', 'Has repository projects?', 'Created at',
+                          'Is verified?', 'Has organisation projects?', 'Has repository projects?', 'Created at',
                           'Updated at']
     org_profile_row = [response.json()['avatar_url'], response.json()['name'], response.json()['login'],
                        response.json()['id'], response.json()['node_id'], response.json()['email'],
                        response.json()['description'], response.json()['location'], response.json()['blog'],
                        response.json()['followers'], response.json()['following'], response.json()['twitter_username'],
                        response.json()['public_gists'], response.json()['public_repos'], response.json()['type'],
-                       response.json()['is_verified'], response.json()['has_organization_projects'],
+                       response.json()['is_verified'], response.json()['has_organisation_projects'],
                        response.json()['has_repository_projects'], response.json()['created_at'],
                        response.json()['updated_at']]
     
@@ -34,7 +34,7 @@ def log_org_profile(response):
 # Creating a .csv file of a user' profile
 def log_user_profile(response):
     user_profile_fields = ['Profile photo', 'Name', 'Username', 'ID', 'Node ID', 'Bio', 'Blog', 'Location', 'Followers',
-                           'Following', 'Twitter handle', 'Gists', 'Repositories', 'Organization', 'Is hireable?',
+                           'Following', 'Twitter handle', 'Gists', 'Repositories', 'organisation', 'Is hireable?',
                            'Is site admin?', 'Joined at', 'Updated at']
     user_profile_row = [response.json()['avatar_url'], response.json()['name'], response.json()['login'],
                         response.json()['id'], response.json()['node_id'], response.json()['bio'],
@@ -184,12 +184,12 @@ def log_repo_contributors(contributor, repo_name):
         xprint(f"{POSITIVE} {logged_to_csv.format(file.name)}")
 
    
-# Create .csv for organization' events
-def log_repo_events(event, organization):
+# Create .csv for organisation' events
+def log_repo_events(event, organisation):
     org_event_fields = ['ID', 'Type', 'Created at', 'Payload']
     org_event_row = [event['id'], event['type'], event['created_at'], event['payload']]
     
-    with open(os.path.join("output", f"{organization}_event_{event['id']}.csv"), 'w') as file:
+    with open(os.path.join("output", f"{organisation}_event_{event['id']}.csv"), 'w') as file:
         write_csv = csv.writer(file)
         write_csv.writerow(org_event_fields)
         write_csv.writerow(org_event_row)
@@ -198,8 +198,8 @@ def log_repo_events(event, organization):
         xprint(f"{POSITIVE} {logged_to_csv.format(file.name)}")
 
     
-# Create .csv for organization' repositories
-def log_org_repos(repository, organization):
+# Create .csv for organisation' repositories
+def log_org_repos(repository, organisation):
     org_repo_fields = ['Name', 'ID', 'About', 'Forks', 'Stars', 'Watchers', 'License', 'Branch', 'Visibility',
                        'Language(s)', 'Open issues', 'Topics', 'Homepage', 'Clone URL', 'SSH URL', 'Is fork?',
                        'Is forkable?', 'Is private?', 'Is archived?', 'Is template?', 'Has wiki?', 'Has pages?',
@@ -213,7 +213,7 @@ def log_org_repos(repository, organization):
                     repository['has_projects'], repository['has_issues'], repository['has_downloads'],
                     repository['pushed_at'], repository['created_at'], repository['updated_at']]
     
-    with open(os.path.join("output", f"{repository['name']}_repository_of_{organization}.csv"), 'w') as file:
+    with open(os.path.join("output", f"{repository['name']}_repository_of_{organisation}.csv"), 'w') as file:
         write_csv = csv.writer(file)
         write_csv.writerow(org_repo_fields)
         write_csv.writerow(org_repo_row)
@@ -335,13 +335,13 @@ def log_user_subscriptions(repository, username):
         xprint(f"{POSITIVE} {logged_to_csv.format(file.name)}")
 
     
-# .csv for user organizations
-def log_user_orgs(organization, username):
+# .csv for user organisations
+def log_user_orgs(organisation, username):
     user_org_fields = ['Profile photo', 'Name', 'ID', 'Node ID', 'URL', 'About']
-    user_org_row = [organization['avatar_url'], organization['login'], organization['id'], organization['node_id'],
-                    organization['url'], organization['description']]
+    user_org_row = [organisation['avatar_url'], organisation['login'], organisation['id'], organisation['node_id'],
+                    organisation['url'], organisation['description']]
     
-    with open(os.path.join("output", f"{organization['login']}_{username}.csv"), 'w') as file:
+    with open(os.path.join("output", f"{organisation['login']}_{username}.csv"), 'w') as file:
         write_csv = csv.writer(file)
         write_csv.writerow(user_org_fields)
         write_csv.writerow(user_org_row)

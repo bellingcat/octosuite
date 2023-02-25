@@ -70,7 +70,7 @@ def user_command():
     user_cmd_table.add_row("email", "Return a target's email")
     user_cmd_table.add_row("profile", "Get a target's profile info")
     user_cmd_table.add_row("gists", "Return a users's gists")
-    user_cmd_table.add_row("orgs", "Return organizations that a target belongs to/owns")
+    user_cmd_table.add_row("orgs", "Return organisations that a target belongs to/owns")
     user_cmd_table.add_row("repos", "Return a target's repositories")
     user_cmd_table.add_row("events", "Return a target's events")
     user_cmd_table.add_row("follows", "Check if user(A) follows user(B)")
@@ -87,13 +87,13 @@ def org_command():
     org_cmd_table = Table(show_header=True, header_style=header_title)
     org_cmd_table.add_column("Command", style="dim")
     org_cmd_table.add_column("Description")
-    org_cmd_table.add_row("profile", "Get a target organization' profile info")
-    org_cmd_table.add_row("repos", "Return a target organization' repositories")
-    org_cmd_table.add_row("events", "Return a target organization' events")
-    org_cmd_table.add_row("member", "Check if a specified user is a public member of the target organization")
+    org_cmd_table.add_row("profile", "Get a target organisation' profile info")
+    org_cmd_table.add_row("repos", "Return a target organisation' repositories")
+    org_cmd_table.add_row("events", "Return a target organisation' events")
+    org_cmd_table.add_row("member", "Check if a specified user is a public member of the target organisation")
 
     syntax = f"{green}org:<command>{reset}"
-    xprint(f"{usage_text.format(syntax, 'organization investigation(s)')}")
+    xprint(f"{usage_text.format(syntax, 'organisation investigation(s)')}")
     xprint(org_cmd_table)
 
 
@@ -159,7 +159,7 @@ def help_command():
     help_sub_cmd_table.add_column("Description")
     help_sub_cmd_table.add_row("csv", "List all csv management commands")
     help_sub_cmd_table.add_row("logs", "List all logs management commands")
-    help_sub_cmd_table.add_row("org", "List all organization investigation commands")
+    help_sub_cmd_table.add_row("org", "List all organisation investigation commands")
     help_sub_cmd_table.add_row("user", "List all users investigation commands")
     help_sub_cmd_table.add_row("repo", "List all repository investigation commands")
     help_sub_cmd_table.add_row("search", "List all target discovery commands")

@@ -560,7 +560,7 @@ class Octosuite:
         if args.organisation:
             organisation = args.organisation
         else:
-            organisation = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
+            organisation = Prompt.ask(f"{white}@{green}Organisation{reset}")
         response = requests.get(f"{self.endpoint}/orgs/{organisation}")
         if response.status_code == 404:
             xprint(f"{NEGATIVE} {org_not_found.format(organisation)}")
@@ -781,7 +781,7 @@ class Octosuite:
             organisation = args.organisation
             limit = args.limit
         else:
-            organisation = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
+            organisation = Prompt.ask(f"{white}@{green}Organisation{reset}")
             limit = Prompt.ask(limit_output.format("organisation repositories"))
         response = requests.get(f"{self.endpoint}/orgs/{organisation}/repos?per_page={limit}")
         if response.status_code == 404:
@@ -804,7 +804,7 @@ class Octosuite:
             organisation = args.organisation
             limit = args.limit
         else:
-            organisation = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
+            organisation = Prompt.ask(f"{white}@{green}Organisation{reset}")
             limit = Prompt.ask(limit_output.format("organisation events"))
         response = requests.get(f"{self.endpoint}/orgs/{organisation}/events?per_page={limit}")
         if response.status_code == 404:
@@ -826,7 +826,7 @@ class Octosuite:
             organisation = args.organisation
             username = args.username
         else:
-            organisation = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
+            organisation = Prompt.ask(f"{white}@{green}Organisation{reset}")
             username = Prompt.ask(f"{white}@{green}Username{reset}")
         response = requests.get(f"{self.endpoint}/orgs/{organisation}/public_members/{username}")
         if response.status_code == 204:

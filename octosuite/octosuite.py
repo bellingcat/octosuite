@@ -87,7 +87,7 @@ def check_updates():
 
 
 def list_dir_and_files():
-    os.system('dir' if os.name == 'nt' else 'ls')
+    subprocess.call('cmd.exe /c dir' if os.name == "nt" else 'ls')
 
 
 # Delete a specified csv file

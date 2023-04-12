@@ -3,6 +3,7 @@ from octosuite.octosuite import *  # I drifted away from the 'pythonic way' here
 
 
 def octosuite():
+    setup_readline()
     try:
         run = Octosuite()
         path_finder()

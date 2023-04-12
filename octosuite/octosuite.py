@@ -12,7 +12,7 @@ import subprocess
 from datetime import datetime
 from requests.auth import HTTPBasicAuth
 from octosuite.banner import version_tag, banner
-from octosuite.config import Tree, Text, Table, Prompt, Confirm, Markdown, xprint, create_parser, args, red, white, green, yellow, header_title, reset
+from octosuite.config import Tree, Text, Table, Prompt, Confirm, Markdown, xprint, create_parser, setup_readline, args, red, white, green, yellow, header_title, reset
 from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO  # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
 # seriously now, the reason why I am doing this, is so that you know exactly what I am importing from a named module :)
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, \
@@ -25,26 +25,6 @@ from octosuite.csv_loggers import log_org_profile, log_user_profile, log_repo_pr
     log_org_profile, log_user_repos, log_user_gists, log_user_orgs, log_user_events, log_user_subscriptions, \
     log_user_following, log_user_followers, log_repos_search, log_users_search, log_topics_search, log_issues_search, \
     log_commits_search
-
-
-if os.name == "nt":
-    try:
-        from pyreadline3 import Readline
-    except ImportError:
-        subprocess.run(['pip3', 'install', 'pyreadline3'], shell=False)
-    readline = Readline()
-else:
-    import readline
-
-    def completer(text, state):
-        options = [i for i in commands if i.startswith(text)]
-        if state < len(options):
-            return options[state]
-        else:
-            return None
-
-    readline.parse_and_bind("tab: complete")
-    readline.set_completer(completer)
 
 
 # path_finder()

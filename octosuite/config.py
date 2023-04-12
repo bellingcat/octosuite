@@ -146,6 +146,28 @@ def create_parser():
     return parser
 
 
+# Setup readline
+def setup_readline():
+    if os.name == "nt":
+        try:
+            from pyreadline3 import Readline
+        except ImportError:
+            subprocess.run(['pip3', 'install', 'pyreadline3'], shell=False)
+        readline = Readline()
+    else:
+        import readline
+        
+        def completer(text, state):
+            options = [i for i in commands if i.startswith(text)]
+            if state < len(options):
+                return options[state]
+            else:
+                return None
+                
+        readline.parse_and_bind("tab: complete")
+        readline.set_completer(completer)
+
+
 parser = create_parser()
 args = parser.parse_args()
 

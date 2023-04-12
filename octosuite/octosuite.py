@@ -195,7 +195,7 @@ def exit_session():
 def clear_screen():
     # Using 'cls' on Windows machines to clear the screen,
     # otherwise, use 'clear'
-    os.system('cls' if os.name == 'nt' else 'clear')
+    subprocess.call('cmd.exe /c cls' if os.name == "nt" else 'clear')
 
 
 def about():

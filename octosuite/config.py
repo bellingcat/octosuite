@@ -25,14 +25,14 @@ def usage():
         octosuite --method user_repos --username <username>
 
 
-        Get Organi[sz]ation Profile Info
+        Get Organisation Profile Info
         -----------------------------
-        octosuite --method org_profile --organization <organization_name>
+        octosuite --method org_profile --organisation <organisation_name>
 
 
         Get Organi[sz]ation Repos
         -----------------------------
-        octosuite --method org_repos --organization <organization_name>
+        octosuite --method org_repos --organisation <organisation_name>
 
         
         Get Repo Profile Info
@@ -134,7 +134,7 @@ def create_parser():
                                                                   'clear_logs', 'view_csv', 'read_csv', 'delete_csv', 'clear_csv', 'about', 'author'])
     parser.add_argument('-u', '--username', help='username')
     parser.add_argument('-uB', '--username_b', help='username_B (used with user_follows)')
-    parser.add_argument('-o', '--organization', '--organisation', help='organi[sz]ation name')
+    parser.add_argument('-o', '--organisation', '--organization', help='organisation name')
     parser.add_argument('-r', '--repository', help='repository name')
     parser.add_argument('-p', '--path_name', help='path name (used with repo_path_contents)')
     parser.add_argument('-q', '--query', help='query (used with search methods)')

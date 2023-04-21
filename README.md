@@ -1,6 +1,6 @@
 ![logo](https://user-images.githubusercontent.com/74001397/175805580-fffc96d4-e0ef-48bb-a55c-80b2da3e714d.png)
 
-A framework for gathering open-source intelligence on GitHub users, repositories and organizations
+A framework for gathering open-source intelligence on GitHub users, repositories and organisations
 
 [![Upload Python Package](https://github.com/bellingcat/octosuite/actions/workflows/python-publish.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/python-publish.yml)
 [![CodeQL](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml)
@@ -20,10 +20,10 @@ A framework for gathering open-source intelligence on GitHub users, repositories
 [Refer to the Wiki](https://github.com/bellingcat/octosuite/wiki) for installation instructions, in addition to all other documentation.
 
 # Features
-- [x] Fetches an organization's profile information
+- [x] Fetches an organisation's profile information
 - [x] Fetches an oganization's events
-- [x] Returns an organization's repositories
-- [x] Returns an organization's public members
+- [x] Returns an organisation's repositories
+- [x] Returns an organisation's public members
 - [x] Fetches a repository's information
 - [x] Returns a repository's contributors
 - [x] Returns a repository's languages
@@ -33,12 +33,12 @@ A framework for gathering open-source intelligence on GitHub users, repositories
 - [x] Returns a list of files in a specified path of a repository
 - [x] Fetches a user's profile information
 - [x] Returns a user's gists
-- [x] Returns organizations that a user owns/belongs to
+- [x] Returns organisations that a user owns/belongs to
 - [x] Fetches a user's events
 - [x] Fetches a list of users followed by the target
 - [x] Fetches a user's followers
 - [x] Checks if user A follows user B
-- [x] Checks if  user is a public member of an organizations
+- [x] Checks if  user is a public member of an organisations
 - [x] Gets a user's subscriptions
 - [x] Searches users
 - [x] Searches repositories

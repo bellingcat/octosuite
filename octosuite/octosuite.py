@@ -182,7 +182,7 @@ def about():
     about_text = f"""
     OCTOSUITE © 2023 Richard Mwewa
         
-An advanced and lightning fast framework for gathering open-source intelligence on GitHub users and organizations.
+An advanced and lightning fast framework for gathering open-source intelligence on GitHub users and organisations.
 
 Read the wiki: https://github.com/bellingcat/octosuite/wiki
 GitHub REST API documentation: https://docs.github.com/rest
@@ -318,12 +318,12 @@ class Octosuite:
                                'sha': 'SHA',
                                'html_url': 'URL'}
 
-        # Organization attributes
+        # organisation attributes
         self.org_attrs = ['avatar_url', 'login', 'id', 'node_id', 'email', 'description', 'blog', 'location',
                           'followers',
                           'following', 'twitter_username', 'public_gists', 'public_repos', 'type', 'is_verified',
-                          'has_organization_projects', 'has_repository_projects', 'created_at', 'updated_at']
-        # Organization attribute dictionary
+                          'has_organisation_projects', 'has_repository_projects', 'created_at', 'updated_at']
+        # organisation attribute dictionary
         self.org_attr_dict = {'avatar_url': 'Profile Photo',
                               'login': 'Username',
                               'id': 'ID',
@@ -339,7 +339,7 @@ class Octosuite:
                               'public_repos': 'Repositories',
                               'type': 'Account type',
                               'is_verified': 'Is verified?',
-                              'has_organization_projects': 'Has organization projects?',
+                              'has_organisation_projects': 'Has organisation projects?',
                               'has_repository_projects': 'Has repository projects?',
                               'created_at': 'Created at',
                               'updated_at': 'Updated at'}
@@ -415,7 +415,7 @@ class Octosuite:
                                   'twitter_username': 'Twitter Handle',
                                   'public_gists': 'Gists (public)',
                                   'public_repos': 'Repositories (public)',
-                                  'company': 'Organization',
+                                  'company': 'organisation',
                                   'hireable': 'Is hireable?',
                                   'site_admin': 'Is site admin?',
                                   'created_at': 'Joined at',
@@ -499,7 +499,7 @@ class Octosuite:
                                       'created_at': 'Created at',
                                       'updated_at': 'Updated at'}
 
-        # User organizations attributes
+        # User organisations attributes
         self.user_orgs_attrs = ['avatar_url', 'id', 'node_id', 'url', 'description']
         self.user_orgs_attr_dict = {'avatar_url': 'Profile Photo',
                                     'id': 'ID',
@@ -535,15 +535,15 @@ class Octosuite:
                 xprint(f"{username}: {email}")
                 break
 
-    # Fetching organization info
+    # Fetching organisation info
     def org_profile(self):
-        if args.organization:
-            organization = args.organization
+        if args.organisation:
+            organisation = args.organisation
         else:
-            organization = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
-        response = requests.get(f"{self.endpoint}/orgs/{organization}")
+            organisation = Prompt.ask(f"{white}@{green}Organisation{reset}")
+        response = requests.get(f"{self.endpoint}/orgs/{organisation}")
         if response.status_code == 404:
-            xprint(f"{NEGATIVE} {org_not_found.format(organization)}")
+            xprint(f"{NEGATIVE} {org_not_found.format(organisation)}")
         elif response.status_code == 200:
             org_profile_tree = Tree(f"\n{response.json()['name']}")
             for attr in self.org_attrs:
@@ -755,17 +755,17 @@ class Octosuite:
         else:
             xprint(response.json())
 
-    # Fetching organization repositories
+    # Fetching organisation repositories
     def org_repos(self):
-        if args.organization and args.limit:
-            organization = args.organization
+        if args.organisation and args.limit:
+            organisation = args.organisation
             limit = args.limit
         else:
-            organization = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
-            limit = Prompt.ask(limit_output.format("organization repositories"))
-        response = requests.get(f"{self.endpoint}/orgs/{organization}/repos?per_page={limit}")
+            organisation = Prompt.ask(f"{white}@{green}Organisation{reset}")
+            limit = Prompt.ask(limit_output.format("organisation repositories"))
+        response = requests.get(f"{self.endpoint}/orgs/{organisation}/repos?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{NEGATIVE} {org_not_found.format(organization)}")
+            xprint(f"{NEGATIVE} {org_not_found.format(organisation)}")
         elif response.status_code == 200:
             for repository in response.json():
                 repos_tree = Tree("\n" + repository['full_name'])
@@ -774,21 +774,21 @@ class Octosuite:
                 xprint(repos_tree)
                 
                 if args.log_csv or Prompt.ask(f"{PROMPT} {prompt_log_csv}") == "yes":
-                    log_org_repos(repository, organization)
+                    log_org_repos(repository, organisation)
         else:
             xprint(response.json())
 
-    # organization events
+    # organisation events
     def org_events(self):
-        if args.organization and args.limit:
-            organization = args.organization
+        if args.organisation and args.limit:
+            organisation = args.organisation
             limit = args.limit
         else:
-            organization = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
-            limit = Prompt.ask(limit_output.format("organization events"))
-        response = requests.get(f"{self.endpoint}/orgs/{organization}/events?per_page={limit}")
+            organisation = Prompt.ask(f"{white}@{green}Organisation{reset}")
+            limit = Prompt.ask(limit_output.format("organisation events"))
+        response = requests.get(f"{self.endpoint}/orgs/{organisation}/events?per_page={limit}")
         if response.status_code == 404:
-            xprint(f"{NEGATIVE} {org_not_found.format(organization)}")
+            xprint(f"{NEGATIVE} {org_not_found.format(organisation)}")
         elif response.status_code == 200:
             for event in response.json():
                 events_tree = Tree("\n" + event['id'])
@@ -796,21 +796,21 @@ class Octosuite:
                 events_tree.add(f"Created at: {event['created_at']}")
                 xprint(events_tree)
                 xprint(event['payload'])
-            # log_org_events(event, organization)
+            # log_org_events(event, organisation)
         else:
             xprint(response.json())
 
-    # organization member
+    # organisation member
     def org_member(self):
-        if args.organization and args.username:
-            organization = args.organization
+        if args.organisation and args.username:
+            organisation = args.organisation
             username = args.username
         else:
-            organization = Prompt.ask(f"{white}@{green}Organi[sz]ation{reset}")
+            organisation = Prompt.ask(f"{white}@{green}Organisation{reset}")
             username = Prompt.ask(f"{white}@{green}Username{reset}")
-        response = requests.get(f"{self.endpoint}/orgs/{organization}/public_members/{username}")
+        response = requests.get(f"{self.endpoint}/orgs/{organisation}/public_members/{username}")
         if response.status_code == 204:
-            xprint(f"{POSITIVE} User ({username}) is a public member of the organization -> ({organization})")
+            xprint(f"{POSITIVE} User ({username}) is a public member of the organisation -> ({organisation})")
         else:
             xprint(f"{NEGATIVE} {response.json()['message']}")
 
@@ -862,28 +862,28 @@ class Octosuite:
         else:
             xprint(response.json())
 
-    # Fetching a list of organizations that a user owns or belongs to
+    # Fetching a list of organisations that a user owns or belongs to
     def user_orgs(self):
         if args.username and args.limit:
             username = args.username
             limit = args.limit
         else:
             username = Prompt.ask(f"{white}@{green}Username{reset}")
-            limit = Prompt.ask(limit_output.format("user organizations"))
+            limit = Prompt.ask(limit_output.format("user organisations"))
         response = requests.get(f"{self.endpoint}/users/{username}/orgs?per_page={limit}")
         if not response.json():
-            xprint(f"{NEGATIVE} User ({username}) does not (belong to/own) any organizations.")
+            xprint(f"{NEGATIVE} User ({username}) does not (belong to/own) any organisations.")
         elif response.status_code == 404:
             xprint(f"{NEGATIVE} {user_not_found.format(username)}")
         elif response.status_code == 200:
-            for organization in response.json():
-                org_tree = Tree("\n" + organization['login'])
+            for organisation in response.json():
+                org_tree = Tree("\n" + organisation['login'])
                 for attr in self.user_orgs_attrs:
-                    org_tree.add(f"{self.user_orgs_attr_dict[attr]}: {organization[attr]}")
+                    org_tree.add(f"{self.user_orgs_attr_dict[attr]}: {organisation[attr]}")
                 xprint(org_tree)
                 
                 if args.log_csv or Confirm.ask(f"\n{PROMPT} {prompt_log_csv}"):
-                    log_user_orgs(organization, username)
+                    log_user_orgs(organisation, username)
         else:
             xprint(response.json())
 

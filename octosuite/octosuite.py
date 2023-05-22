@@ -13,8 +13,7 @@ from datetime import datetime
 from requests.auth import HTTPBasicAuth
 from octosuite.banner import version_tag, banner
 from octosuite.config import Tree, Text, Table, Prompt, Confirm, Markdown, xprint, create_parser, setup_readline, args, red, white, green, yellow, header_title, reset
-from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO  # wondering why I name all the variables instead of just using the * wildcard?, because it's the pythonic way lol
-# seriously now, the reason why I am doing this, is so that you know exactly what I am importing from a named module :)
+from octosuite.message_prefixes import ERROR, WARNING, PROMPT, POSITIVE, NEGATIVE, INFO
 from octosuite.helper import help_command, source_command, search_command, user_command, repo_command, \
     logs_command, csv_command, org_command, source, org, repo, user, search, logs, csv
 from octosuite.log_roller import ctrl_c, error, session_opened, session_closed, viewing_logs, viewing_csv, \
@@ -62,7 +61,7 @@ def check_updates():
     else:
         raw_release_notes = response['body']
         markdown_release_notes = Markdown(raw_release_notes)
-        xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}). Run 'pip install --upgrade octosuite' to get the updates.\n")
+        xprint(f"[{green}UPDATE{reset}] A new release of Octosuite is available ({response['tag_name']}).\n")
         xprint(markdown_release_notes)
 
 

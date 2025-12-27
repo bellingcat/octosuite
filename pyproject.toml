@@ -1,0 +1,32 @@
+[project]
+name = "octosuite"
+version = "4.0.0"
+description = "TUI-based toolkit for GitHub-data analysis."
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Ritchie Mwewa", email = "hi@rly0nheart.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "rich>=14.2.0",
+    "requests>=2.32.5",
+    "questionary>=2.1.1",
+    "pyfiglet>=1.0.4",
+    "pandas>=2.3.3"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Natural Language :: English"
+]
+
+[project.urls]
+homepage = "https://bellingcat.com"
+issues = "https://github.com/bellingcat/octosuite/issues"
+repository = "https://github.com/bellingcat/octosuite"
+
+[project.scripts]
+octosuite = "octosuite.main:start"

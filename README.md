@@ -1,4 +1,4 @@
-# OctoSuite
+![octosuite](img/octosuite.png)
 
 TUI-based toolkit for GitHub data analysis.
 
@@ -52,6 +52,8 @@ selecting a
 data source
 and
 choosing what information to retrieve. Preview the results and optionally export them in your preferred format.
+
+![home](img/home.png)
 
 ## License
 

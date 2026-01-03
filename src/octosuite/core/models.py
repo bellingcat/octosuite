@@ -14,13 +14,27 @@ class GitHubEntity:
         self.endpoint = None
         self.source = source
 
-    def exists(self) -> bool:
+    def exists(self) -> tuple[bool, dict]:
         """Check if the entity exists on GitHub."""
+        # Check cache first
+        cached = github.cache.get(self.endpoint)
+        if cached is not None:
+            return True, cached
+
         try:
             response = github.get(url=self.endpoint, return_response=True)
-            return response.status_code == 200
-        except exceptions.RequestException as err:
-            return False
+
+            if response.status_code == 200:
+                data = response.json()
+                # Sanitise the data
+                sanitised = github.sanitise_response(data)
+                # Cache the sanitised response
+                github.cache.set(self.endpoint, sanitised)
+                return True, sanitised
+
+            return False, response.json()
+        except exceptions.RequestException:
+            return False, {}
 
 
 class User(GitHubEntity):

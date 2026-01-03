@@ -47,7 +47,7 @@ octosuite
 
 ## Usage
 
-Navigate using <kbd>↑</kbd><kbd>↓</kbd> and <kbd>Enter</kbd> to select options. The interface guides you through
+Navigate using <kbd>UP</kbd><kbd>DOWN</kbd> and <kbd>ENTER</kbd> to select options. The interface guides you through
 selecting a
 data source
 and

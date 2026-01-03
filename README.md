@@ -54,7 +54,10 @@ octosuite
 
 ## Usage
 
-Navigate using <kbd>UP</kbd><kbd>DOWN</kbd> and <kbd>ENTER</kbd> to select options. The interface guides you through
+Navigate using <kbd>UP</kbd><kbd>DOWN</kbd> and <kbd>ENTER</kbd> to select options. In the export menu, you should
+use <kbd>SPACE</kbd> to check the format you want.
+
+The interface guides you through
 selecting a
 data source
 and

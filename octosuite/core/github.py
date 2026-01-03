@@ -1,0 +1,77 @@
+import re
+import sys
+import typing as t
+
+import requests
+from requests import Response
+
+from .. import __version__
+
+BASE_URL = "https://api.github.com"
+
+
+class GitHub:
+    def __init__(
+        self,
+        user_agent: str = (
+            f"octosuite/{__version__} "
+            f"(Python {sys.version.split()[0]}; "
+            f"https://github.com/bellingcat/octosuite) requests/{requests.__version__}"
+        ),
+    ):
+        self.user_agent = user_agent
+
+    def get(
+        self, url: str, params: t.Optional[dict] = None, return_response: bool = False
+    ) -> t.Union[dict, list, Response]:
+        response = requests.get(
+            url=url, params=params, headers={"User-Agent": self.user_agent}
+        )
+
+        if return_response:
+            return response
+
+        if response.status_code == 200:
+            return self._sanitise_response(response=response.json())
+        return []
+
+    def is_valid_entity(
+        self, entity_type: t.Literal["user", "org", "repo"], **kwargs
+    ) -> bool:
+        """Validate if a GitHub entity exists."""
+        try:
+            if entity_type == "user":
+                url = f"https://api.github.com/users/{kwargs.get('username')}"
+            elif entity_type == "org":
+                url = f"https://api.github.com/orgs/{kwargs.get('username')}"
+            elif entity_type == "repo":
+                url = f"https://api.github.com/repos/{kwargs.get('repo_owner')}/{kwargs.get('repo_name')}"
+            else:
+                return True
+
+            response = self.get(url=url, return_response=True)
+            return response.status_code == 200
+        except requests.RequestException:
+            return False
+
+    def _sanitise_response(self, response: t.Union[dict, list]) -> t.Union[dict, list]:
+        pattern = re.compile(r"https://api\.github\.com")
+
+        if isinstance(response, list):
+            return [self._sanitise_response(response=item) for item in response]
+
+        if isinstance(response, dict):
+            keys_to_remove = [
+                key
+                for key, value in response.items()
+                if (isinstance(value, str) and pattern.search(value)) or value is None
+            ]
+            for key in keys_to_remove:
+                response.pop(key)
+
+            # Recursively clean nested dicts/lists
+            for key, value in response.items():
+                if isinstance(value, (dict, list)):
+                    response[key] = self._sanitise_response(response=value)
+
+        return response

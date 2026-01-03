@@ -1,13 +1,13 @@
 import sys
 
+from . import console, __pkg__, __version__
 from .tui.menus import Menus
-from .tui.prompts import Prompts
 
 
 def start():
     try:
-        prompts = Prompts()
-        menu = Menus(prompts=prompts)
+        console.set_window_title(title=f"{__pkg__.title()} v{__version__}")
+        menu = Menus()
         menu.main()
     except KeyboardInterrupt:
         sys.exit()

@@ -45,7 +45,7 @@ class GitHub:
             return response
 
         if response.status_code == 200:
-            sanitised = self._sanitise_response(response=response.json())
+            sanitised = self.sanitise_response(response=response.json())
 
             # Cache the successful response
             if use_cache:
@@ -77,7 +77,7 @@ class GitHub:
 
             # Only cache if entity exists (status 200)
             if response.status_code == 200:
-                sanitised = self._sanitise_response(response.json())
+                sanitised = self.sanitise_response(response.json())
                 self.cache.set(url, sanitised)
                 return True
 
@@ -85,11 +85,11 @@ class GitHub:
         except requests.RequestException:
             return False
 
-    def _sanitise_response(self, response: t.Union[dict, list]) -> t.Union[dict, list]:
+    def sanitise_response(self, response: t.Union[dict, list]) -> t.Union[dict, list]:
         pattern = re.compile(r"https://api\.github\.com")
 
         if isinstance(response, list):
-            return [self._sanitise_response(response=item) for item in response]
+            return [self.sanitise_response(response=item) for item in response]
 
         if isinstance(response, dict):
             keys_to_remove = [
@@ -103,6 +103,6 @@ class GitHub:
             # Recursively clean nested dicts/lists
             for key, value in response.items():
                 if isinstance(value, (dict, list)):
-                    response[key] = self._sanitise_response(response=value)
+                    response[key] = self.sanitise_response(response=value)
 
         return response

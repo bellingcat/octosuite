@@ -1,5 +1,6 @@
 import sys
 
+from .core.cache import cache
 from .lib import console, __pkg__, __version__
 from .tui.menus import Menus
 
@@ -11,3 +12,5 @@ def start():
         menu.main()
     except KeyboardInterrupt:
         sys.exit()
+    finally:
+        cache.clear()

@@ -29,16 +29,27 @@ class Dialogs:
     def __init__(self): ...
 
     @staticmethod
-    def quit() -> bool:
+    def _boolean(title: str, text: str) -> bool:
         try:
             result = button_dialog(
-                title="Quit",
-                text="This will close the session, continue?",
+                title=title,
+                text=text,
                 buttons=[("Yes", True), ("No", False)],
             ).run()
             return result if result is not None else False
         except KeyboardInterrupt:
             return True
+
+    def quit(self) -> bool:
+        return self._boolean(
+            title="Quit", text="This will close the session, continue?"
+        )
+
+    def clear_cache(self) -> bool:
+        return self._boolean(
+            title="Clear Cache",
+            text="This will clear all octosuite caches, continue?",
+        )
 
     @staticmethod
     def license():

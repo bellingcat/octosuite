@@ -1,5 +1,3 @@
-from requests import exceptions
-
 from .github import GitHub, BASE_URL
 
 github = GitHub()
@@ -14,13 +12,30 @@ class GitHubEntity:
         self.endpoint = None
         self.source = source
 
-    def exists(self) -> bool:
+    def exists(self) -> tuple[bool, dict]:
         """Check if the entity exists on GitHub."""
-        try:
-            response = github.get(url=self.endpoint, return_response=True)
-            return response.status_code == 200
-        except exceptions.RequestException as err:
-            return False
+        _type = None
+        kwargs = {}
+
+        if isinstance(self, User):
+            _type = "user"
+            kwargs = {"username": self.name}
+        elif isinstance(self, Org):
+            _type = "org"
+            kwargs = {"username": self.name}
+        elif isinstance(self, Repo):
+            _type = "repo"
+            kwargs = {"repo_owner": self.owner, "repo_name": self.name}
+
+        # Use is_valid_entity which handles caching and sanitization
+        exists = github.is_valid_entity(_type=_type, **kwargs)
+
+        if exists:
+            # Get the cached sanitized data
+            cached = github.cache.get(self.endpoint)
+            return True, cached if cached else {}
+
+        return False, {}
 
 
 class User(GitHubEntity):

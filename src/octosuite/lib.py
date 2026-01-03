@@ -190,7 +190,7 @@ def check_updates():
     with console.status("[dim]Checking for updates...[/dim]") as status:
         checker = UpdateChecker()
         result = checker.check(__pkg__, __version__)
-        if result:
+        if result is not None:
             status.stop()
             message_dialog(title="Update Available", text=result).run()
         else:

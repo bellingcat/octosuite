@@ -1,7 +1,7 @@
 [project]
 name = "octosuite"
 version = "4.0.0-beta"
-description = "TUI-based toolkit for GitHub-data analysis."
+description = "TUI-based toolkit for GitHub data analysis."
 readme = "README.md"
 license = "MIT"
 authors = [
@@ -34,3 +34,4 @@ dev = [
 
 [project.scripts]
 octosuite = "octosuite.app:start"
+ocs = "octosuite.app:start"

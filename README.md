@@ -1,4 +1,4 @@
-![octosuite](img/octosuite.png)
+![octosuite](https://raw.githubusercontent.com/bellingcat/octosuite/refs/heads/master/img/octosuite.png)
 
 TUI-based toolkit for GitHub data analysis.
 
@@ -60,7 +60,7 @@ data source
 and
 choosing what information to retrieve. Preview the results and optionally export them in your preferred format.
 
-![home](img/menu.png)
+![home](https://raw.githubusercontent.com/bellingcat/octosuite/refs/heads/master/img/menu.png)
 
 ## License
 

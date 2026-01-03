@@ -2,6 +2,13 @@
 
 TUI-based toolkit for GitHub data analysis.
 
+![PyPI - Version](https://img.shields.io/pypi/v/octosuite)
+![PyPI - Downloads](https://img.shields.io/pepy/dt/octosuite)
+![Code Size](https://img.shields.io/github/languages/code-size/bellingcat/octosuite)
+![Release Date](https://img.shields.io/github/release-date/bellingcat/octosuite)
+![Build Status](https://img.shields.io/github/actions/workflow/status/bellingcat/octosuite/python-publish.yml)
+![License](https://img.shields.io/github/license/bellingcat/octosuite)
+
 ## Overview
 
 OctoSuite provides a terminal interface for exploring and exporting GitHub data. Access information about users,

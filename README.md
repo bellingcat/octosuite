@@ -1,4 +1,4 @@
-![octosuite](img/octosuite.png)
+![octosuite](https://raw.githubusercontent.com/bellingcat/octosuite/refs/heads/master/img/octosuite.png)
 
 TUI-based toolkit for GitHub data analysis.
 
@@ -7,6 +7,7 @@ TUI-based toolkit for GitHub data analysis.
 ![Code Size](https://img.shields.io/github/languages/code-size/bellingcat/octosuite)
 ![Release Date](https://img.shields.io/github/release-date/bellingcat/octosuite)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/bellingcat/octosuite/python-publish.yml)
+[![CodeQL Advanced](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml)
 ![License](https://img.shields.io/github/license/bellingcat/octosuite)
 
 ## Overview
@@ -16,11 +17,56 @@ repositories, organizations, and search across GitHub's platform.
 
 ## Features
 
-- **User Data** - View profiles, repositories, followers, organizations, and activity, e.t.c.
-- **Repository Data** - Access repository details, commits, issues, releases, and contributors
-- **Organisation Data** - Explore organisation profiles, members, and repositories
-- **Search** - Search across repositories, users, commits, issues, and topics
-- **Export** - Save data in JSON, CSV, or HTML formats
+<details>
+<summary><strong>See details</strong></summary>
+
+- **User** - Get user data
+    - Profile
+    - Repositories
+    - Subscriptions
+    - Starred
+    - Followers
+    - Following
+    - Organizations
+    - Gists
+    - Events
+    - Received Events
+- **Repository** - Get repository data
+    - Profile
+    - Forks
+    - Issues
+    - Issue Events
+    - Events
+    - Assignees
+    - Branches
+    - Tags
+    - Languages
+    - Stargazers
+    - Subscribers
+    - Commits
+    - Comments
+    - Releases
+    - Deployments
+    - Labels
+- **Organisation** - Get organisation data
+    - Profile
+    - Repositories
+    - Events
+    - Hooks
+    - Issues
+    - Members
+- **Search** - Search GitHub
+    - Repositories
+    - Users
+    - Commits
+    - Issues
+    - Topics
+- **Export** - Export data
+    - JSON
+    - CSV
+    - HTML
+
+</details>
 
 ## Installation
 
@@ -50,17 +96,20 @@ octosuite
 ```
 
 > [!Note]
-> You can run octosuite with commands `octosuite`, or `ocs`
+> You can then run octosuite with command `octosuite`
 
 ## Usage
 
-Navigate using <kbd>UP</kbd><kbd>DOWN</kbd> and <kbd>ENTER</kbd> to select options. The interface guides you through
+Navigate using <kbd>UP</kbd><kbd>DOWN</kbd> and <kbd>ENTER</kbd> to select options. In the export menu, you should
+use <kbd>SPACE</kbd> to check the format you want.
+
+The interface guides you through
 selecting a
 data source
 and
 choosing what information to retrieve. Preview the results and optionally export them in your preferred format.
 
-![home](img/menu.png)
+![home](https://raw.githubusercontent.com/bellingcat/octosuite/refs/heads/master/img/menu.png)
 
 ## License
 

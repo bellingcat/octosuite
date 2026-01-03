@@ -1,6 +1,6 @@
 import sys
 
-from . import console, __pkg__, __version__
+from .lib import console, __pkg__, __version__
 from .tui.menus import Menus
 
 

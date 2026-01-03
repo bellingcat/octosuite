@@ -5,9 +5,11 @@ import typing as t
 import requests
 from requests import Response
 
-from .. import __version__
+from ..lib import __version__
 
 BASE_URL = "https://api.github.com"
+
+__all__ = ["BASE_URL", "GitHub"]
 
 
 class GitHub:

@@ -13,20 +13,17 @@ from rich.text import Text
 from rich.tree import Tree
 from update_checker import UpdateChecker
 
-__pkg__ = "octosuite"
-__version__ = "4.0.0"
-__author__ = "Ritchie Mwewa"
+from . import __pkg__, __version__
 
 __all__ = [
-    "console",
     "__pkg__",
-    "__author__",
     "__version__",
+    "console",
     "preview_response",
     "export_response",
     "check_updates",
     "clear_screen",
-    "text_banner",
+    "ascii_banner",
     "set_menu_title",
 ]
 
@@ -70,7 +67,13 @@ def preview_response(data: t.Union[dict, list], source: str, _type: str):
         console.print(data)
 
 
-def export_response(data, data_type, source, file_formats, output_dir="../exports"):
+def export_response(
+    data: t.Union[dict, list],
+    data_type: str,
+    source: str,
+    file_formats: list,
+    output_dir: str = "../exports",
+):
     """Export data to selected formats using built-in libraries."""
     # Create output directory if it doesn't exist
     output_dir = Path(output_dir)
@@ -184,15 +187,18 @@ def fill_tree(tree: Tree, data: t.Union[dict, list]) -> Tree:
 
 
 def check_updates():
-    checker = UpdateChecker()
-    result = checker.check(__pkg__, __version__)
-    if result:
-        message_dialog(title="Update Available", text=result).run()
-    else:
-        message_dialog(
-            title="Up to Date",
-            text=f"You're running the current version, {__version__}",
-        ).run()
+    with console.status("[dim]Checking for updates...[/dim]") as status:
+        checker = UpdateChecker()
+        result = checker.check(__pkg__, __version__)
+        if result:
+            status.stop()
+            message_dialog(title="Update Available", text=result).run()
+        else:
+            status.stop()
+            message_dialog(
+                title="Up to Date",
+                text=f"You're running the current version, {__version__}",
+            ).run()
 
 
 def clear_screen():
@@ -200,7 +206,7 @@ def clear_screen():
     subprocess.run(["cls" if os.name == "nt" else "clear"])
 
 
-def text_banner(text: str):
+def ascii_banner(text: str):
     clear_screen()
 
     ascii_text = pyfiglet.figlet_format(text=text, font="chunky")

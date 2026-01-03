@@ -7,9 +7,9 @@ from rich.status import Status
 
 from .dialogs import Dialogs
 from .prompts import Prompts
-from .. import check_updates, preview_response, export_response, set_menu_title
-from .. import console, clear_screen, text_banner
 from ..core.models import User, Repo, Org, Search
+from ..lib import check_updates, preview_response, export_response, set_menu_title
+from ..lib import console, clear_screen, ascii_banner
 
 CUSTOM_STYLE = Style(
     [
@@ -22,11 +22,10 @@ INSTRUCTIONS = "↑↓ [move] • ⮠ [select]"
 EXPORT_INSTRUCTIONS = "↑↓ [move] • ⮠ [confirm] • spacebar [check]"
 POINTER: str = "🖝 "
 
-__all__ = ["Menus"]
-
-
 dialogs = Dialogs()
 prompts = Prompts()
+
+__all__ = ["Menus"]
 
 
 class Menus:
@@ -88,7 +87,7 @@ class Menus:
         status.update(f"[dim]Getting {method_name} from {source}...[/dim]")
         return method(**params)
 
-    def _navigation(self, option, callback, *callback_args):
+    def _navigation(self, option: str, callback: t.Callable, *callback_args):
         """Handle navigation options (back, quit, change settings)."""
         navigation_handlers = {
             "back": lambda: self.main(),
@@ -183,7 +182,7 @@ class Menus:
         set_menu_title(menu_type="home")
         clear_screen()
         try:
-            text_banner(text="octosuite")
+            ascii_banner(text="octosuite")
 
             action = q.select(
                 "What action would you like to perform?",
@@ -256,7 +255,7 @@ class Menus:
         set_menu_title(menu_type="search")
         clear_screen()
         if query is None:
-            text_banner(text="Search")
+            ascii_banner(text="Search")
             query = prompts.prompt(
                 message="Search Query",
                 instruction="e.g., machine learning",
@@ -264,7 +263,7 @@ class Menus:
             )
 
         clear_screen()
-        text_banner(text=query)
+        ascii_banner(text=query)
 
         option = q.select(
             "What would you like to do/search?",
@@ -334,7 +333,7 @@ class Menus:
         # Execute search if it's a valid method
         if option in self.search_methods:
             with console.status(
-                status=f"[dim]Initialising {option} search[/dim]..."
+                status=f"[dim]Initialising {option} search...[/dim]"
             ) as status:
                 # Get pagination params
 
@@ -350,7 +349,7 @@ class Menus:
                 )
 
                 method = getattr(search, option)
-                status.update(f"[dim]Searching {option} for {query}[/dim]...")
+                status.update(f"[dim]Searching {option} for {query}...[/dim]")
                 data = method()
 
                 if data:
@@ -369,7 +368,7 @@ class Menus:
         set_menu_title(menu_type="user")
         clear_screen()
         if username is None:
-            text_banner(text="User")
+            ascii_banner(text="User")
             username = prompts.prompt(
                 message="GitHub Username",
                 instruction="e.g., octocat",
@@ -378,7 +377,7 @@ class Menus:
             )
 
         clear_screen()
-        text_banner(text=username)
+        ascii_banner(text=username)
 
         option = q.select(
             "What would you like to do/get?",
@@ -473,12 +472,12 @@ class Menus:
         valid_methods = self.paginated_methods | self.non_paginated_methods
         if option in valid_methods:
             with Status(
-                status=f"[dim]Initialising user {option}[/dim]...",
+                status=f"[dim]Initialising user {option}...[/dim]",
                 console=console,
             ) as status:
                 user = User(name=username)
 
-                status.update(f"[dim]Validating user's ({username}) existence[/dim]...")
+                status.update(f"[dim]Validating user's ({username}) existence...[/dim]")
                 if user.exists():
                     console.print(
                         f"[bold][green]✔[/green] User ({username}) exists on GitHub[/bold]"
@@ -507,7 +506,7 @@ class Menus:
         set_menu_title(menu_type="repo")
         clear_screen()
         if name is None or owner is None:
-            text_banner(text="Repo")
+            ascii_banner(text="Repo")
             if name is None:
                 name = prompts.prompt(
                     message="GitHub Repo Name",
@@ -523,7 +522,7 @@ class Menus:
                 )
 
         clear_screen()
-        text_banner(text=f"{owner}/{name}")
+        ascii_banner(text=f"{owner}/{name}")
 
         option = q.select(
             "What would you like to do/get?",
@@ -665,13 +664,13 @@ class Menus:
         if option in valid_methods:
             source = f"{owner}/{name}"
             with Status(
-                status=f"[dim]Initialising repository {option}[/dim]...",
+                status=f"[dim]Initialising repository {option}...[/dim]",
                 console=console,
             ) as status:
                 repo = Repo(name=name, owner=owner)
 
                 status.update(
-                    f"[dim]Validating repository's ({source}) existence[/dim]..."
+                    f"[dim]Validating repository's ({source}) existence...[/dim]"
                 )
                 if repo.exists():
                     console.print(
@@ -698,7 +697,7 @@ class Menus:
         set_menu_title(menu_type="org")
         clear_screen()
         if name is None:
-            text_banner(text="Org")
+            ascii_banner(text="Org")
             name = prompts.prompt(
                 message="GitHub Organisation Name",
                 instruction="e.g, github",
@@ -707,7 +706,7 @@ class Menus:
             )
 
         clear_screen()
-        text_banner(text=name)
+        ascii_banner(text=name)
 
         option = q.select(
             "What would you like to do?",
@@ -781,13 +780,13 @@ class Menus:
         valid_methods = self.paginated_methods | self.non_paginated_methods
         if option in valid_methods:
             with Status(
-                status=f"[dim]Initialising organisation {option}[/dim]...",
+                status=f"[dim]Initialising organisation {option}...[/dim]",
                 console=console,
             ) as status:
                 org = Org(name=name)
 
                 status.update(
-                    f"[dim]Validating organisation's ({name}) existence[/dim]..."
+                    f"[dim]Validating organisation's ({name}) existence...[/dim]"
                 )
                 if org.exists():
                     console.print(

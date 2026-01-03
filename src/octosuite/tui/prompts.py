@@ -3,6 +3,8 @@ import typing as t
 import questionary as q
 from questionary import Style
 
+__all__ = ["Prompts"]
+
 
 class Prompts:
     def __init__(self):

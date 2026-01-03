@@ -1,6 +1,6 @@
 [project]
 name = "octosuite"
-version = "4.0.0"
+version = "4.0.0-beta"
 description = "TUI-based toolkit for GitHub-data analysis."
 readme = "README.md"
 license = "MIT"
@@ -33,4 +33,4 @@ dev = [
 ]
 
 [project.scripts]
-octosuite = "octosuite.main:start"
+octosuite = "octosuite.app:start"

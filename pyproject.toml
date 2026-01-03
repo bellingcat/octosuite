@@ -34,4 +34,3 @@ dev = [
 
 [project.scripts]
 octosuite = "octosuite.app:start"
-ocs = "octosuite.app:start"

@@ -16,11 +16,56 @@ repositories, organizations, and search across GitHub's platform.
 
 ## Features
 
-- **User Data** - View profiles, repositories, followers, organizations, and activity, e.t.c.
-- **Repository Data** - Access repository details, commits, issues, releases, and contributors
-- **Organisation Data** - Explore organisation profiles, members, and repositories
-- **Search** - Search across repositories, users, commits, issues, and topics
-- **Export** - Save data in JSON, CSV, or HTML formats
+<details>
+<summary><strong>See details</strong></summary>
+
+- **User** - Get user data
+    - Profile
+    - Repositories
+    - Subscriptions
+    - Starred
+    - Followers
+    - Following
+    - Organizations
+    - Gists
+    - Events
+    - Received Events
+- **Repository** - Get repository data
+    - Profile
+    - Forks
+    - Issues
+    - Issue Events
+    - Events
+    - Assignees
+    - Branches
+    - Tags
+    - Languages
+    - Stargazers
+    - Subscribers
+    - Commits
+    - Comments
+    - Releases
+    - Deployments
+    - Labels
+- **Organisation** - Get organisation data
+    - Profile
+    - Repositories
+    - Events
+    - Hooks
+    - Issues
+    - Members
+- **Search** - Search GitHub
+    - Repositories
+    - Users
+    - Commits
+    - Issues
+    - Topics
+- **Export** - Export data
+    - JSON
+    - CSV
+    - HTML
+
+</details>
 
 ## Installation
 
@@ -50,7 +95,7 @@ octosuite
 ```
 
 > [!Note]
-> You can run octosuite with commands `octosuite`, or `ocs`
+> You can then run octosuite with command `octosuite`
 
 ## Usage
 

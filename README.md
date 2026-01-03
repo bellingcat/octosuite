@@ -53,7 +53,7 @@ data source
 and
 choosing what information to retrieve. Preview the results and optionally export them in your preferred format.
 
-![home](img/home.png)
+![home](img/menu.png)
 
 ## License
 

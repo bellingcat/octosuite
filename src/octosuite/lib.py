@@ -31,6 +31,14 @@ console = Console(log_time=False)
 
 
 def preview_response(data: t.Union[dict, list], source: str, _type: str):
+    """
+    Display a preview of response data in a tree structure.
+
+    :param data: The data to preview (dict or list).
+    :param source: The source identifier of the data.
+    :param _type: The type of data being previewed.
+    """
+
     if isinstance(data, dict):
         tree = Tree(
             label=f"\n[bold]{data.get('name') or data.get('login') or data.get('id') or 'Data'}[/bold]",
@@ -44,7 +52,7 @@ def preview_response(data: t.Union[dict, list], source: str, _type: str):
     elif isinstance(data, list):
         preview_data = data[:5]
         tree = Tree(
-            label=f"\nPreview: First {len(preview_data)} of {len(data)} {_type} from {source}",
+            label=f"\n[bold]First {len(preview_data)} of {len(data)} {_type} for '{source}'[/bold]",
             guide_style="#444444",
             highlight=True,
         )
@@ -74,7 +82,17 @@ def export_response(
     file_formats: list,
     output_dir: str = "../exports",
 ):
-    """Export data to selected formats using built-in libraries."""
+    """
+    Export response data to one or more file formats.
+
+    :param data: The data to export (dict or list).
+    :param data_type: The type of data being exported.
+    :param source: The source identifier of the data.
+    :param file_formats: List of file formats to export to (json, csv, html).
+    :param output_dir: Directory path where exported files will be saved.
+    :return: List of exported file paths.
+    """
+
     # Create output directory if it doesn't exist
     output_dir = Path(output_dir)
     output_dir.mkdir(exist_ok=True)
@@ -165,6 +183,14 @@ def export_response(
 
 
 def fill_tree(tree: Tree, data: t.Union[dict, list]) -> Tree:
+    """
+    Recursively populate a Rich Tree with data.
+
+    :param tree: The Tree object to populate.
+    :param data: The data to add to the tree (dict or list).
+    :return: The populated Tree object.
+    """
+
     if isinstance(data, dict):
         for key, value in data.items():
             if isinstance(value, dict) or isinstance(value, list):
@@ -187,6 +213,8 @@ def fill_tree(tree: Tree, data: t.Union[dict, list]) -> Tree:
 
 
 def check_updates():
+    """Check for available package updates and display the result."""
+
     with console.status("[dim]Checking for updates...[/dim]") as status:
         checker = UpdateChecker()
         result = checker.check(__pkg__, __version__)
@@ -207,6 +235,10 @@ def clear_screen():
 
 
 def ascii_banner(text: str):
+    """Display a colourful ASCII art banner with gradient styling.
+
+    :param text: The text to convert to ASCII art.
+    """
     clear_screen()
 
     ascii_text = pyfiglet.figlet_format(text=text, font="chunky")
@@ -224,6 +256,12 @@ def ascii_banner(text: str):
 
 
 def set_menu_title(menu_type: t.Literal["home", "user", "org", "repo", "search"]):
+    """
+    Set the terminal window title based on the current menu.
+
+    :param menu_type: The type of menu being displayed.
+    """
+
     title: str = __pkg__.title()
     title += f" | {menu_type.title()}"
     console.set_window_title(title=title)

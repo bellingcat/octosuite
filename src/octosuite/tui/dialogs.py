@@ -26,10 +26,22 @@ __all__ = ["Dialogs"]
 
 
 class Dialogs:
-    def __init__(self): ...
+    """Provides interactive dialogue boxes for user confirmations and information display."""
+
+    def __init__(self):
+        """Initialise the Dialogs class."""
+        ...
 
     @staticmethod
     def _boolean(title: str, text: str) -> bool:
+        """
+        Display a Yes/No dialogue and return the user's choice.
+
+        :param title: The title of the dialogue box.
+        :param text: The message text to display.
+        :return: True if user selects Yes, False if No or cancelled.
+        """
+
         try:
             result = button_dialog(
                 title=title,
@@ -41,11 +53,23 @@ class Dialogs:
             return True
 
     def quit(self) -> bool:
+        """
+        Display a confirmation dialogue for quitting the application.
+
+        :return: True if user confirms quit, False otherwise.
+        """
+
         return self._boolean(
             title="Quit", text="This will close the session, continue?"
         )
 
     def clear_cache(self) -> bool:
+        """
+        Display a confirmation dialogue for clearing the cache.
+
+        :return: True if user confirms cache clearing, False otherwise.
+        """
+
         return self._boolean(
             title="Clear Cache",
             text="This will clear all octosuite caches, continue?",
@@ -53,4 +77,5 @@ class Dialogs:
 
     @staticmethod
     def license():
+        """Display the MIT license notice in a dialogue box."""
         message_dialog(title="MIT License", text=LICENSE_NOTICE).run()

@@ -21,7 +21,6 @@ CUSTOM_STYLE = Style(
 
 INSTRUCTIONS = "↑↓ [move] • ⮠ [select]"
 EXPORT_INSTRUCTIONS = "↑↓ [move] • ⮠ [confirm] • spacebar [check]"
-POINTER: str = "🖝 "
 
 dialogs = Dialogs()
 prompts = Prompts()
@@ -30,9 +29,15 @@ __all__ = ["Menus"]
 
 
 class BaseMenu:
-    """Base class with common menu functionality."""
+    """Base class providing common menu functionality and response handling for GitHub data queries."""
 
     def __init__(self, main_menu: t.Callable):
+        """
+        Initialise the BaseMenu with pagination and search method configurations.
+
+        :param main_menu: Callable reference to the main menu function.
+        """
+
         # Define which methods require pagination
         self.paginated_methods = {
             "repos",
@@ -76,17 +81,16 @@ class BaseMenu:
         callback: t.Callable,
         *callback_args,
     ) -> bool:
-        """Validate if an entity exists on GitHub.
-
-        Args:
-            identifier: Name/identifier of the entity
-            instance: The instance with an exists() method (User, Repo, or Org)
-            callback: Function to call if validation fails
-            *callback_args: Arguments to pass to callback
-
-        Returns:
-            bool: True if entity exists, False otherwise
         """
+        Validate whether a GitHub entity exists.
+
+        :param identifier: Name or identifier of the entity to validate.
+        :param instance: The instance with an exists() method (User, Repo, or Org).
+        :param callback: Function to call if validation fails.
+        :param callback_args: Arguments to pass to the callback function.
+        :return: True if the entity exists, False otherwise.
+        """
+
         if isinstance(instance, User):
             target_type = "user"
         elif isinstance(instance, Repo):
@@ -95,18 +99,12 @@ class BaseMenu:
             target_type = "org"
 
         with Status(
-            f"[dim]Validating {target_type}'s ({identifier}) existence...[/dim]",
+            f"[dim]Validating {target_type} ({identifier})[/dim]...",
             console=console,
         ) as status:
             exists, response = instance.exists()
 
-            if exists:
-                ascii_banner(text=identifier)
-                console.print(
-                    f"[bold][green]✔[/green] {target_type.capitalize()} ({identifier}) exists on GitHub[/bold]"
-                )
-                return True
-            else:
+            if not exists:
                 status.stop()
                 if response and "message" in response:
                     console.print(
@@ -116,6 +114,8 @@ class BaseMenu:
                 callback(*callback_args)
                 return False
 
+            return True
+
     def execute_and_handle_response(
         self,
         instance: t.Union[User, Repo, Org, Search],
@@ -123,18 +123,19 @@ class BaseMenu:
         target_type: t.Literal["user", "repo", "org"],
         source: str,
     ):
-        """Execute a method and handle its response.
-
-        Args:
-            instance: The instance to execute the method on
-            method_name: Name of the method to execute
-            target_type: Type of entity ("user", "repo", "org")
-            source: Source identifier for response handling
         """
+        Execute a method on an instance and handle the resulting data.
+
+        :param instance: The instance to execute the method on.
+        :param method_name: Name of the method to execute.
+        :param target_type: Type of entity ("user", "repo", or "org").
+        :param source: Source identifier for response handling.
+        """
+
         valid_methods = self.paginated_methods | self.non_paginated_methods
         if method_name in valid_methods:
             with Status(
-                status=f"[dim]Initialising {target_type} {method_name}...[/dim]",
+                status=f"[dim]Initialising {target_type} {method_name}[/dim]...",
                 console=console,
             ) as status:
                 data = self.execute_selection(
@@ -148,7 +149,14 @@ class BaseMenu:
                 self.response_handler(data=data, data_type=method_name, source=source)
 
     def execute_selection(self, status: Status, **kwargs):
-        """Execute a method on an instance, prompting for pagination if needed."""
+        """
+        Execute a method on an instance with pagination if required.
+
+        :param status: Rich Status object for displaying progress.
+        :param kwargs: Must include 'instance', 'method_name', and 'source'.
+        :return: The data returned by the executed method.
+        """
+
         instance = kwargs.get("instance")
         method_name = kwargs.get("method_name")
         source = kwargs.get("source")
@@ -160,88 +168,111 @@ class BaseMenu:
             prompts.pagination_params() if method_name in self.paginated_methods else {}
         )
         status.start()
-        status.update(f"[dim]Getting {method_name} from {source}...[/dim]")
+        status.update(f"[dim]Getting {method_name} from {source}[/dim]...")
         return method(**params)
 
     def response_handler(self, data: t.Union[dict, list], data_type: str, source: str):
-        """Export data to file in user-selected format(s)."""
-        preview_response(data=data, source=source, _type=data_type)
+        """
+        Handle retrieved data by previewing and offering export options.
+
+        :param data: The data to handle (dict or list).
+        :param data_type: Type of data retrieved.
+        :param source: Source identifier of the data.
+        """
 
         try:
-            export_choice = q.select(
-                "What would you like to do?",
-                choices=[
-                    q.Choice(
-                        title="Export",
-                        value="export",
-                        description="Export the data",
-                        shortcut_key="e",
-                    ),
-                    q.Choice(
-                        title="Skip",
-                        value="skip",
-                        description="Do nothing, and go back to previous menu",
-                        shortcut_key="x",
-                    ),
-                    q.Choice(
-                        title="Quit",
-                        value="quit",
-                        description="Close this session",
-                    ),
-                ],
-                pointer=POINTER,
-                style=CUSTOM_STYLE,
-                instruction=INSTRUCTIONS,
-            ).ask()
+            if not data:
+                console.print(
+                    f"[bold][yellow]✘[/yellow] No data found for '{source}'[/bold]"
+                )
+            else:
+                preview_response(data=data, source=source, _type=data_type)
+                export_choice = q.select(
+                    "What would you like to do?",
+                    choices=[
+                        q.Choice(
+                            title="Export",
+                            value="export",
+                            description="Export the data",
+                            shortcut_key="e",
+                        ),
+                        q.Choice(
+                            title="Skip",
+                            value="skip",
+                            description="Do nothing, and go back to previous menu",
+                            shortcut_key="x",
+                        ),
+                        q.Choice(
+                            title="Quit",
+                            value="quit",
+                            description="Close this session",
+                        ),
+                    ],
+                    style=CUSTOM_STYLE,
+                    instruction=INSTRUCTIONS,
+                ).ask()
 
-            if export_choice == "skip":
-                return
-
-            if export_choice == "quit":
-                if dialogs.quit():
-                    sys.exit()
-                else:
-                    self.response_handler(
-                        data=data,
-                        data_type=data_type,
-                        source=source,
-                    )
+                if export_choice == "skip":
                     return
 
-            file_formats = q.checkbox(
-                "Select export format(s)",
-                choices=[
-                    q.Choice(
-                        title="JSON",
-                        value="json",
-                        description="Export as JSON file",
-                    ),
-                    q.Choice(
-                        title="CSV",
-                        value="csv",
-                        description="Export as CSV file",
-                    ),
-                    q.Choice(
-                        title="HTML",
-                        value="html",
-                        description="Export as HTML table",
-                    ),
-                ],
-                pointer=POINTER,
-                style=CUSTOM_STYLE,
-                instruction=EXPORT_INSTRUCTIONS,
-                validate=lambda x: len(x) > 0 or "Please select at least one format",
-            ).ask()
+                if export_choice == "quit":
+                    if dialogs.quit():
+                        sys.exit()
+                    else:
+                        clear_screen()
+                        self.response_handler(
+                            data=data,
+                            data_type=data_type,
+                            source=source,
+                        )
+                        return
 
-            export_response(
-                data=data, data_type=data_type, source=source, file_formats=file_formats
-            )
+                file_formats = q.checkbox(
+                    "Select export format(s)",
+                    choices=[
+                        q.Choice(
+                            title="JSON",
+                            value="json",
+                            description="Export as JSON file",
+                        ),
+                        q.Choice(
+                            title="CSV",
+                            value="csv",
+                            description="Export as CSV file",
+                        ),
+                        q.Choice(
+                            title="HTML",
+                            value="html",
+                            description="Export as HTML table",
+                        ),
+                    ],
+                    style=CUSTOM_STYLE,
+                    instruction=EXPORT_INSTRUCTIONS,
+                    validate=lambda x: len(x) > 0
+                    or "Please select at least one format",
+                ).ask()
 
+                export_response(
+                    data=data,
+                    data_type=data_type,
+                    source=source,
+                    file_formats=file_formats,
+                )
         except KeyboardInterrupt:
-            print("\nExport cancelled")
+            console.print("\nExport cancelled")
+        finally:
+            console.input("  Press [bold]ENTER[/bold] to continue ...")
 
     def navigation_handler(self, option: str, callback: t.Callable, *callback_args):
-        """Handle navigation options (back, quit, change settings)."""
+        """
+        Handle common navigation options across menus.
+
+        :param option: The selected navigation option.
+        :param callback: Function to call for certain navigation actions.
+        :param callback_args: Arguments to pass to the callback function.
+        :return: True if navigation was handled, False otherwise.
+        """
+
         navigation_handlers = {
             "back": lambda: self.main_menu(),
             "quit": lambda: (
@@ -257,7 +288,11 @@ class BaseMenu:
 
 
 class Menus(BaseMenu):
+    """Main menu system providing interactive interfaces for GitHub data queries."""
+
     def __init__(self):
+        """Initialise the Menus class with mode handlers for different query types."""
+
         super().__init__(main_menu=self.main)
 
         self.mode_handlers = {
@@ -268,7 +303,8 @@ class Menus(BaseMenu):
         }
 
     def main(self):
-        """Main menu to select mode."""
+        """Display the main menu for selecting query mode."""
+
         set_menu_title(menu_type="home")
         clear_screen()
         try:
@@ -318,7 +354,6 @@ class Menus(BaseMenu):
                         description="Close this session",
                     ),
                 ],
-                pointer=POINTER,
                 style=CUSTOM_STYLE,
                 instruction=INSTRUCTIONS,
             ).ask()
@@ -350,7 +385,12 @@ class Menus(BaseMenu):
             sys.exit()
 
     def search(self, query: t.Optional[str] = None):
-        """Search menu for querying GitHub."""
+        """
+        Display the search menu for querying GitHub content.
+
+        :param query: Optional search query string. If None, prompts user for input.
+        """
+
         set_menu_title(menu_type="search")
         clear_screen()
         if query is None:
@@ -409,7 +449,6 @@ class Menus(BaseMenu):
                     shortcut_key="q",
                 ),
             ],
-            pointer=POINTER,
             style=CUSTOM_STYLE,
             instruction=INSTRUCTIONS,
             use_shortcuts=True,
@@ -431,7 +470,7 @@ class Menus(BaseMenu):
         # Execute search if it's a valid method
         if option in self.search_methods:
             with Status(
-                status=f"[dim]Initialising {option} search...[/dim]", console=console
+                status=f"[dim]Initialising {option} search[/dim]...", console=console
             ) as status:
                 status.stop()
                 params = prompts.pagination_params()
@@ -445,7 +484,7 @@ class Menus(BaseMenu):
                 )
 
                 method = getattr(search, option)
-                status.update(f"[dim]Searching {option} for {query}...[/dim]")
+                status.update(f"[dim]Searching {option} for {query}[/dim]...")
                 data = method()
 
                 if data:
@@ -461,7 +500,13 @@ class Menus(BaseMenu):
         self.search(query=query)
 
     def user(self, username: t.Optional[str] = None, is_validated: bool = False):
-        """User menu for querying user data."""
+        """
+        Display the user menu for querying GitHub user data.
+
+        :param username: Optional GitHub username. If None, prompts user for input.
+        :param is_validated: Whether the username has already been validated.
+        """
+
         set_menu_title(menu_type="user")
         clear_screen()
         if username is None:
@@ -475,14 +520,14 @@ class Menus(BaseMenu):
 
         user = User(name=username)
 
-        if not is_validated:
-            if not self.target_validator(
-                identifier=username,
-                instance=user,
-                callback=self.user,
-            ):
-                return
+        if not self.target_validator(
+            identifier=username,
+            instance=user,
+            callback=self.user,
+        ):
+            return
 
+        ascii_banner(text=username)
         option = q.select(
             "What would you like to do/get?",
             choices=[
@@ -555,7 +600,6 @@ class Menus(BaseMenu):
                     shortcut_key="q",
                 ),
             ],
-            pointer=POINTER,
             style=CUSTOM_STYLE,
             instruction=INSTRUCTIONS,
             use_shortcuts=True,
@@ -566,32 +610,37 @@ class Menus(BaseMenu):
             return
 
         # Handle navigation
-        if self.navigation_handler(option, self.user, username):
+        elif self.navigation_handler(option, self.user, username):
             return
 
         # Handle change username
-        if option == "change_username":
+        elif option == "change_username":
             self.user()
             return
+        else:
+            # Execute action and handle response
+            self.execute_and_handle_response(
+                instance=user,
+                method_name=option,
+                target_type="user",
+                source=username,
+            )
 
-        # Execute action and handle response
-        self.execute_and_handle_response(
-            instance=user,
-            method_name=option,
-            target_type="user",
-            source=username,
-        )
-
-        # After handling response, show menu again WITHOUT re-validating
-        self.user(username=username, is_validated=True)
+            # After handling response, show menu again WITHOUT re-validating
+            self.user(username=username, is_validated=True)
 
     def repo(
         self,
         name: t.Optional[str] = None,
         owner: t.Optional[str] = None,
-        is_validated: bool = False,
     ):
-        """Repository menu for querying repo data."""
+        """
+        Display the repository menu for querying GitHub repository data.
+
+        :param name: Optional repository name. If None, prompts user for input.
+        :param owner: Optional repository owner. If None, prompts user for input.
+        """
+
         set_menu_title(menu_type="repo")
         clear_screen()
         if name is None or owner is None:
@@ -614,14 +663,14 @@ class Menus(BaseMenu):
         source = f"{owner}/{name}"
 
         # Only validate if not already validated
-        if not is_validated:
-            if not self.target_validator(
-                identifier=source,
-                instance=repo,
-                callback=self.repo,
-            ):
-                return
+        if not self.target_validator(
+            identifier=source,
+            instance=repo,
+            callback=self.repo,
+        ):
+            return
 
+        ascii_banner(text=source)
         option = q.select(
             "What would you like to do/get?",
             choices=[
@@ -733,19 +782,10 @@ class Menus(BaseMenu):
                     shortcut_key="q",
                 ),
             ],
-            pointer=POINTER,
             style=CUSTOM_STYLE,
             instruction=INSTRUCTIONS,
             use_shortcuts=True,
         ).ask()
-
-        if option is None:
-            self.main()
-            return
-
-        # Handle navigation
-        if self.navigation_handler(option, self.repo, name, owner):
-            return
 
         # Handle change options
         change_handlers = {
@@ -754,23 +794,36 @@ class Menus(BaseMenu):
             "change_both": lambda: self.repo(),
         }
 
-        if option in change_handlers:
-            change_handlers[option]()
+        if option is None:
+            self.main()
             return
 
-        # Execute action and handle response
-        self.execute_and_handle_response(
-            instance=repo,
-            method_name=option,
-            target_type="repo",
-            source=source,
-        )
+        # Handle navigation
+        elif self.navigation_handler(option, self.repo, name, owner):
+            return
 
-        # After handling response, show menu again WITHOUT re-validating
-        self.repo(name=name, owner=owner, is_validated=True)
+        elif option in change_handlers:
+            change_handlers[option]()
+            return
+        else:
+            # Execute action and handle response
+            self.execute_and_handle_response(
+                instance=repo,
+                method_name=option,
+                target_type="repo",
+                source=source,
+            )
 
-    def org(self, name: t.Optional[str] = None, is_validated: bool = False):
-        """Organisation menu for querying org data."""
+            # After handling response, show menu again WITHOUT re-validating
+            self.repo(name=name, owner=owner)
+
+    def org(self, name: t.Optional[str] = None):
+        """
+        Display the organisation menu for querying GitHub organisation data.
+
+        :param name: Optional organisation name. If None, prompts user for input.
+        """
+
         set_menu_title(menu_type="org")
         clear_screen()
         if name is None:
@@ -784,14 +837,12 @@ class Menus(BaseMenu):
 
         org = Org(name=name)
 
-        # Only validate if not already validated
-        if not is_validated:
-            if not self.target_validator(
-                identifier=name,
-                instance=org,
-                callback=self.org,
-            ):
-                return
+        if not self.target_validator(
+            identifier=name,
+            instance=org,
+            callback=self.org,
+        ):
+            return
 
         option = q.select(
             "What would you like to do?",
@@ -844,7 +895,6 @@ class Menus(BaseMenu):
                     shortcut_key="q",
                 ),
             ],
-            pointer=POINTER,
             style=CUSTOM_STYLE,
             instruction=INSTRUCTIONS,
             use_shortcuts=True,
@@ -855,18 +905,19 @@ class Menus(BaseMenu):
             return
 
         # Handle navigation
-        if self.navigation_handler(option, self.org, name):
+        elif self.navigation_handler(option, self.org, name):
             return
 
         # Handle change org
-        if option == "change_org":
+        elif option == "change_org":
             self.org()
             return
 
-        # Execute action and handle response
-        self.execute_and_handle_response(
-            instance=org, method_name=option, target_type="org", source=name
-        )
+        else:
+            # Execute action and handle response
+            self.execute_and_handle_response(
+                instance=org, method_name=option, target_type="org", source=name
+            )
 
-        # After handling response, show menu again WITHOUT re-validating
-        self.org(name=name, is_validated=True)
+            # After handling response, show menu again WITHOUT re-validating
+            self.org(name=name)

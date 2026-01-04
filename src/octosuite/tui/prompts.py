@@ -7,7 +7,10 @@ __all__ = ["Prompts"]
 
 
 class Prompts:
+    """Provides interactive prompts for user input collection."""
+
     def __init__(self):
+        """Initialise the Prompts class."""
         pass
 
     @staticmethod
@@ -17,17 +20,40 @@ class Prompts:
         style: t.Optional[Style] = None,
         qmark: t.Optional[str] = "?",
     ) -> str:
-        return q.text(
+        """
+        Display a text input prompt and validate non-empty input.
+
+        :param message: The prompt message to display.
+        :param instruction: Optional instruction text to guide the user.
+        :param style: Optional questionary Style object for custom styling.
+        :param qmark: Optional custom question mark character or string.
+        :return: The user's input string.
+        :raises KeyboardInterrupt: If the user cancels the prompt with CTRL+C.
+        """
+
+        result = q.text(
             message=message,
             instruction=instruction,
             style=style,
             qmark=qmark,
-            validate=lambda text: len(text.strip()) > 0 or "Input cannot be empty",
+            validate=lambda text: len(text.strip()) > 0
+            or None
+            or "Input cannot be empty",
         ).ask()
+
+        if result is None:
+            raise KeyboardInterrupt
+
+        return result
 
     @staticmethod
     def pagination_params() -> dict:
-        """Prompt user for pagination parameters."""
+        """
+        Prompt the user for pagination parameters.
+
+        :return: Dictionary containing 'page' and 'per_page' integer values.
+        """
+
         try:
             page = q.text(message="Page", default="1", qmark="n").ask()
             per_page = q.text(

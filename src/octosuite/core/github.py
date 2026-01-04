@@ -14,6 +14,8 @@ __all__ = ["BASE_URL", "GitHub"]
 
 
 class GitHub:
+    """Handles GitHub API requests with caching and response sanitisation."""
+
     def __init__(
         self,
         user_agent: str = (
@@ -22,6 +24,12 @@ class GitHub:
             f"https://github.com/bellingcat/octosuite) requests/{requests.__version__}"
         ),
     ):
+        """
+        Initialise the GitHub API client.
+
+        :param user_agent: Custom User-Agent string for API requests.
+        """
+
         self.user_agent = user_agent
         self.cache = cache
 
@@ -32,6 +40,16 @@ class GitHub:
         return_response: bool = False,
         use_cache: bool = True,
     ) -> t.Union[dict, list, Response]:
+        """
+        Make a GET request to the GitHub API.
+
+        :param url: The API endpoint URL.
+        :param params: Optional query parameters for the request.
+        :param return_response: If True, return the raw Response object instead of JSON data.
+        :param use_cache: If True, use cached responses when available.
+        :return: Dictionary, list, or Response object depending on the request and parameters.
+        """
+
         if use_cache and not return_response:
             cached = self.cache.get(url, params)
             if cached is not None:
@@ -58,7 +76,14 @@ class GitHub:
     def is_valid_entity(
         self, _type: t.Literal["user", "org", "repo"], **kwargs
     ) -> bool:
-        """Validate if a GitHub entity exists."""
+        """
+        Validate whether a GitHub entity exists.
+
+        :param _type: Type of entity to validate ("user", "org", or "repo").
+        :param kwargs: Entity identifiers (username for user/org, repo_owner and repo_name for repo).
+        :return: True if the entity exists, False otherwise.
+        """
+
         try:
             type_map = {
                 "user": f"https://api.github.com/users/{kwargs.get('username')}",
@@ -86,6 +111,13 @@ class GitHub:
             return False
 
     def sanitise_response(self, response: t.Union[dict, list]) -> t.Union[dict, list]:
+        """
+        Remove API URLs and null values from response data recursively.
+
+        :param response: The response data to sanitise (dict or list).
+        :return: Sanitised response with API URLs and null values removed.
+        """
+
         pattern = re.compile(r"https://api\.github\.com")
 
         if isinstance(response, list):

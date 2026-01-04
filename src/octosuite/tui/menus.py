@@ -258,10 +258,10 @@ class BaseMenu:
                     source=source,
                     file_formats=file_formats,
                 )
+
+            console.input("  Press [bold]ENTER[/bold] to continue ...")
         except KeyboardInterrupt:
             console.print("\nExport cancelled")
-        finally:
-            console.input("  Press [bold]ENTER[/bold] to continue ...")
 
     def navigation_handler(self, option: str, callback: t.Callable, *callback_args):
         """

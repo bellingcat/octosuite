@@ -7,7 +7,6 @@ TUI-based toolkit for GitHub data analysis.
 ![Code Size](https://img.shields.io/github/languages/code-size/bellingcat/octosuite)
 ![Release Date](https://img.shields.io/github/release-date/bellingcat/octosuite)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/bellingcat/octosuite/python-publish.yml)
-[![CodeQL Advanced](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml/badge.svg)](https://github.com/bellingcat/octosuite/actions/workflows/codeql.yml)
 ![License](https://img.shields.io/github/license/bellingcat/octosuite)
 
 ## Overview

@@ -1,6 +1,6 @@
 [project]
 name = "octosuite"
-version = "4.0.1beta2"
+version = "4.0.0rc0"
 description = "TUI-based toolkit for GitHub data analysis."
 readme = "README.md"
 license = "MIT"
@@ -12,7 +12,8 @@ dependencies = [
     "rich>=14.2.0",
     "questionary>=2.1.1",
     "pyfiglet>=1.0.4",
-    "update-checker>=0.18.0"
+    "update-checker>=0.18.0",
+    "black>=25.12.0",
 ]
 classifiers = [
     "Development Status :: 4 - Beta",

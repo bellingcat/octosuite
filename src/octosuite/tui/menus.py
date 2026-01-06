@@ -99,7 +99,7 @@ class BaseMenu:
             target_type = "org"
 
         with Status(
-            f"[dim]Validating {target_type} ({identifier})[/dim]...",
+            f"[dim]Validating {target_type} ({identifier})[/dim]…",
             console=console,
         ) as status:
             exists, response = instance.exists()
@@ -110,7 +110,7 @@ class BaseMenu:
                     console.print(
                         f"[bold][yellow]✘[/yellow] {response['message']}[/bold]"
                     )
-                console.input("  Press [bold]ENTER[/bold] to continue ...")
+                console.input("  Press [bold]ENTER[/bold] to continue …")
                 callback(*callback_args)
                 return False
 
@@ -135,7 +135,7 @@ class BaseMenu:
         valid_methods = self.paginated_methods | self.non_paginated_methods
         if method_name in valid_methods:
             with Status(
-                status=f"[dim]Initialising {target_type} {method_name}[/dim]...",
+                status=f"[dim]Initialising {target_type} {method_name}[/dim]…",
                 console=console,
             ) as status:
                 data = self.execute_selection(
@@ -168,7 +168,7 @@ class BaseMenu:
             prompts.pagination_params() if method_name in self.paginated_methods else {}
         )
         status.start()
-        status.update(f"[dim]Getting {method_name} from {source}[/dim]...")
+        status.update(f"[dim]Getting {method_name} from {source}[/dim]…")
         return method(**params)
 
     def response_handler(self, data: t.Union[dict, list], data_type: str, source: str):
@@ -259,7 +259,7 @@ class BaseMenu:
                     file_formats=file_formats,
                 )
 
-            console.input("  Press [bold]ENTER[/bold] to continue ...")
+            console.input("  Press [bold]ENTER[/bold] to continue …")
         except KeyboardInterrupt:
             console.print("\nExport cancelled")
 
@@ -470,7 +470,7 @@ class Menus(BaseMenu):
         # Execute search if it's a valid method
         if option in self.search_methods:
             with Status(
-                status=f"[dim]Initialising {option} search[/dim]...", console=console
+                status=f"[dim]Initialising {option} search[/dim]…", console=console
             ) as status:
                 status.stop()
                 params = prompts.pagination_params()
@@ -484,7 +484,7 @@ class Menus(BaseMenu):
                 )
 
                 method = getattr(search, option)
-                status.update(f"[dim]Searching {option} for {query}[/dim]...")
+                status.update(f"[dim]Searching {option} for {query}[/dim]…")
                 data = method()
 
                 if data:

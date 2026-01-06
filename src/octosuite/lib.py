@@ -221,7 +221,7 @@ def check_updates():
         result = checker.check(__pkg__, __version__)
         if result is not None:
             status.stop()
-            message_dialog(title="Update Available", text=result).run()
+            message_dialog(title="Update Available", text=str(result)).run()
         else:
             status.stop()
             message_dialog(

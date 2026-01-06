@@ -1,2 +1,2 @@
 __pkg__ = "octosuite"
-__version__ = "4.0.0rc0"
+__version__ = "4.0.0rc1"

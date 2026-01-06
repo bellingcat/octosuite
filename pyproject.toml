@@ -1,6 +1,6 @@
 [project]
 name = "octosuite"
-version = "4.0.0rc0"
+version = "4.0.0rc1"
 description = "TUI-based toolkit for GitHub data analysis."
 readme = "README.md"
 license = "MIT"

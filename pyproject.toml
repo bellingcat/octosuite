@@ -16,7 +16,7 @@ dependencies = [
     "black>=25.12.0",
 ]
 classifiers = [
-    "Development Status :: 5 - Stable/Release",
+    "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python :: 3",
     "Intended Audience :: End Users/Desktop",
     "Operating System :: OS Independent",

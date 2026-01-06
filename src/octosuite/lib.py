@@ -63,6 +63,7 @@ def preview_response(data: t.Union[dict, list], source: str, _type: str):
                     item.get("full_name")
                     or item.get("name")
                     or item.get("login")
+                    or item.get("type")
                     or item.get("id")
                     or "Item"
                 )
@@ -215,7 +216,7 @@ def fill_tree(tree: Tree, data: t.Union[dict, list]) -> Tree:
 def check_updates():
     """Check for available package updates and display the result."""
 
-    with console.status("[dim]Checking for updates...[/dim]") as status:
+    with console.status("[dim]Checking for updates[/dim]…") as status:
         checker = UpdateChecker()
         result = checker.check(__pkg__, __version__)
         if result is not None:

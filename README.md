@@ -9,6 +9,20 @@ Terminal-based toolkit for GitHub data analysis.
 ![Build Status](https://img.shields.io/github/actions/workflow/status/bellingcat/octosuite/python-publish.yml)
 ![License](https://img.shields.io/github/license/bellingcat/octosuite)
 
+```shell
+$ octosuite user torvalds --profile
+```
+
+```python
+from pprint import pprint
+import octosuite
+
+exists, profile = octosuite.User(name="torvalds")
+
+if exists:
+    pprint(profile)
+```
+
 ## Installation
 
 ```bash

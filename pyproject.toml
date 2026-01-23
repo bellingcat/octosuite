@@ -34,8 +34,7 @@ dev = [
 ]
 
 [project.scripts]
-ocs = "octosuite._app:start"
-octosuite = "octosuite.app:start"
+octosuite = "octosuite._app:start"
 
 [tool.uv]
 package = true

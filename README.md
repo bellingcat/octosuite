@@ -10,7 +10,7 @@ Terminal-based toolkit for GitHub data analysis.
 ![License](https://img.shields.io/github/license/bellingcat/octosuite)
 
 ```shell
-$ octosuite user torvalds --profile
+$ octosuite user torvalds
 ```
 
 ```python

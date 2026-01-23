@@ -1,6 +1,6 @@
 ![octosuite](https://raw.githubusercontent.com/bellingcat/octosuite/refs/heads/master/img/octosuite.png)
 
-TUI-based toolkit for GitHub data analysis.
+Terminal-based toolkit for GitHub data analysis.
 
 ![PyPI - Version](https://img.shields.io/pypi/v/octosuite)
 ![PyPI - Downloads](https://img.shields.io/pepy/dt/octosuite)
@@ -9,113 +9,130 @@ TUI-based toolkit for GitHub data analysis.
 ![Build Status](https://img.shields.io/github/actions/workflow/status/bellingcat/octosuite/python-publish.yml)
 ![License](https://img.shields.io/github/license/bellingcat/octosuite)
 
-## Overview
+```shell
+$ octosuite user torvalds
+```
 
-OctoSuite provides a terminal interface for exploring and exporting GitHub data. Access information about users,
-repositories, organizations, and search across GitHub's platform.
+```python
+from pprint import pprint
+import octosuite
 
-## Features
+user = octosuite.User(name="torvalds")
+exists, profile = user.exists()
 
-<details>
-<summary><strong>See details</strong></summary>
-
-- **User** - Get user data
-    - Profile
-    - Repositories
-    - Subscriptions
-    - Starred
-    - Followers
-    - Following
-    - Organizations
-    - Gists
-    - Events
-    - Received Events
-- **Repository** - Get repository data
-    - Profile
-    - Forks
-    - Issues
-    - Issue Events
-    - Events
-    - Assignees
-    - Branches
-    - Tags
-    - Languages
-    - Stargazers
-    - Subscribers
-    - Commits
-    - Comments
-    - Releases
-    - Deployments
-    - Labels
-- **Organisation** - Get organisation data
-    - Profile
-    - Repositories
-    - Events
-    - Hooks
-    - Issues
-    - Members
-- **Search** - Search GitHub
-    - Repositories
-    - Users
-    - Commits
-    - Issues
-    - Topics
-- **Export** - Export data
-    - JSON
-    - CSV
-    - HTML
-
-</details>
+if exists:
+    pprint(profile)
+```
 
 ## Installation
-
-### PyPI
 
 ```bash
 pip install octosuite
 ```
 
-### Build from source
-
-```bash
-# Clone repository
-git clone https://github.com/bellingcat/octosuite.git
-
-# Move to octosuite directory
-cd octosuite
-
-# Build and install (uses uv)
-make install
-
-# If you dont have uv installed, you can install directly with pip:
-pip install .
-
-# Run
-octosuite
-```
-
-> [!Note]
-> You can then run octosuite with command `octosuite`
-
 ## Usage
 
-Navigate using <kbd>UP</kbd><kbd>DOWN</kbd> and <kbd>ENTER</kbd> to select options. In the export menu, you should
-use <kbd>SPACE</kbd> to check the format you want.
+### TUI (Interactive)
 
-The interface guides you through
-selecting a
-data source
-and
-choosing what information to retrieve. Preview the results and optionally export them in your preferred format.
+Launch the interactive terminal interface:
 
-![home](https://raw.githubusercontent.com/bellingcat/octosuite/refs/heads/master/img/menu.png)
+```bash
+octosuite -t/--tui
+```
 
-## License
+Navigate using arrow keys and Enter to select options.
 
-### MIT License
+### CLI
 
-See the LICENSE file for details. License information is also available through the application's main menu.
+Query GitHub data directly from the command line:
 
-## Contributing
+```bash
+# User data
+octosuite user torvalds
+octosuite user torvalds --repos --page 1 --per-page 50
+octosuite user torvalds --followers --json
 
-Contributions are welcome. Please submit pull requests or open issues for bugs and feature requests. Good luck!
+# Repository data
+octosuite repo torvalds/linux
+octosuite repo torvalds/linux --commits
+octosuite repo torvalds/linux --stargazers --export ./data
+
+# Organisation data
+octosuite org github
+octosuite org github --members --json
+
+# Search
+octosuite search "machine learning" --repos
+octosuite search "python cli" --users --json
+```
+
+**Common options:**
+
+- `--page` - Page number (default: 1)
+- `--per-page` - Results per page, max 100 (default: 100)
+- `--json` - Output as JSON
+- `--export DIR` - Export to directory
+
+Run `octosuite <command> --help` for available data type flags.
+
+### Library
+
+Use octosuite in your Python projects:
+
+```python
+from octosuite import User, Repo, Org, Search
+
+# Get user data
+user = User("torvalds")
+exists, profile = user.exists()
+if exists:
+    repos = user.repos(page=1, per_page=100)
+    followers = user.followers(page=1, per_page=50)
+
+# Get repository data
+repo = Repo(name="linux", owner="torvalds")
+exists, profile = repo.exists()
+if exists:
+    commits = repo.commits(page=1, per_page=100)
+    languages = repo.languages()
+
+# Get organisation data
+org = Org("github")
+exists, profile = org.exists()
+if exists:
+    members = org.members(page=1, per_page=100)
+
+# Search GitHub
+search = Search(query="machine learning", page=1, per_page=50)
+results = search.repos()
+```
+
+## Features
+
+<details>
+<summary><strong>Data Types</strong></summary>
+
+**User:** profile, repos, subscriptions, starred, followers, following, orgs, gists, events, received_events
+
+**Repository:** profile, forks, issue_events, events, assignees, branches, tags, languages, stargazers, subscribers,
+commits, comments, issues, releases, deployments, labels
+
+**Organisation:** profile, repos, events, hooks, issues, members
+
+**Search:** repos, users, commits, issues, topics
+
+</details>
+
+<details>
+<summary><strong>Export Formats</strong></summary>
+
+- JSON
+- CSV
+- HTML
+
+</details>
+
+## Licence
+
+MIT Licence. See the [LICENCE](https://raw.githubusercontent.com/bellingcat/octosuite/refs/heads/master/LICENSE) file
+for details.

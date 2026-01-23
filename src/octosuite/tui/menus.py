@@ -7,10 +7,10 @@ from rich.status import Status
 
 from .dialogs import Dialogs
 from .prompts import Prompts
+from .._lib import check_updates, preview_response, export_response, set_menu_title
+from .._lib import console, clear_screen, ascii_banner
 from ..core.cache import cache
 from ..core.models import User, Repo, Org, Search
-from ..lib import check_updates, preview_response, export_response, set_menu_title
-from ..lib import console, clear_screen, ascii_banner
 
 CUSTOM_STYLE = Style(
     [

@@ -1,7 +1,7 @@
 [project]
 name = "octosuite"
-version = "4.0.0"
-description = "TUI-based toolkit for GitHub data analysis."
+version = "5.0.0"
+description = "Terminal-based toolkit for GitHub data analysis."
 readme = "README.md"
 license = "MIT"
 authors = [
@@ -30,8 +30,11 @@ repository = "https://github.com/bellingcat/octosuite"
 
 [project.optional-dependencies]
 dev = [
-    "black>=25.12.0",
+    "black>=26.1.0",
 ]
 
 [project.scripts]
-octosuite = "octosuite.app:start"
+octosuite = "octosuite._app:start"
+
+[tool.uv]
+package = true

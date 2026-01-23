@@ -6,7 +6,7 @@ import requests
 from requests import Response
 
 from .cache import cache
-from ..lib import __version__
+from .._lib import __version__
 
 BASE_URL = "https://api.github.com"
 

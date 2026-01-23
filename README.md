@@ -17,7 +17,8 @@ $ octosuite user torvalds
 from pprint import pprint
 import octosuite
 
-exists, profile = octosuite.User(name="torvalds")
+user = octosuite.User(name="torvalds")
+exists, profile = user.exists()
 
 if exists:
     pprint(profile)

@@ -25,15 +25,30 @@ def create_parser() -> argparse.ArgumentParser:
 
     parser = argparse.ArgumentParser(
         prog=__pkg__,
-        description="Terminal-based toolkit for GitHub data analysis.",
+        description="Terminal-based toolkit for GitHub data analysis - for Bellingcat",
     )
 
     parser.add_argument(
-        "-v", "--version", action="version", version=f"%(prog)s {__version__}"
+        "-v",
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}, MIT Licence © Bellingcat",
     )
     parser.add_argument(
-        "-t", "--tui", action="store_true", help="launch interactive TUI"
+        "-i", "--interactive", action="store_true", help="launch interactive TUI"
     )
+    parser.add_argument(
+        "-p", "--page", type=int, default=1, help="page number (default: %(default)s)"
+    )
+    parser.add_argument(
+        "-N",
+        "--per-page",
+        type=int,
+        default=100,
+        help="maximum number of results per page (default: %(default)s)",
+    )
+    parser.add_argument("-j", "--json", action="store_true", help="output as JSON")
+    parser.add_argument("-d", "--dir", metavar="DIR", help="export to directory")
 
     subparsers = parser.add_subparsers(dest="command")
 
@@ -108,10 +123,6 @@ def create_parser() -> argparse.ArgumentParser:
         help="received events",
     )
     user_parser.set_defaults(data_type="profile")
-    user_parser.add_argument("--page", type=int, default=1)
-    user_parser.add_argument("--per-page", type=int, default=100)
-    user_parser.add_argument("--json", action="store_true", help="output as JSON")
-    user_parser.add_argument("--export", metavar="DIR", help="export to directory")
 
     # Repo command
     repo_parser = subparsers.add_parser("repo", help="get repository data")
@@ -222,10 +233,6 @@ def create_parser() -> argparse.ArgumentParser:
         help="labels",
     )
     repo_parser.set_defaults(data_type="profile")
-    repo_parser.add_argument("--page", type=int, default=1)
-    repo_parser.add_argument("--per-page", type=int, default=100)
-    repo_parser.add_argument("--json", action="store_true", help="output as JSON")
-    repo_parser.add_argument("--export", metavar="DIR", help="export to directory")
 
     # Org command
     org_parser = subparsers.add_parser("org", help="get organisation data")
@@ -274,10 +281,6 @@ def create_parser() -> argparse.ArgumentParser:
         help="members",
     )
     org_parser.set_defaults(data_type="profile")
-    org_parser.add_argument("--page", type=int, default=1)
-    org_parser.add_argument("--per-page", type=int, default=100)
-    org_parser.add_argument("--json", action="store_true", help="output as JSON")
-    org_parser.add_argument("--export", metavar="DIR", help="export to directory")
 
     # Search command
     search_parser = subparsers.add_parser("search", help="search GitHub")
@@ -319,10 +322,6 @@ def create_parser() -> argparse.ArgumentParser:
         help="search topics",
     )
     search_parser.set_defaults(search_type="repos")
-    search_parser.add_argument("--page", type=int, default=1)
-    search_parser.add_argument("--per-page", type=int, default=100)
-    search_parser.add_argument("--json", action="store_true", help="output as JSON")
-    search_parser.add_argument("--export", metavar="DIR", help="export to directory")
 
     return parser
 
@@ -368,7 +367,7 @@ def run():
     parser = create_parser()
     args = parser.parse_args()
 
-    if args.tui:
+    if args.interactive:
         from .tui import run as run_tui
 
         run_tui()
@@ -401,7 +400,13 @@ def run():
                     if args.data_type == "profile"
                     else method(page=args.page, per_page=min(args.per_page, 100))
                 )
-            output(data, args.json, args.username, args.data_type, args.export)
+            output(
+                data=data,
+                as_json=args.json,
+                source=args.username,
+                data_type=args.data_type,
+                export_dir=args.dir,
+            )
 
         elif args.command == "repo":
             if "/" not in args.repository:
@@ -430,7 +435,13 @@ def run():
                     if args.data_type in ("profile", "languages")
                     else method(page=args.page, per_page=min(args.per_page, 100))
                 )
-            output(data, args.json, args.repository, args.data_type, args.export)
+            output(
+                data=data,
+                as_json=args.json,
+                source=args.repository,
+                data_type=args.data_type,
+                export_dir=args.dir,
+            )
 
         elif args.command == "org":
             org = Org(name=args.name)
@@ -452,7 +463,13 @@ def run():
                     if args.data_type == "profile"
                     else method(page=args.page, per_page=min(args.per_page, 100))
                 )
-            output(data, args.json, args.name, args.data_type, args.export)
+            output(
+                data=data,
+                as_json=args.json,
+                source=args.name,
+                data_type=args.data_type,
+                export_dir=args.dir,
+            )
 
         elif args.command == "search":
             search = Search(
@@ -467,7 +484,13 @@ def run():
             ):
                 result = method()
             data = result.get("items", result) if isinstance(result, dict) else result
-            output(data, args.json, args.query, args.search_type, args.export)
+            output(
+                data=data,
+                as_json=args.json,
+                source=args.query,
+                data_type=args.search_type,
+                export_dir=args.dir,
+            )
 
     except KeyboardInterrupt:
         console.print("\n[dim]Cancelled[/dim]")

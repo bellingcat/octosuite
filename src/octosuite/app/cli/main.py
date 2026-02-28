@@ -1,22 +1,16 @@
-"""
-Command-line interface for octosuite.
-
-Provides non-interactive access to GitHub data.
-"""
-
 import argparse
 import json
 import sys
 import typing as t
 
-from rich.status import Status
+from ..lib import export_response, preview_response, console, check_updates
+from ...api.models import User, Org, Repo, Search
+from ...meta import __pkg__, __version__
 
-from . import __pkg__, __version__
-from ._lib import export_response, preview_response, console
-from .core.models import User, Org, Repo, Search
+__all__ = ["arg_parser", "run_cli"]
 
 
-def create_parser() -> argparse.ArgumentParser:
+def arg_parser() -> argparse.ArgumentParser:
     """
     Create the argument parser.
 
@@ -35,7 +29,7 @@ def create_parser() -> argparse.ArgumentParser:
         version=f"%(prog)s {__version__}, MIT Licence © Bellingcat",
     )
     parser.add_argument(
-        "-i", "--interactive", action="store_true", help="launch interactive TUI"
+        "-t", "--tui", action="store_true", help="launch interactive TUI"
     )
     parser.add_argument(
         "-p", "--page", type=int, default=1, help="page number (default: %(default)s)"
@@ -361,136 +355,121 @@ def output(
         preview_response(data=data, source=source, _type=data_type)
 
 
-def run():
+def run_cli(args: argparse.Namespace):
     """Run the CLI."""
 
-    parser = create_parser()
-    args = parser.parse_args()
-
-    if args.interactive:
-        from .tui import run as run_tui
-
-        run_tui()
-        return
-
-    if not args.command:
-        parser.print_help()
-        return
-
     try:
-        if args.command == "user":
-            user = User(name=args.username)
+        with console.status("Initialising…") as status:
+            check_updates(is_cli=True, status=status)
+            if args.command == "user":
+                user = User(name=args.username)
 
-            with Status(
-                f"[dim]Validating user ({args.username})[/dim]…", console=console
-            ):
+                status.update(f"[dim]Validating user ({args.username})…[/dim]")
                 exists, _ = user.exists()
 
-            if not exists:
-                console.print(f"[red]User '{args.username}' not found[/red]")
-                sys.exit(1)
+                if not exists:
+                    console.print(f"[red]User '{args.username}' not found[/red]")
+                    sys.exit(1)
 
-            method = getattr(user, args.data_type)
-            with Status(
-                f"[dim]Getting {args.data_type} from {args.username}[/dim]…",
-                console=console,
-            ):
+                method = getattr(user, args.data_type)
+                status.update(
+                    f"[dim]Getting {args.data_type} from {args.username}…[/dim]"
+                )
                 data = (
                     method()
                     if args.data_type == "profile"
                     else method(page=args.page, per_page=min(args.per_page, 100))
                 )
-            output(
-                data=data,
-                as_json=args.json,
-                source=args.username,
-                data_type=args.data_type,
-                export_dir=args.dir,
-            )
+                output(
+                    data=data,
+                    as_json=args.json,
+                    source=args.username,
+                    data_type=args.data_type,
+                    export_dir=args.dir,
+                )
 
-        elif args.command == "repo":
-            if "/" not in args.repository:
-                console.print("[red]Repository must be in 'owner/name' format[/red]")
-                sys.exit(1)
+            elif args.command == "repo":
+                if "/" not in args.repository:
+                    console.print(
+                        "[red]Repository must be in 'owner/name' format[/red]"
+                    )
+                    sys.exit(1)
 
-            owner, name = args.repository.split("/", 1)
-            repo = Repo(name=name, owner=owner)
+                owner, name = args.repository.split("/", 1)
+                repo = Repo(name=name, owner=owner)
 
-            with Status(
-                f"[dim]Validating repo ({args.repository})[/dim]…", console=console
-            ):
+                status.update(f"[dim]Validating repo ({args.repository})…[/dim]")
                 exists, _ = repo.exists()
 
-            if not exists:
-                console.print(f"[red]Repository '{args.repository}' not found[/red]")
-                sys.exit(1)
+                if not exists:
+                    console.print(
+                        f"[red]Repository '{args.repository}' not found[/red]"
+                    )
+                    sys.exit(1)
 
-            method = getattr(repo, args.data_type)
-            with Status(
-                f"[dim]Getting {args.data_type} from {args.repository}[/dim]…",
-                console=console,
-            ):
+                method = getattr(repo, args.data_type)
+                status.update(
+                    f"[dim]Getting {args.data_type} from {args.repository}…[/dim]"
+                )
                 data = (
                     method()
                     if args.data_type in ("profile", "languages")
                     else method(page=args.page, per_page=min(args.per_page, 100))
                 )
-            output(
-                data=data,
-                as_json=args.json,
-                source=args.repository,
-                data_type=args.data_type,
-                export_dir=args.dir,
-            )
+                output(
+                    data=data,
+                    as_json=args.json,
+                    source=args.repository,
+                    data_type=args.data_type,
+                    export_dir=args.dir,
+                )
 
-        elif args.command == "org":
-            org = Org(name=args.name)
+            elif args.command == "org":
+                org = Org(name=args.name)
 
-            with Status(f"[dim]Validating org ({args.name})[/dim]…", console=console):
+                status.update(f"[dim]Validating org ({args.name})…[/dim]")
                 exists, _ = org.exists()
 
-            if not exists:
-                console.print(f"[red]Organisation '{args.name}' not found[/red]")
-                sys.exit(1)
+                if not exists:
+                    console.print(f"[red]Organisation '{args.name}' not found[/red]")
+                    sys.exit(1)
 
-            method = getattr(org, args.data_type)
-            with Status(
-                f"[dim]Getting {args.data_type} from {args.name}[/dim]…",
-                console=console,
-            ):
+                method = getattr(org, args.data_type)
+                status.update(f"[dim]Getting {args.data_type} from {args.name}…[/dim]")
                 data = (
                     method()
                     if args.data_type == "profile"
                     else method(page=args.page, per_page=min(args.per_page, 100))
                 )
-            output(
-                data=data,
-                as_json=args.json,
-                source=args.name,
-                data_type=args.data_type,
-                export_dir=args.dir,
-            )
+                output(
+                    data=data,
+                    as_json=args.json,
+                    source=args.name,
+                    data_type=args.data_type,
+                    export_dir=args.dir,
+                )
 
-        elif args.command == "search":
-            search = Search(
-                query=args.query,
-                page=args.page,
-                per_page=min(args.per_page, 100),
-            )
-            method = getattr(search, args.search_type)
-            with Status(
-                f"[dim]Searching {args.search_type} for '{args.query}'[/dim]…",
-                console=console,
-            ):
+            elif args.command == "search":
+                search = Search(
+                    query=args.query,
+                    page=args.page,
+                    per_page=min(args.per_page, 100),
+                )
+                method = getattr(search, args.search_type)
+                status.update(
+                    f"[dim]Searching {args.search_type} for '{args.query}'…[/dim]"
+                )
                 result = method()
-            data = result.get("items", result) if isinstance(result, dict) else result
-            output(
-                data=data,
-                as_json=args.json,
-                source=args.query,
-                data_type=args.search_type,
-                export_dir=args.dir,
-            )
+                data = (
+                    result.get("items", result) if isinstance(result, dict) else result
+                )
+                output(
+                    data=data,
+                    as_json=args.json,
+                    source=args.query,
+                    data_type=args.search_type,
+                    export_dir=args.dir,
+                )
 
     except KeyboardInterrupt:
         console.print("\n[dim]Cancelled[/dim]")

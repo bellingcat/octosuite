@@ -9,15 +9,14 @@ from pathlib import Path
 import pyfiglet
 from prompt_toolkit.shortcuts import message_dialog
 from rich.console import Console
+from rich.status import Status
 from rich.text import Text
 from rich.tree import Tree
 from update_checker import UpdateChecker
 
-from . import __pkg__, __version__
+from ..meta import __pkg__, __version__
 
 __all__ = [
-    "__pkg__",
-    "__version__",
     "console",
     "preview_response",
     "export_response",
@@ -213,17 +212,28 @@ def fill_tree(tree: Tree, data: t.Union[dict, list]) -> Tree:
     return tree
 
 
-def check_updates():
-    """Check for available package updates and display the result."""
+def check_updates(is_cli: bool = False, status: t.Optional[Status] = None):
+    """
+    Check for available package updates and display the result.
 
-    with console.status("[dim]Checking for updates[/dim]…") as status:
-        checker = UpdateChecker()
-        result = checker.check(__pkg__, __version__)
-        if result is not None:
-            status.stop()
+    :param status: The rich.status object for showing a live status.
+    :param is_cli: Whether we're running as a CLI.
+    """
+
+    if isinstance(status, Status):
+        status.update("[dim]Checking for updates[/dim]…")
+
+    checker = UpdateChecker()
+    result = checker.check(__pkg__, __version__)
+    if result is not None:
+        if not is_cli:
+            if isinstance(status, Status):
+                status.stop()
             message_dialog(title="Update Available", text=str(result)).run()
         else:
-            status.stop()
+            console.print(result)
+    else:
+        if not is_cli:
             message_dialog(
                 title="Up to Date",
                 text=f"You're running the current version, {__version__}",

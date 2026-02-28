@@ -9,11 +9,10 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
-    "rich>=14.2.0",
+    "rich>=14.3.3",
     "questionary>=2.1.1",
     "pyfiglet>=1.0.4",
     "update-checker>=0.18.0",
-    "black>=25.12.0",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -24,9 +23,9 @@ classifiers = [
 ]
 
 [project.urls]
-homepage = "https://bellingcat.com"
-issues = "https://github.com/bellingcat/octosuite/issues"
-repository = "https://github.com/bellingcat/octosuite"
+Homepage = "https://bellingcat.com"
+Issues = "https://github.com/bellingcat/octosuite/issues"
+Repository = "https://github.com/bellingcat/octosuite"
 
 [project.optional-dependencies]
 dev = [
@@ -34,7 +33,7 @@ dev = [
 ]
 
 [project.scripts]
-octosuite = "octosuite._app:start"
+octosuite = "octosuite.app.main:start_app"
 
 [tool.uv]
 package = true

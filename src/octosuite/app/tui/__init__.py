@@ -1,11 +1,9 @@
-"""Terminal user interface for octosuite."""
-
 from .menus import Menus
 
-__all__ = ["run", "Menus"]
+__all__ = ["run_tui", "Menus"]
 
 
-def run():
+def run_tui():
     """Run the interactive TUI."""
 
     menu = Menus()

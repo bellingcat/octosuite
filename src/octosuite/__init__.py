@@ -1,7 +1,4 @@
-__pkg__ = "octosuite"
-__version__ = "5.0.0"
+from .api.cache import cache
+from .api.models import User, Org, Repo, Search
 
-from .core.cache import cache
-from .core.models import User, Org, Repo, Search
-
-__all__ = ["User", "Org", "Repo", "Search", "cache", "__pkg__", "__version__"]
+__all__ = ["User", "Org", "Repo", "Search", "cache"]

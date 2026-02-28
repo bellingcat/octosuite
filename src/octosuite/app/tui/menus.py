@@ -5,12 +5,17 @@ import questionary as q
 from questionary import Style
 from rich.status import Status
 
+from octosuite.api.cache import cache
+from octosuite.api.models import User, Repo, Org, Search
+from octosuite.app.lib import (
+    check_updates,
+    preview_response,
+    export_response,
+    set_menu_title,
+)
+from octosuite.app.lib import console, clear_screen, ascii_banner
 from .dialogs import Dialogs
 from .prompts import Prompts
-from .._lib import check_updates, preview_response, export_response, set_menu_title
-from .._lib import console, clear_screen, ascii_banner
-from ..core.cache import cache
-from ..core.models import User, Repo, Org, Search
 
 CUSTOM_STYLE = Style(
     [

@@ -3,7 +3,13 @@ import json
 import sys
 import typing as t
 
-from ..lib import export_response, preview_response, console, check_updates
+from ..lib import (
+    export_response,
+    preview_response,
+    console,
+    check_updates,
+    ascii_banner,
+)
 from ...api.models import User, Org, Repo, Search
 from ...meta import __pkg__, __version__
 
@@ -358,6 +364,7 @@ def output(
 def run_cli(args: argparse.Namespace):
     """Run the CLI."""
 
+    ascii_banner(text=__pkg__)
     try:
         with console.status("Initialising…") as status:
             check_updates(is_cli=True, status=status)

@@ -1,5 +1,3 @@
-from requests import exceptions
-
 from .github import GitHub, BASE_URL
 
 github = GitHub()
@@ -33,18 +31,17 @@ class GitHubEntity:
             return True, cached
 
         try:
-            response = github.get(url=self.endpoint, return_response=True)
+            status_code, data = github.request(url=self.endpoint)
 
-            if response.status_code == 200:
-                data = response.json()
+            if status_code == 200:
                 # Sanitise the data
                 sanitised = github.sanitise_response(data)
                 # Cache the sanitised response
                 github.cache.set(self.endpoint, sanitised)
                 return True, sanitised
 
-            return False, response.json()
-        except exceptions.RequestException:
+            return False, data
+        except (OSError, ValueError):
             return False, {}
 
 

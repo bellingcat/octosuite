@@ -6,6 +6,7 @@ import typing as t
 from datetime import datetime
 from pathlib import Path
 
+import certifi
 import pyfiglet
 from prompt_toolkit.shortcuts import message_dialog
 from rich.console import Console
@@ -223,8 +224,9 @@ def check_updates(is_cli: bool = False, status: t.Optional[Status] = None):
     if isinstance(status, Status):
         status.update("[dim]Checking for updates[/dim]…")
 
+    os.environ.setdefault("SSL_CERT_FILE", certifi.where())
     checker = UpdateChecker()
-    result = checker.check(__pkg__, __version__)
+    result = checker.check(package_name=__pkg__, package_version=__version__)
     if result is not None:
         if not is_cli:
             if isinstance(status, Status):

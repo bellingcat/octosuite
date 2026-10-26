@@ -1,14 +1,19 @@
+import json
 import re
+import ssl
 import sys
 import typing as t
+from urllib.error import HTTPError
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
-import requests
-from requests import Response
+import certifi
 
 from .cache import cache
 from ..meta import __version__
 
 BASE_URL = "https://api.github.com"
+SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
 __all__ = ["BASE_URL", "GitHub"]
 
@@ -21,7 +26,7 @@ class GitHub:
         user_agent: str = (
             f"octosuite/{__version__} "
             f"(Python {sys.version.split()[0]}; "
-            f"https://github.com/bellingcat/octosuite) requests/{requests.__version__}"
+            f"https://github.com/bellingcat/octosuite)"
         ),
     ):
         """
@@ -33,37 +38,55 @@ class GitHub:
         self.user_agent = user_agent
         self.cache = cache
 
+    def request(
+        self, url: str, params: t.Optional[dict] = None
+    ) -> tuple[int, t.Union[dict, list]]:
+        """
+        Send a GET request to the GitHub API.
+
+        :param url: The API endpoint URL.
+        :param params: Optional query parameters for the request.
+        :return: Tuple of (status_code, parsed JSON body). The body is an empty dict if an error response is not JSON.
+        """
+
+        if params:
+            url = f"{url}?{urlencode(params)}"
+
+        request = Request(url=url, headers={"User-Agent": self.user_agent})
+        try:
+            with urlopen(request, context=SSL_CONTEXT) as response:
+                return response.status, json.load(response)
+        except HTTPError as error:
+            with error:
+                try:
+                    return error.code, json.load(error)
+                except ValueError:
+                    return error.code, {}
+
     def get(
         self,
         url: str,
         params: t.Optional[dict] = None,
-        return_response: bool = False,
         use_cache: bool = True,
-    ) -> t.Union[dict, list, Response]:
+    ) -> t.Union[dict, list]:
         """
         Make a GET request to the GitHub API.
 
         :param url: The API endpoint URL.
         :param params: Optional query parameters for the request.
-        :param return_response: If True, return the raw Response object instead of JSON data.
         :param use_cache: If True, use cached responses when available.
-        :return: Dictionary, list, or Response object depending on the request and parameters.
+        :return: Dictionary or list of response data, or an empty list if the request fails.
         """
 
-        if use_cache and not return_response:
+        if use_cache:
             cached = self.cache.get(url, params)
             if cached is not None:
                 return cached
 
-        response = requests.get(
-            url=url, params=params, headers={"User-Agent": self.user_agent}
-        )
+        status_code, data = self.request(url=url, params=params)
 
-        if return_response:
-            return response
-
-        if response.status_code == 200:
-            sanitised = self.sanitise_response(response=response.json())
+        if status_code == 200:
+            sanitised = self.sanitise_response(response=data)
 
             # Cache the successful response
             if use_cache:
@@ -98,16 +121,16 @@ class GitHub:
             if cached is not None:
                 return True  # If cached, entity exists
 
-            response = requests.get(url=url, headers={"User-Agent": self.user_agent})
+            status_code, data = self.request(url=url)
 
             # Only cache if entity exists (status 200)
-            if response.status_code == 200:
-                sanitised = self.sanitise_response(response.json())
+            if status_code == 200:
+                sanitised = self.sanitise_response(data)
                 self.cache.set(url, sanitised)
                 return True
 
             return False
-        except requests.RequestException:
+        except (OSError, ValueError):
             return False
 
     def sanitise_response(self, response: t.Union[dict, list]) -> t.Union[dict, list]:

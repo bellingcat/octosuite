@@ -1,18 +1,19 @@
 [project]
 name = "octosuite"
-version = "5.1.0"
+version = "5.2.0"
 description = "Terminal-based toolkit for GitHub data analysis."
 readme = "README.md"
 license = "MIT"
 authors = [
-    { name = "Ritchie Mwewa", email = "hi@rly0nheart.com" }
+    { name = "Ritchie Mwewa", email = "pypi@mwewa.org" }
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "certifi>=2026.10.19",
     "rich>=14.3.3",
     "questionary>=2.1.1",
     "pyfiglet>=1.0.4",
-    "update-checker>=0.18.0",
+    "update-checker>=1.0.1",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
